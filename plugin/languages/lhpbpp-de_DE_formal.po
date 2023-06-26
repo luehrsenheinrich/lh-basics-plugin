@@ -14,7 +14,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.2.2\n"
-"X-Domain: lhpbpp\n"
+"X-Domain: lhbasicsp\n"
 
 #. Plugin Name of the plugin
 msgid "WordPress Project Boilerplate"

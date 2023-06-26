@@ -2,7 +2,7 @@
 /**
  * Test file.
  *
- * @package lhpbpp
+ * @package lhbasicsp
  */
 
-namespace WpMunich\lhpbpp;
+namespace WpMunich\lhbasicsp;

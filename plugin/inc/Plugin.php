@@ -1,11 +1,11 @@
 <?php
 /**
- * LHPBPP\Plugin class
+ * LHBASICSP\Plugin class
  *
- * @package lhpbpp
+ * @package lhbasicsp
  */
 
-namespace WpMunich\lhpbpp;
+namespace WpMunich\lhbasicsp;
 use function get_plugin_data;
 use function plugin_dir_url;
 
@@ -17,18 +17,11 @@ use function plugin_dir_url;
 class Plugin {
 
 	/**
-	 * ACF component.
+	 * Disable_Comments component.
 	 *
-	 * @var ACF\ACF;
+	 * @var Disable_Comments\Disable_Comments;
 	 */
-	protected $acf;
-
-	/**
-	 * Blocks component.
-	 *
-	 * @var Blocks\Blocks;
-	 */
-	protected $blocks;
+	protected $disable_comments;
 
 	/**
 	 * I18N component.
@@ -38,49 +31,47 @@ class Plugin {
 	protected $i18n;
 
 	/**
-	 * SVRESTG component.
+	 * Lazysizes component.
 	 *
-	 * @var REST\REST;
+	 * @var Lazysizes\Lazysizes;
 	 */
-	protected $rest;
+	protected $lazysizes;
 
 	/**
-	 * SVG component.
+	 * Scripts component.
 	 *
-	 * @var SVG\SVG;
+	 * @var Scripts\Scripts;
 	 */
-	protected $svg;
+	protected $scripts;
+
+	/**
+	 * Styles component.
+	 *
+	 * @var Styles\Styles;
+	 */
+	protected $styles;
 
 	/**
 	 * Constructor.
 	 *
-	 * @param ACF\ACF       $acf ACF component.
-	 * @param Blocks\Blocks $blocks Blocks component.
-	 * @param i18n\I18N     $i18n I18N component.
-	 * @param REST\REST     $rest REST component.
-	 * @param SVG\SVG       $svg SVG component.
+	 * @param Disable_Comments\Disable_Comments $disable_comments Disable_Comments component.
+	 * @param i18n\I18N                         $i18n             I18N component.
+	 * @param Lazysizes\Lazysizes               $lazysizes        Lazysizes component.
+	 * @param Scripts\Scripts                   $scripts          Scripts component.
+	 * @param Styles\Styles                     $styles           Styles component.
 	 */
 	public function __construct(
-		ACF\ACF $acf,
-		Blocks\Blocks $blocks,
+		Disable_Comments\Disable_Comments $disable_comments,
 		i18n\I18N $i18n,
-		REST\REST $rest,
-		SVG\SVG $svg
+		Lazysizes\Lazysizes $lazysizes,
+		Scripts\Scripts $scripts,
+		Styles\Styles $styles
 	) {
-		$this->acf    = $acf;
-		$this->blocks = $blocks;
-		$this->i18n   = $i18n;
-		$this->svg    = $svg;
-		$this->rest   = $rest;
-	}
-
-	/**
-	 * Get the SVG component.
-	 *
-	 * @return SVG\SVG The SVG component.
-	 */
-	public function svg() {
-		return $this->svg;
+		$this->disable_comments = $disable_comments;
+		$this->i18n             = $i18n;
+		$this->lazysizes        = $lazysizes;
+		$this->scripts          = $scripts;
+		$this->styles           = $styles;
 	}
 
 	/**
@@ -99,7 +90,7 @@ class Plugin {
 		 * We use this to avoid updating plugin data on multiple locations. This makes
 		 * the file header of the plugin main file the single source of truth.
 		 */
-		$plugin_data = get_plugin_data( LHPBPP_FILE );
+		$plugin_data = get_plugin_data( LHBASICSP_FILE );
 
 		return $plugin_data['Version'] ?? '0.0.1';
 	}
@@ -110,7 +101,7 @@ class Plugin {
 	 * @return string The main plugin file.
 	 */
 	public function get_plugin_file() {
-		return LHPBPP_FILE;
+		return LHBASICSP_FILE;
 	}
 
 	/**
@@ -135,6 +126,6 @@ class Plugin {
 	 * @return string The plugin slug.
 	 */
 	public function get_plugin_slug() {
-		return 'lhpbpp';
+		return 'lhbasicsp';
 	}
 }

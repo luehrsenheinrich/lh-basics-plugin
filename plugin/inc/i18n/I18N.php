@@ -1,13 +1,13 @@
 <?php
 /**
- * LHPBPP\i18n\Component class
+ * LHBASICSP\i18n\Component class
  *
- * @package lhpbpp
+ * @package lhbasicsp
  */
 
-namespace WpMunich\lhpbpp\i18n;
-use WpMunich\lhpbpp\Component;
-use function WpMunich\lhpbpp\lh_plugin;
+namespace WpMunich\lhbasicsp\i18n;
+use WpMunich\lhbasicsp\Component;
+use function WpMunich\lhbasicsp\lh_plugin;
 use function add_action;
 use function load_plugin_textdomain;
 
@@ -36,7 +36,7 @@ class I18N extends Component {
 		$path = $dir . '/languages/';
 
 		load_plugin_textdomain(
-			'lhpbpp',
+			'lhbasicsp',
 			false,
 			$path
 		);

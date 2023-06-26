@@ -1,11 +1,11 @@
 <?php
 /**
- * The `wp_lhpbpp()` function.
+ * The `wp_lhbasicsp()` function.
  *
- * @package lhpbpp
+ * @package lhbasicsp
  */
 
-namespace WpMunich\lhpbpp;
+namespace WpMunich\lhbasicsp;
 
 /**
  * Provides access to all available functions of the plugin.

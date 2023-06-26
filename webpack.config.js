@@ -10,11 +10,11 @@ const LiveReloadPlugin = require('webpack-livereload-plugin');
 const DependencyExtractionWebpackPlugin = require('@wordpress/dependency-extraction-webpack-plugin');
 
 /**
- * Theme frontend JavaScript files
+ * Plugin frontend JavaScript files
  *
  * @type {string[]}
  */
-const ThemeFrontendJs = globSync('./theme/src/js/*.js').reduce(function (
+const PluginFrontendJs = globSync('./plugin/src/js/*.js').reduce(function (
 	obj,
 	el
 ) {
@@ -25,11 +25,11 @@ const ThemeFrontendJs = globSync('./theme/src/js/*.js').reduce(function (
 {});
 
 /**
- * Theme frontend CSS files
+ * Plugin frontend CSS files
  *
  * @type {string[]}
  */
-const ThemeFrontendCSS = globSync('./theme/src/css/*.css').reduce(function (
+const PluginFrontendCSS = globSync('./plugin/src/css/*.css').reduce(function (
 	obj,
 	el
 ) {
@@ -37,44 +37,6 @@ const ThemeFrontendCSS = globSync('./theme/src/css/*.css').reduce(function (
 	return obj;
 },
 {});
-
-/**
- * Theme backend JavaScript files
- *
- * @type {string[]}
- */
-const ThemeBackendJs = globSync('./theme/admin/src/js/*.js').reduce(function (
-	obj,
-	el
-) {
-	obj['js/' + path.parse(el).name + '.min'] = el;
-	obj['js/' + path.parse(el).name] = el;
-	return obj;
-},
-{});
-
-/**
- * Theme backend CSS files
- *
- * @type {string[]}
- */
-const ThemeBackendCSS = globSync('./theme/admin/src/css/*.css').reduce(
-	function (obj, el) {
-		obj['css/' + path.parse(el).name + '.min'] = el;
-		return obj;
-	},
-	{}
-);
-
-/**
- * Theme PHP files
- *
- * @type {string[]}
- */
-const ThemePhp = globSync('./theme/**/*.php').reduce(function (obj, el) {
-	obj['php/' + path.parse(el).name] = el;
-	return obj;
-}, {});
 
 /**
  * Plugin backend JavaScript files
@@ -103,6 +65,16 @@ const PluginBackendCSS = globSync('./plugin/admin/src/css/*.css').reduce(
 	},
 	{}
 );
+
+/**
+ * Plugin PHP files
+ *
+ * @type {string[]}
+ */
+const PluginPhp = globSync('./plugin/**/*.php').reduce(function (obj, el) {
+	obj['php/' + path.parse(el).name] = el;
+	return obj;
+}, {});
 
 /**
  * The default JS loader.
@@ -218,49 +190,21 @@ const defaultConfig = {
  *
  * @type {Object}
  */
-const themeFrontendWebpackOptions = {
+const pluginFrontendWebpackOptions = {
 	...defaultConfig,
-	name: 'themeFrontend',
+	name: 'pluginFrontend',
 	entry: {
-		...ThemeFrontendJs,
-		...ThemeFrontendCSS,
-		...ThemePhp,
+		...PluginFrontendJs,
+		...PluginFrontendCSS,
+		...PluginPhp,
 	},
 	output: {
 		...defaultConfig.output,
-		path: path.resolve(__dirname, 'theme/dist'),
+		path: path.resolve(__dirname, 'plugin/dist'),
 	},
 	module: {
 		rules: [...defaultConfig.module.rules, defaultJsLoader],
 	},
-};
-
-/**
- * The webpack config to bundle CSS and JS for the Theme backend.
- *
- * @type {Object}
- */
-const themeBackendWebpackOptions = {
-	...defaultConfig,
-	name: 'themeBackend',
-	entry: {
-		...ThemeBackendJs,
-		...ThemeBackendCSS,
-	},
-	output: {
-		...defaultConfig.output,
-		path: path.resolve(__dirname, 'theme/admin/dist'),
-	},
-	module: {
-		rules: [...defaultConfig.module.rules, wordpressJsLoader],
-	},
-	plugins: [
-		...defaultConfig.plugins,
-		new DependencyExtractionWebpackPlugin({
-			outputFormat: 'json',
-			combineAssets: true,
-		}),
-	],
 };
 
 /**
@@ -291,8 +235,4 @@ const pluginBackendWebpackOptions = {
 	],
 };
 
-module.exports = [
-	themeFrontendWebpackOptions,
-	pluginBackendWebpackOptions,
-	themeBackendWebpackOptions,
-];
+module.exports = [pluginFrontendWebpackOptions, pluginBackendWebpackOptions];

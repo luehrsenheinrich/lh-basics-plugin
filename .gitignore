@@ -3,11 +3,6 @@
 /vendor/
 /archives/*.zip
 
-# THEME
-/theme/dist
-/theme/admin/dist
-/theme/vendor
-
 # PLUGIN
 /plugin/dist
 /plugin/admin/dist

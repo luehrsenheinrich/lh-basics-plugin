@@ -1,11 +1,11 @@
 <?php
 /**
- * LHPBPP\Component_Interface interface
+ * LHBASICSP\Component_Interface interface
  *
- * @package lhpbpp
+ * @package lhbasicsp
  */
 
-namespace WpMunich\lhpbpp;
+namespace WpMunich\lhbasicsp;
 
 /**
  * Interface for a component.

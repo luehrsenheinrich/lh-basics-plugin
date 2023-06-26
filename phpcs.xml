@@ -31,8 +31,6 @@
 
 	<arg name="extensions" value="php"/>
 
-	<file>./theme</file>
-	<exclude-pattern>./theme/vendor</exclude-pattern>
 	<file>./plugin</file>
 	<exclude-pattern>./plugin/vendor</exclude-pattern>
 
@@ -41,7 +39,7 @@
 
 	<rule ref="WordPress.WP.I18n">
 		<properties>
-			<property name="text_domain" value="lhpbp" />
+			<property name="text_domain" value="lhbasicsp" />
 		</properties>
 	</rule>
 

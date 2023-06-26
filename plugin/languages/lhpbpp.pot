@@ -12,7 +12,7 @@ msgstr ""
 "POT-Creation-Date: 2023-03-23T13:22:01+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
-"X-Domain: lhpbpp\n"
+"X-Domain: lhbasicsp\n"
 
 #. Plugin Name of the plugin
 msgid "WordPress Project Boilerplate"
