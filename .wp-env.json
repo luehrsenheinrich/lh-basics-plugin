@@ -1,0 +1,22 @@
+{
+	"themes": [
+		"./theme"
+	],
+	"plugins": [
+		"./plugin"
+	],
+	"phpVersion": "8.1",
+	"mappings": {
+		"php.ini": "./bin/php.ini"
+	},
+	"env": {
+		"development": {
+			"port": 80,
+			"config": {
+				"WP_DEBUG": true,
+				"WP_ENVIRONMENT_TYPE": "development",
+				"LH_CURRENTLY_EDITING": "lhpbp"
+			}
+		}
+	}
+}
