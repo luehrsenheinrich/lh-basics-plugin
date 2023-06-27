@@ -18,23 +18,34 @@ class Disable_Comments extends Component {
 	 * {@inheritdoc}
 	 */
 	protected function add_actions() {
-		add_action( 'init', array( $this, 'remove_comments_support' ) );
-		add_action( 'admin_menu', array( $this, 'remove_comments_menu' ) );
-		add_action( 'admin_init', array( $this, 'redirect_from_comments_page' ) );
-		add_action( 'admin_init', array( $this, 'remove_comments_from_dashboard' ) );
-		add_action( 'init', array( $this, 'remove_comments_admin_bar' ) );
-		add_action( 'wp_before_admin_bar_render', array( $this, 'remove_comments_admin_bar_menu' ) );
+		if ( $this->is_active() ) {
+			add_action( 'init', array( $this, 'remove_comments_support' ) );
+			add_action( 'admin_menu', array( $this, 'remove_comments_menu' ) );
+			add_action( 'admin_init', array( $this, 'redirect_from_comments_page' ) );
+			add_action( 'admin_init', array( $this, 'remove_comments_from_dashboard' ) );
+			add_action( 'init', array( $this, 'remove_comments_admin_bar' ) );
+			add_action( 'wp_before_admin_bar_render', array( $this, 'remove_comments_admin_bar_menu' ) );
+		}
 	}
 
 	/**
 	 * {@inheritdoc}
 	 */
 	protected function add_filters() {
-		add_filter( 'comments_open', '__return_false', 20, 2 );
-		add_filter( 'pings_open', '__return_false', 20, 2 );
-		add_filter( 'comments_array', array( $this, 'filter_comments_array' ), 10, 2 );
-		add_filter( 'wp_count_comments', array( $this, 'filter_wp_count_comments' ), 10, 2 );
-		add_filter( 'the_comments', array( $this, 'filter_the_comments' ), 10, 2 );
+		if ( $this->is_active() ) {
+			add_filter( 'comments_open', '__return_false', 20, 2 );
+			add_filter( 'pings_open', '__return_false', 20, 2 );
+			add_filter( 'comments_array', array( $this, 'filter_comments_array' ), 10, 2 );
+			add_filter( 'wp_count_comments', array( $this, 'filter_wp_count_comments' ), 10, 2 );
+			add_filter( 'the_comments', array( $this, 'filter_the_comments' ), 10, 2 );
+		}
+	}
+
+	/**
+	 * If the feature is an active option.
+	 */
+	private function is_active() {
+		return (bool) get_option( 'lhb_disable_comments_active' );
 	}
 
 	/**
