@@ -38,18 +38,18 @@ class Plugin {
 	protected $lazysizes;
 
 	/**
-	 * Scripts component.
+	 * Lightbox component.
 	 *
-	 * @var Scripts\Scripts;
+	 * @var Lightbox\Lightbox;
 	 */
-	protected $scripts;
+	protected $lightbox;
 
 	/**
-	 * Styles component.
+	 * Options component.
 	 *
-	 * @var Styles\Styles;
+	 * @var Options\Options;
 	 */
-	protected $styles;
+	protected $options;
 
 	/**
 	 * Constructor.
@@ -57,21 +57,21 @@ class Plugin {
 	 * @param Disable_Comments\Disable_Comments $disable_comments Disable_Comments component.
 	 * @param i18n\I18N                         $i18n             I18N component.
 	 * @param Lazysizes\Lazysizes               $lazysizes        Lazysizes component.
-	 * @param Scripts\Scripts                   $scripts          Scripts component.
-	 * @param Styles\Styles                     $styles           Styles component.
+	 * @param Lightbox\Lightbox                 $lightbox         Lightbox component.
+	 * @param Options\Options                   $options          Options component.
 	 */
 	public function __construct(
 		Disable_Comments\Disable_Comments $disable_comments,
 		i18n\I18N $i18n,
 		Lazysizes\Lazysizes $lazysizes,
-		Scripts\Scripts $scripts,
-		Styles\Styles $styles
+		Lightbox\Lightbox $lightbox,
+		Options\Options $options
 	) {
 		$this->disable_comments = $disable_comments;
 		$this->i18n             = $i18n;
 		$this->lazysizes        = $lazysizes;
-		$this->scripts          = $scripts;
-		$this->styles           = $styles;
+		$this->lightbox         = $lightbox;
+		$this->options          = $options;
 	}
 
 	/**
