@@ -67,29 +67,35 @@ class Options extends Component {
 			<h1><?php _e( 'LH Basics Settings', 'lhbasicsp' ); ?></h1>
 			<form method="post" action="options.php">
 				<?php
-					settings_fields( 'lhbasicsp-options' );
-					do_settings_sections( 'lhbasicsp-options' );
+					settings_fields('lhbasicsp-options');
+					do_settings_sections('lhbasicsp-options');
 				?>
 				<table class="form-table">
 					<tr>
-						<th scope="row"><?php _e( 'Disable Comments', 'lhbasicsp' ); ?></th>
+						<th scope="row"><?php _e('Disable Comments', 'lhbasicsp'); ?></th>
 						<td>
-							<input type="checkbox" name="lhb_disable_comments_active" value="1" <?php checked( get_option( 'lhb_disable_comments_active' ), 1 ); ?>>
-							<label><?php _e( 'Enable', 'lhbasicsp' ); ?></label>
+							<label>
+								<input type="checkbox" name="lhb_disable_comments_active" value="1" <?php checked(get_option('lhb_disable_comments_active'), 1); ?>>
+								<?php _e('Enable', 'lhbasicsp'); ?>
+							</label>
 						</td>
 					</tr>
 					<tr>
-						<th scope="row"><?php _e( 'Lightbox', 'lhbasicsp' ); ?></th>
+						<th scope="row"><?php _e('Lightbox', 'lhbasicsp'); ?></th>
 						<td>
-							<input type="checkbox" name="lhb_lightbox_active" value="1" <?php checked( get_option( 'lhb_lightbox_active' ), 1 ); ?>>
-							<label><?php _e( 'Enable', 'lhbasicsp' ); ?></label>
+							<label>
+								<input type="checkbox" name="lhb_lightbox_active" value="1" <?php checked(get_option('lhb_lightbox_active'), 1); ?>>
+								<?php _e('Enable', 'lhbasicsp'); ?>
+							</label>
 						</td>
 					</tr>
 					<tr>
-						<th scope="row"><?php _e( 'Lazy Loading', 'lhbasicsp' ); ?></th>
+						<th scope="row"><?php _e('Lazy Loading', 'lhbasicsp'); ?></th>
 						<td>
-							<input type="checkbox" name="lhb_lazyloading_active" value="1" <?php checked( get_option( 'lhb_lazyloading_active' ), 1 ); ?>>
-							<label><?php _e( 'Enable', 'lhbasicsp' ); ?></label>
+							<label>
+								<input type="checkbox" name="lhb_lazyloading_active" value="1" <?php checked(get_option('lhb_lazyloading_active'), 1); ?>>
+								<?php _e('Enable', 'lhbasicsp'); ?>
+							</label>
 						</td>
 					</tr>
 				</table>
