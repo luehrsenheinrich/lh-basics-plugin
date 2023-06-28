@@ -25,7 +25,7 @@ class LightboxControl {
 	prepareLightboxElements() {
 		// Prepare the image block.
 		const imageBlocks = document.querySelectorAll(
-			'.wp-block-image:not(.nolb)'
+			'.wp-block-image:not(.nolb), .wp-block-media-text__media:not(.nolb)'
 		);
 
 		imageBlocks.forEach((imageBlock) => {
