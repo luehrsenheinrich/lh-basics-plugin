@@ -24,6 +24,13 @@ class Plugin {
 	protected $disable_comments;
 
 	/**
+	 * Gravity_Forms component.
+	 *
+	 * @var Gravity_Forms\Gravity_Forms;
+	 */
+	protected $gravity_forms;
+
+	/**
 	 * I18N component.
 	 *
 	 * @var i18n\I18N;
@@ -55,6 +62,7 @@ class Plugin {
 	 * Constructor.
 	 *
 	 * @param Disable_Comments\Disable_Comments $disable_comments Disable_Comments component.
+	 * @param Gravity_Forms\Gravity_Forms       $gravity_forms    Gravity_Forms component.
 	 * @param i18n\I18N                         $i18n             I18N component.
 	 * @param Lazysizes\Lazysizes               $lazysizes        Lazysizes component.
 	 * @param Lightbox\Lightbox                 $lightbox         Lightbox component.
@@ -62,12 +70,14 @@ class Plugin {
 	 */
 	public function __construct(
 		Disable_Comments\Disable_Comments $disable_comments,
+		Gravity_Forms\Gravity_Forms $gravity_forms,
 		i18n\I18N $i18n,
 		Lazysizes\Lazysizes $lazysizes,
 		Lightbox\Lightbox $lightbox,
 		Options\Options $options
 	) {
 		$this->disable_comments = $disable_comments;
+		$this->gravity_forms    = $gravity_forms;
 		$this->i18n             = $i18n;
 		$this->lazysizes        = $lazysizes;
 		$this->lightbox         = $lightbox;
