@@ -9,7 +9,7 @@
  * Description: A WordPress plugin to bundle basic perks by Luehrsen // Heinrich.
  * Author: Luehrsen // Heinrich
  * Author URI: https://www.luehrsen-heinrich.de
- * Version: 0.1.1
+ * Version: 0.1.2
  * Text Domain: lhbasicsp
  * Domain Path: /languages
  */
