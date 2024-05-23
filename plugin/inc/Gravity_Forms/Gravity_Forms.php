@@ -5,8 +5,8 @@
  * @package lhbasicsp
  */
 
-namespace WpMunich\lhbasicsp\Gravity_Forms;
-use WpMunich\lhbasicsp\Component;
+namespace WpMunich\basics\plugin\Gravity_Forms;
+use WpMunich\basics\plugin\Plugin_Component;
 
 use function add_action;
 use function add_theme_support;
@@ -14,7 +14,7 @@ use function add_theme_support;
 /**
  * Add theme supports.
  */
-class Gravity_Forms extends Component {
+class Gravity_Forms extends Plugin_Component {
 	/**
 	 * {@inheritdoc}
 	 */

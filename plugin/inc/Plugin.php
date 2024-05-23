@@ -1,11 +1,11 @@
 <?php
 /**
- * LHBASICSP\Plugin class
+ * The main file of the plugin.
  *
- * @package lhbasicsp
+ * @package lhbasics\plugin
  */
 
-namespace WpMunich\lhbasicsp;
+namespace WpMunich\basics\plugin;
 use function get_plugin_data;
 use function plugin_dir_url;
 
@@ -15,73 +15,24 @@ use function plugin_dir_url;
  * This class takes care of initializing plugin features and available template tags.
  */
 class Plugin {
-
-	/**
-	 * Disable_Comments component.
-	 *
-	 * @var Disable_Comments\Disable_Comments;
-	 */
-	protected $disable_comments;
-
-	/**
-	 * Gravity_Forms component.
-	 *
-	 * @var Gravity_Forms\Gravity_Forms;
-	 */
-	protected $gravity_forms;
-
-	/**
-	 * I18N component.
-	 *
-	 * @var i18n\I18N;
-	 */
-	protected $i18n;
-
-	/**
-	 * Lazysizes component.
-	 *
-	 * @var Lazysizes\Lazysizes;
-	 */
-	protected $lazysizes;
-
-	/**
-	 * Lightbox component.
-	 *
-	 * @var Lightbox\Lightbox;
-	 */
-	protected $lightbox;
-
-	/**
-	 * Options component.
-	 *
-	 * @var Options\Options;
-	 */
-	protected $options;
-
 	/**
 	 * Constructor.
 	 *
-	 * @param Disable_Comments\Disable_Comments $disable_comments Disable_Comments component.
-	 * @param Gravity_Forms\Gravity_Forms       $gravity_forms    Gravity_Forms component.
-	 * @param i18n\I18N                         $i18n             I18N component.
-	 * @param Lazysizes\Lazysizes               $lazysizes        Lazysizes component.
-	 * @param Lightbox\Lightbox                 $lightbox         Lightbox component.
-	 * @param Options\Options                   $options          Options component.
+	 * @param i18n\I18N                         $i18n The i18n component.
+	 * @param Disable_Comments\Disable_Comments $disable_comments The disable comments component.
+	 * @param Gravity_Forms\Gravity_Forms       $gravity_forms The gravity forms component.
+	 * @param Lazysizes\Lazysizes               $lazysizes The lazysizes component.
+	 * @param Lightbox\Lightbox                 $lightbox The lightbox component.
+	 * @param Options\Options                   $options The options component.
 	 */
 	public function __construct(
-		Disable_Comments\Disable_Comments $disable_comments,
-		Gravity_Forms\Gravity_Forms $gravity_forms,
-		i18n\I18N $i18n,
-		Lazysizes\Lazysizes $lazysizes,
-		Lightbox\Lightbox $lightbox,
-		Options\Options $options
+		private i18n\I18N $i18n,
+		private Disable_Comments\Disable_Comments $disable_comments,
+		private Gravity_Forms\Gravity_Forms $gravity_forms,
+		private Lazysizes\Lazysizes $lazysizes,
+		private Lightbox\Lightbox $lightbox,
+		private Options\Options $options,
 	) {
-		$this->disable_comments = $disable_comments;
-		$this->gravity_forms    = $gravity_forms;
-		$this->i18n             = $i18n;
-		$this->lazysizes        = $lazysizes;
-		$this->lightbox         = $lightbox;
-		$this->options          = $options;
 	}
 
 	/**
@@ -137,5 +88,14 @@ class Plugin {
 	 */
 	public function get_plugin_slug() {
 		return 'lhbasicsp';
+	}
+
+	/**
+	 * Get the DI container.
+	 *
+	 * @return \DI\Container The DI container.
+	 */
+	public function container() {
+		return plugin_container();
 	}
 }

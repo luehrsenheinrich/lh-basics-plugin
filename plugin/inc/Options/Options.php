@@ -5,8 +5,8 @@
  * @package lhbasicsp
  */
 
-namespace WpMunich\lhbasicsp\Options;
-use WpMunich\lhbasicsp\Component;
+namespace WpMunich\basics\plugin\Options;
+use WpMunich\basics\plugin\Plugin_Component;
 use function add_action;
 use function add_submenu_page;
 use function _e;
@@ -14,7 +14,7 @@ use function _e;
 /**
  * A class to handle LH Basics options.
  */
-class Options extends Component {
+class Options extends Plugin_Component {
 
 	/**
 	 * {@inheritdoc}

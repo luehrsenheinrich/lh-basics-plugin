@@ -5,15 +5,15 @@
  * @package lhbasicsp
  */
 
-namespace WpMunich\lhbasicsp\Lightbox;
-use WpMunich\lhbasicsp\Component;
+namespace WpMunich\basics\plugin\Lightbox;
+use WpMunich\basics\plugin\Plugin_Component;
 use function add_action;
-use function WpMunich\lhbasicsp\lh_plugin;
+use function WpMunich\basics\plugin\plugin;
 
 /**
  * A class to handle the lightbox functionality.
  */
-class Lightbox extends Component {
+class Lightbox extends Plugin_Component {
 
 	/**
 	 * {@inheritdoc}
@@ -32,7 +32,7 @@ class Lightbox extends Component {
 	/**
 	 * If the lightbox feature is an active option.
 	 */
-	private function is_active() {
+	protected function is_active() {
 		return (bool) get_option( 'lhb_lightbox_active' );
 	}
 
@@ -44,16 +44,16 @@ class Lightbox extends Component {
 	public function enqueue_scripts() {
 		wp_enqueue_style(
 			'lhbasicsp-lightbox',
-			lh_plugin()->get_plugin_url() . '/dist/css/lightbox.min.css',
+			plugin()->get_plugin_url() . '/dist/css/lightbox.min.css',
 			array(),
-			lh_plugin()->get_plugin_version()
+			plugin()->get_plugin_version()
 		);
 
 		wp_enqueue_script(
 			'lhbasicsp-lightbox',
-			lh_plugin()->get_plugin_url() . '/dist/js/lightbox.min.js',
+			plugin()->get_plugin_url() . '/dist/js/lightbox.min.js',
 			array(),
-			lh_plugin()->get_plugin_version(),
+			plugin()->get_plugin_version(),
 			true
 		);
 	}

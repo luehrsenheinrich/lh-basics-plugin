@@ -9,7 +9,7 @@
   },
   "autoload": {
     "psr-4": {
-      "WpMunich\\lhbasicsp\\": "inc/"
+      "WpMunich\\basics\\plugin\\": "inc/"
     }
   },
   "config": {

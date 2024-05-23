@@ -5,15 +5,15 @@
  * @package lhbasicsp
  */
 
-namespace WpMunich\lhbasicsp\Lazysizes;
-use WpMunich\lhbasicsp\Component;
+namespace WpMunich\basics\plugin\Lazysizes;
+use WpMunich\basics\plugin\Plugin_Component;
 use function add_action;
-use function WpMunich\lhbasicsp\lh_plugin;
+use function WpMunich\basics\plugin\plugin;
 
 /**
  * Add a class to handle lazy loading of images.
  */
-class Lazysizes extends Component {
+class Lazysizes extends Plugin_Component {
 
 	/**
 	 * {@inheritDoc}
@@ -37,7 +37,7 @@ class Lazysizes extends Component {
 	/**
 	 * If the feature is an active option.
 	 */
-	private function is_active() {
+	protected function is_active() {
 		return (bool) get_option( 'lhb_lazyloading_active' );
 	}
 
@@ -169,7 +169,7 @@ class Lazysizes extends Component {
 	 * @return void
 	 */
 	public function enqueue_scripts() {
-		wp_enqueue_script( 'lhplugin-lazysizes', lh_plugin()->get_plugin_url() . '/dist/js/lazysizes.min.js', array(), lh_plugin()->get_plugin_version(), true );
+		wp_enqueue_script( 'lhplugin-lazysizes', plugin()->get_plugin_url() . '/dist/js/lazysizes.min.js', array(), plugin()->get_plugin_version(), true );
 	}
 
 	/**
