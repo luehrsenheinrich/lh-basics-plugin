@@ -22,6 +22,8 @@ abstract class Plugin_Component {
 	 * @return void
 	 */
 	public function __construct() {
+		$this->must_run();
+
 		if ( ! $this->is_active() ) {
 			return;
 		}
@@ -69,5 +71,12 @@ abstract class Plugin_Component {
 	 */
 	protected function is_active() {
 		return true;
+	}
+
+	/**
+	 * A funtion that is called even when the component is not active.
+	 */
+	protected function must_run() {
+		// Do nothing.
 	}
 }

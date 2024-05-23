@@ -63,7 +63,7 @@ const SettingsPage = () => {
 		if (changedSettings.length === 0) {
 			dispatch('core/notices').createNotice(
 				'info',
-				__('No changes to save', 'wholesome-plugin'),
+				__('No changes to save', 'lhbasicsp'),
 				{
 					type: 'snackbar',
 					isDismissible: true,
@@ -93,11 +93,19 @@ const SettingsPage = () => {
 			setOriginalApiSettings(cloneDeep(response));
 			dispatch('core/notices').createNotice(
 				'success',
-				__('Settings Saved', 'wholesome-plugin'),
+				__('Settings Saved.', 'lhbasicsp'),
 				{
 					type: 'snackbar',
 					isDismissible: true,
 					icon: <Icon icon="saved" />,
+					actions: [
+						{
+							label: __('Refresh', 'lhbasicsp'),
+							onClick: () => {
+								window.location.reload();
+							},
+						},
+					],
 				}
 			);
 		});
@@ -127,7 +135,7 @@ const SettingsPage = () => {
 								disabled={isSaving}
 								onClick={() => onSaveSettings()}
 							>
-								{__('Save', 'wholesome-plugin')}
+								{__('Save', 'lhbasicsp')}
 							</Button>
 						</div>
 					</>

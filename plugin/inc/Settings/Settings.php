@@ -75,11 +75,49 @@ class Settings extends Plugin_Component {
 				array(
 					'pluginUrl' => plugin()->get_plugin_url(),
 					'restUrl'   => get_rest_url(),
+					'modules'   => $this->get_available_modules(),
 				)
 			);
 
 			wp_enqueue_style( 'lhagentur-settings-page', plugin()->get_plugin_url() . '/admin/dist/css/admin-settings-page.min.css', array( 'wp-components' ), plugin()->get_plugin_version() );
 		}
+	}
+
+	/**
+	 * Get the available modules.
+	 *
+	 * @return array
+	 */
+	private function get_available_modules() {
+		/**
+		 * An array of module definitions.
+		 * This is the structure of a module definition:
+		 * array(
+		 *    'title'       => (string) 'Module Title',
+		 *    'description' => (string) 'Module Description',
+		 *    'slug'        => (string) 'module-slug',
+		 * )
+		 *
+		 * @return array
+		 */
+		$modules = apply_filters( 'lhagentur_available_modules', array() );
+
+		// Enforce a numeric array.
+		$modules = array_values( $modules );
+
+		return $modules;
+	}
+
+	/**
+	 * Check if a module is active.
+	 *
+	 * @param string $module The module to check.
+	 *
+	 * @return bool
+	 */
+	public function is_module_active( string $module ) {
+		$active_modules = get_option( 'active_modules', array() );
+		return in_array( $module, $active_modules, true );
 	}
 
 	/**

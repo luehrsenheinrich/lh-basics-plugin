@@ -8,6 +8,7 @@
 namespace WpMunich\basics\plugin\Disable_Comments;
 
 use WpMunich\basics\plugin\Plugin_Component;
+use WpMunich\basics\plugin\Settings\Settings;
 
 /**
  * A class to disable comments.
@@ -38,10 +39,34 @@ class Disable_Comments extends Plugin_Component {
 	}
 
 	/**
+	 * {@inheritdoc}
+	 */
+	protected function must_run() {
+		add_filter( 'lhagentur_available_modules', array( $this, 'add_module' ) );
+	}
+
+	/**
+	 * Add the module defintion for this component.
+	 *
+	 * @param array $modules The available modules.
+	 *
+	 * @return array
+	 */
+	public function add_module( $modules ) {
+		$modules[] = array(
+			'title'       => __( 'Disable Comments', 'lhagenturp' ),
+			'description' => __( 'This module disables comments globally.', 'lhagenturp' ),
+			'slug'        => 'disable_comments',
+		);
+
+		return $modules;
+	}
+
+	/**
 	 * If the feature is an active option.
 	 */
 	protected function is_active() {
-		return (bool) get_option( 'lhb_disable_comments_active' );
+		return $this->container()->get( Settings::class )->is_module_active( 'disable_comments' );
 	}
 
 	/**

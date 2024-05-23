@@ -4,6 +4,7 @@
 import { ToggleControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import SettingsPanel from './../settings-panel';
+import { get } from 'lodash';
 
 const ModulesPanel = (props) => {
 	const { apiSettings, setApiSettings } = props;
@@ -33,6 +34,10 @@ const ModulesPanel = (props) => {
 		setApiSettings({ ...settingsData });
 	};
 
+	const availableModules = get(window, 'lhagenturSettings.modules', []);
+
+	console.log(availableModules);
+
 	return (
 		<SettingsPanel
 			title={__('Modules', 'lhagenturp')}
@@ -46,28 +51,16 @@ const ModulesPanel = (props) => {
 					)}
 				</p>
 			</div>
-			<ToggleControl
-				checked={isModuleActive('cpt_lh_testimonial')}
-				label={__('Testimonials', 'lhagenturp')}
-				help={__(
-					'If enabled, the testimonials module will be active.',
-					'lhagenturp'
-				)}
-				onChange={(value) =>
-					setModuleActive('cpt_lh_testimonial', value)
-				}
-				__nextHasNoMarginBottom
-			/>
-			<ToggleControl
-				checked={isModuleActive('cpt_lh_client')}
-				label={__('Clients', 'lhagenturp')}
-				help={__(
-					'If enabled, the clients module will be active.',
-					'lhagenturp'
-				)}
-				onChange={(value) => setModuleActive('cpt_lh_client', value)}
-				__nextHasNoMarginBottom
-			/>
+			{availableModules.map((module) => (
+				<ToggleControl
+					key={module.slug}
+					checked={isModuleActive(module.slug)}
+					label={module.title}
+					help={module.description}
+					onChange={(value) => setModuleActive(module.slug, value)}
+					__nextHasNoMarginBottom
+				/>
+			))}
 		</SettingsPanel>
 	);
 };
