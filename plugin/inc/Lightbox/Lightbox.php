@@ -7,6 +7,8 @@
 
 namespace WpMunich\basics\plugin\Lightbox;
 use WpMunich\basics\plugin\Plugin_Component;
+use WpMunich\basics\plugin\Settings\Settings;
+
 use function add_action;
 use function WpMunich\basics\plugin\plugin;
 
@@ -30,10 +32,34 @@ class Lightbox extends Plugin_Component {
 	protected function add_filters() {}
 
 	/**
+	 * {@inheritdoc}
+	 */
+	protected function must_run() {
+		add_filter( 'lhagentur_available_modules', array( $this, 'add_module' ) );
+	}
+
+	/**
+	 * Add the module defintion for this component.
+	 *
+	 * @param array $modules The available modules.
+	 *
+	 * @return array
+	 */
+	public function add_module( $modules ) {
+		$modules[] = array(
+			'title'       => __( 'Lightbox', 'lhagenturp' ),
+			'description' => __( 'This module enables a lightbox for images.', 'lhagenturp' ),
+			'slug'        => 'lightbox',
+		);
+
+		return $modules;
+	}
+
+	/**
 	 * If the lightbox feature is an active option.
 	 */
 	protected function is_active() {
-		return (bool) get_option( 'lhb_lightbox_active' );
+		return $this->container()->get( Settings::class )->is_module_active( 'lightbox' );
 	}
 
 	/**

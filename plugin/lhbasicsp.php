@@ -4,9 +4,9 @@
  *
  * @package lhbasics\plugin
  *
- * Plugin Name: WordPress Project Boilerplate
+ * Plugin Name: L//H Basics
  * Plugin URI: https://www.luehrsen-heinrich.de
- * Description: A base boilerplate for Luehrsen // Heinrich WordPress projects.
+ * Description: A plugin that provides basic functionality for our WordPress projects.
  * Author: Luehrsen // Heinrich
  * Author URI: https://www.luehrsen-heinrich.de
  * Version: 0.0.17

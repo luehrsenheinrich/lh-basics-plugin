@@ -7,6 +7,8 @@
 
 namespace WpMunich\basics\plugin\Lazysizes;
 use WpMunich\basics\plugin\Plugin_Component;
+use WpMunich\basics\plugin\Settings\Settings;
+
 use function add_action;
 use function WpMunich\basics\plugin\plugin;
 
@@ -35,10 +37,34 @@ class Lazysizes extends Plugin_Component {
 	}
 
 	/**
+	 * {@inheritDoc}
+	 */
+	protected function must_run() {
+		add_filter( 'lhagentur_available_modules', array( $this, 'add_module' ) );
+	}
+
+	/**
+	 * Add the module defintion for this component.
+	 *
+	 * @param array $modules The available modules.
+	 *
+	 * @return array
+	 */
+	public function add_module( $modules ) {
+		$modules[] = array(
+			'title'       => __( 'Lazysizes', 'lhagenturp' ),
+			'description' => __( 'This module enables lazy loading of images.', 'lhagenturp' ),
+			'slug'        => 'lazysizes',
+		);
+
+		return $modules;
+	}
+
+	/**
 	 * If the feature is an active option.
 	 */
 	protected function is_active() {
-		return (bool) get_option( 'lhb_lazyloading_active' );
+		return $this->container()->get( Settings::class )->is_module_active( 'lazysizes' );
 	}
 
 	/**

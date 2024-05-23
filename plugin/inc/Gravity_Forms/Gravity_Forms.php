@@ -7,6 +7,7 @@
 
 namespace WpMunich\basics\plugin\Gravity_Forms;
 use WpMunich\basics\plugin\Plugin_Component;
+use WpMunich\basics\plugin\Settings\Settings;
 
 /**
  * A class to change aspects of Gravity Forms.
@@ -22,6 +23,37 @@ class Gravity_Forms extends Plugin_Component {
 	 */
 	public function add_filters() {
 		add_filter( 'gform_address_display_format', array( $this, 'gform_address_display_format' ) );
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function must_run() {
+		add_filter( 'lhagentur_available_modules', array( $this, 'add_module' ) );
+	}
+
+	/**
+	 * Add the module defintion for this component.
+	 *
+	 * @param array $modules The available modules.
+	 *
+	 * @return array
+	 */
+	public function add_module( $modules ) {
+		$modules[] = array(
+			'title'       => __( 'Gravity Forms', 'lhagenturp' ),
+			'description' => __( 'This module changes aspects of Gravity Forms.', 'lhagenturp' ),
+			'slug'        => 'gravity_forms',
+		);
+
+		return $modules;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function is_active() {
+		return $this->container()->get( Settings::class )->is_module_active( 'gravity_forms' );
 	}
 
 	/**
