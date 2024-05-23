@@ -23,7 +23,6 @@ class Plugin {
 	 * @param Gravity_Forms\Gravity_Forms       $gravity_forms The gravity forms component.
 	 * @param Lazysizes\Lazysizes               $lazysizes The lazysizes component.
 	 * @param Lightbox\Lightbox                 $lightbox The lightbox component.
-	 * @param Options\Options                   $options The options component.
 	 * @param Settings\Settings                 $settings The settings component.
 	 */
 	public function __construct(
@@ -32,7 +31,6 @@ class Plugin {
 		private Gravity_Forms\Gravity_Forms $gravity_forms,
 		private Lazysizes\Lazysizes $lazysizes,
 		private Lightbox\Lightbox $lightbox,
-		private Options\Options $options,
 		private Settings\Settings $settings,
 	) {
 	}
