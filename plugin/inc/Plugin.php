@@ -24,6 +24,7 @@ class Plugin {
 	 * @param Lazysizes\Lazysizes               $lazysizes The lazysizes component.
 	 * @param Lightbox\Lightbox                 $lightbox The lightbox component.
 	 * @param Options\Options                   $options The options component.
+	 * @param Settings\Settings                 $settings The settings component.
 	 */
 	public function __construct(
 		private i18n\I18N $i18n,
@@ -32,6 +33,7 @@ class Plugin {
 		private Lazysizes\Lazysizes $lazysizes,
 		private Lightbox\Lightbox $lightbox,
 		private Options\Options $options,
+		private Settings\Settings $settings,
 	) {
 	}
 
