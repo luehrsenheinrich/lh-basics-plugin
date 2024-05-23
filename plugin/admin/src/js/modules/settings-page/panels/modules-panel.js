@@ -36,8 +36,6 @@ const ModulesPanel = (props) => {
 
 	const availableModules = get(window, 'lhagenturSettings.modules', []);
 
-	console.log(availableModules);
-
 	return (
 		<SettingsPanel
 			title={__('Modules', 'lhagenturp')}
