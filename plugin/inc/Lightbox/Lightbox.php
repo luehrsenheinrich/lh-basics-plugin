@@ -1,6 +1,6 @@
 <?php
 /**
- * LHBASICSP\Lightbox\Component class
+ * Holds the Lightbox class.
  *
  * @package lhbasicsp
  */

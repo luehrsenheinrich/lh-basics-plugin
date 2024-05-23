@@ -1,6 +1,6 @@
 <?php
 /**
- * LHBASICSP\Lazysizes\Component class
+ * Holds the Lazysizes class.
  *
  * @package lhbasicsp
  */

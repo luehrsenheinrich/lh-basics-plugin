@@ -1,6 +1,6 @@
 <?php
 /**
- * LHBASICSP\Gravity_Forms\Component class
+ * Holds the Gravity Forms class.
  *
  * @package lhbasicsp
  */
@@ -8,11 +8,8 @@
 namespace WpMunich\basics\plugin\Gravity_Forms;
 use WpMunich\basics\plugin\Plugin_Component;
 
-use function add_action;
-use function add_theme_support;
-
 /**
- * Add theme supports.
+ * A class to change aspects of Gravity Forms.
  */
 class Gravity_Forms extends Plugin_Component {
 	/**

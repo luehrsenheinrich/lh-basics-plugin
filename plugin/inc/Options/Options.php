@@ -1,6 +1,6 @@
 <?php
 /**
- * LHBASICSP\Options\Component class
+ * Holds the Options class.
  *
  * @package lhbasicsp
  */

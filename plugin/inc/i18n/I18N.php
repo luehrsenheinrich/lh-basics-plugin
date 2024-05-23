@@ -1,6 +1,6 @@
 <?php
 /**
- * LHBASICSP\i18n\Component class
+ * Holds the I18N class.
  *
  * @package lhbasicsp
  */
@@ -12,7 +12,7 @@ use function add_action;
 use function load_plugin_textdomain;
 
 /**
- * A class to handle textdomains and other i18n related logic..
+ * A class to handle textdomains and other i18n related logic...
  */
 class I18N extends Plugin_Component {
 

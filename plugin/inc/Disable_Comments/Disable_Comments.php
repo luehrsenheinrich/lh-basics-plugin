@@ -1,6 +1,6 @@
 <?php
 /**
- * LHBASICSP\Disable_Comments\Disable_Comments class
+ * Holds the Disable_Comments class.
  *
  * @package lhbasicsp
  */
@@ -10,7 +10,7 @@ namespace WpMunich\basics\plugin\Disable_Comments;
 use WpMunich\basics\plugin\Plugin_Component;
 
 /**
- * A class to handle fullsite editing & theme.json
+ * A class to disable comments.
  */
 class Disable_Comments extends Plugin_Component {
 
