@@ -10,7 +10,7 @@ use function WpMunich\lhbasicsp\lh_plugin;
 /**
  * Class Lhpbpp_Basic_Test
  */
-class LHPlugin_Basic_Test extends WP_UnitTestCase {
+class Test_LHBasicp extends WP_UnitTestCase {
 
 	/**
 	 * Test if the plugin exists.
