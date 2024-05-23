@@ -18,7 +18,7 @@ import { cloneDeep, isEqual } from 'lodash';
 import ModulesPanel from './settings-page/panels/modules-panel';
 import LoadingPanel from './settings-page/panels/loading-panel';
 import Notices from '../components/settings-notices';
-import LH_Logo from '../../../../img/icons/lh_logo.svg';
+import LHLogo from '../../../../img/icons/lh_logo.svg';
 
 const SettingsPage = () => {
 	/**
@@ -117,7 +117,11 @@ const SettingsPage = () => {
 			<div className="settings_header">
 				<div className="settings_container">
 					<div className="settings_title">
-						<LH_Logo alt={__('Luehrsen // Heinrich', 'lhbasicsp')} className="settings_logo" /> <br />
+						<LHLogo
+							alt={__('Luehrsen // Heinrich', 'lhbasicsp')}
+							className="settings_logo"
+						/>
+						<br />
 						<h1>{__('System Settings', 'lhbasicsp')}</h1>
 					</div>
 				</div>
