@@ -117,7 +117,10 @@ class Settings extends Plugin_Component {
 	 */
 	public function is_module_active( string $module ) {
 		$active_modules = get_option( 'active_modules', array() );
-		return in_array( $module, $active_modules, true );
+
+		$is_module_active = in_array( $module, $active_modules, true );
+
+		return apply_filters( 'lhagentur_is_module_active', $is_module_active, $module );
 	}
 
 	/**
