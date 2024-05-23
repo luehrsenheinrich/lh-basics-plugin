@@ -2,15 +2,19 @@
 
 [![🏗 Build & Deploy](../../actions/workflows/test.yml/badge.svg)](../../actions/workflows/test.yml)
 
-This plugin bundles some basic functionality and small features that we use in almost every project.
-
-This WordPress project is made with love and brought to you by the folks of [Luehrsen // Heinrich](http://www.luehrsen-heinrich.de).
+TWelcome to the L//H Basics Plugin, your go-to solution for bundling essential functionalities and small features that we use in almost every project. Crafted with love, this WordPress plugin is brought to you by the dedicated team at [Luehrsen // Heinrich](http://www.luehrsen-heinrich.de).
 
 ## Features
 
-- Disable Comments: Disable comments on all post types.
-- Lazysizes: Adds (lazysizes)[https://github.com/aFarkas/lazysizes] to the project to allow lazy loading of images.
-- Lightbox: Adds (glightbox)[https://biati-digital.github.io/glightbox/] to the project.
+All features are disabled by default, allowing you to enable only what you need through the plugin settings. Here’s what you can add to your project:
+
+- **Disable Comments:** Effortlessly disable comments on all post types, keeping your site free from unwanted discussions.
+- **Lazysizes:** Integrate [lazysizes](https://github.com/aFarkas/lazysizes) into your project for efficient lazy loading of images, improving your site's performance.
+- **Lightbox:** Enhance your media presentation with [glightbox](https://biati-digital.github.io/glightbox/), a sleek and responsive lightbox library.
+
+---
+
+This plugin aims to simplify your development process by providing out-of-the-box solutions for common requirements. We hope it makes your WordPress projects smoother and more enjoyable!
 
 ## Contributing
 
