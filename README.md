@@ -1,10 +1,16 @@
-# [ LH Basics Plugin ]
+# L//H Basics Plugin
 
-[![🏗 Build & Deploy](../../actions/workflows/main.yml/badge.svg)](../../actions/workflows/main.yml)
+[![🏗 Build & Deploy](../../actions/workflows/test.yml/badge.svg)](../../actions/workflows/test.yml)
 
-A WordPress plugin to bundle basic perks like nuked comments, lightbox, lazyloading etc.
+This plugin bundles some basic functionality and small features that we use in almost every project.
 
-This WordPress project is made with love and brought to you by the folks of [WP Munich](http://www.wp-munich.de) and [Luehrsen // Heinrich](http://www.luehrsen-heinrich.de).
+This WordPress project is made with love and brought to you by the folks of [Luehrsen // Heinrich](http://www.luehrsen-heinrich.de).
+
+## Features
+
+- Disable Comments: Disable comments on all post types.
+- Lazysizes: Adds (lazysizes)[https://github.com/aFarkas/lazysizes] to the project to allow lazy loading of images.
+- Lightbox: Adds (glightbox)[https://biati-digital.github.io/glightbox/] to the project.
 
 ## Contributing
 
