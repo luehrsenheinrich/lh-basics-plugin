@@ -5,10 +5,10 @@
  * @package lhbasicsp
  */
 
-use function WpMunich\lhbasicsp\lh_plugin;
+use function WpMunich\basics\plugin\plugin;
 
 /**
- * Class Lhpbpp_Basic_Test
+ * Class lhbasicsp_Basic_Test
  */
 class Test_LHBasicp extends WP_UnitTestCase {
 
@@ -16,7 +16,7 @@ class Test_LHBasicp extends WP_UnitTestCase {
 	 * Test if the plugin exists.
 	 */
 	public function test_plugin_exists() {
-		$this->assertTrue( function_exists( 'WpMunich\lhbasicsp\lh_plugin' ) );
+		$this->assertTrue( function_exists( 'WpMunich\basics\plugin\plugin' ) );
 	}
 
 	/**

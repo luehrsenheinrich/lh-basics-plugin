@@ -1,20 +1,18 @@
 <?php
 /**
- * LHBASICSP\Gravity_Forms\Component class
+ * Holds the Gravity Forms class.
  *
  * @package lhbasicsp
  */
 
-namespace WpMunich\lhbasicsp\Gravity_Forms;
-use WpMunich\lhbasicsp\Component;
-
-use function add_action;
-use function add_theme_support;
+namespace WpMunich\basics\plugin\Gravity_Forms;
+use WpMunich\basics\plugin\Plugin_Component;
+use WpMunich\basics\plugin\Settings\Settings;
 
 /**
- * Add theme supports.
+ * A class to change aspects of Gravity Forms.
  */
-class Gravity_Forms extends Component {
+class Gravity_Forms extends Plugin_Component {
 	/**
 	 * {@inheritdoc}
 	 */
@@ -25,6 +23,37 @@ class Gravity_Forms extends Component {
 	 */
 	public function add_filters() {
 		add_filter( 'gform_address_display_format', array( $this, 'gform_address_display_format' ) );
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function must_run() {
+		add_filter( 'lhagentur_available_modules', array( $this, 'add_module' ) );
+	}
+
+	/**
+	 * Add the module defintion for this component.
+	 *
+	 * @param array $modules The available modules.
+	 *
+	 * @return array
+	 */
+	public function add_module( $modules ) {
+		$modules[] = array(
+			'title'       => __( 'Gravity Forms', 'lhagenturp' ),
+			'description' => __( 'This module changes aspects of Gravity Forms.', 'lhagenturp' ),
+			'slug'        => 'gravity_forms',
+		);
+
+		return $modules;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function is_active() {
+		return $this->container()->get( Settings::class )->is_module_active( 'gravity_forms' );
 	}
 
 	/**

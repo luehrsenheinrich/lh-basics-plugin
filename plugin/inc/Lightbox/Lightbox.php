@@ -1,19 +1,21 @@
 <?php
 /**
- * LHBASICSP\Lightbox\Component class
+ * Holds the Lightbox class.
  *
  * @package lhbasicsp
  */
 
-namespace WpMunich\lhbasicsp\Lightbox;
-use WpMunich\lhbasicsp\Component;
+namespace WpMunich\basics\plugin\Lightbox;
+use WpMunich\basics\plugin\Plugin_Component;
+use WpMunich\basics\plugin\Settings\Settings;
+
 use function add_action;
-use function WpMunich\lhbasicsp\lh_plugin;
+use function WpMunich\basics\plugin\plugin;
 
 /**
  * A class to handle the lightbox functionality.
  */
-class Lightbox extends Component {
+class Lightbox extends Plugin_Component {
 
 	/**
 	 * {@inheritdoc}
@@ -30,10 +32,34 @@ class Lightbox extends Component {
 	protected function add_filters() {}
 
 	/**
+	 * {@inheritdoc}
+	 */
+	protected function must_run() {
+		add_filter( 'lhagentur_available_modules', array( $this, 'add_module' ) );
+	}
+
+	/**
+	 * Add the module defintion for this component.
+	 *
+	 * @param array $modules The available modules.
+	 *
+	 * @return array
+	 */
+	public function add_module( $modules ) {
+		$modules[] = array(
+			'title'       => __( 'Lightbox', 'lhagenturp' ),
+			'description' => __( 'This module enables a lightbox for images.', 'lhagenturp' ),
+			'slug'        => 'lightbox',
+		);
+
+		return $modules;
+	}
+
+	/**
 	 * If the lightbox feature is an active option.
 	 */
-	private function is_active() {
-		return (bool) get_option( 'lhb_lightbox_active' );
+	protected function is_active() {
+		return $this->container()->get( Settings::class )->is_module_active( 'lightbox' );
 	}
 
 	/**
@@ -44,16 +70,16 @@ class Lightbox extends Component {
 	public function enqueue_scripts() {
 		wp_enqueue_style(
 			'lhbasicsp-lightbox',
-			lh_plugin()->get_plugin_url() . '/dist/css/lightbox.min.css',
+			plugin()->get_plugin_url() . '/dist/css/lightbox.min.css',
 			array(),
-			lh_plugin()->get_plugin_version()
+			plugin()->get_plugin_version()
 		);
 
 		wp_enqueue_script(
 			'lhbasicsp-lightbox',
-			lh_plugin()->get_plugin_url() . '/dist/js/lightbox.min.js',
+			plugin()->get_plugin_url() . '/dist/js/lightbox.min.js',
 			array(),
-			lh_plugin()->get_plugin_version(),
+			plugin()->get_plugin_version(),
 			true
 		);
 	}

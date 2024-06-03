@@ -1,51 +1,72 @@
 <?php
 /**
- * LHBASICSP\Disable_Comments\Disable_Comments class
+ * Holds the Disable_Comments class.
  *
  * @package lhbasicsp
  */
 
-namespace WpMunich\lhbasicsp\Disable_Comments;
+namespace WpMunich\basics\plugin\Disable_Comments;
 
-use WpMunich\lhbasicsp\Component;
+use WpMunich\basics\plugin\Plugin_Component;
+use WpMunich\basics\plugin\Settings\Settings;
 
 /**
- * A class to handle fullsite editing & theme.json
+ * A class to disable comments.
  */
-class Disable_Comments extends Component {
+class Disable_Comments extends Plugin_Component {
 
 	/**
 	 * {@inheritdoc}
 	 */
 	protected function add_actions() {
-		if ( $this->is_active() ) {
-			add_action( 'init', array( $this, 'remove_comments_support' ) );
-			add_action( 'admin_menu', array( $this, 'remove_comments_menu' ) );
-			add_action( 'admin_init', array( $this, 'redirect_from_comments_page' ) );
-			add_action( 'admin_init', array( $this, 'remove_comments_from_dashboard' ) );
-			add_action( 'init', array( $this, 'remove_comments_admin_bar' ) );
-			add_action( 'wp_before_admin_bar_render', array( $this, 'remove_comments_admin_bar_menu' ) );
-		}
+		add_action( 'init', array( $this, 'remove_comments_support' ) );
+		add_action( 'admin_menu', array( $this, 'remove_comments_menu' ) );
+		add_action( 'admin_init', array( $this, 'redirect_from_comments_page' ) );
+		add_action( 'admin_init', array( $this, 'remove_comments_from_dashboard' ) );
+		add_action( 'init', array( $this, 'remove_comments_admin_bar' ) );
+		add_action( 'wp_before_admin_bar_render', array( $this, 'remove_comments_admin_bar_menu' ) );
 	}
 
 	/**
 	 * {@inheritdoc}
 	 */
 	protected function add_filters() {
-		if ( $this->is_active() ) {
-			add_filter( 'comments_open', '__return_false', 20, 2 );
-			add_filter( 'pings_open', '__return_false', 20, 2 );
-			add_filter( 'comments_array', array( $this, 'filter_comments_array' ), 10, 2 );
-			add_filter( 'wp_count_comments', array( $this, 'filter_wp_count_comments' ), 10, 2 );
-			add_filter( 'the_comments', array( $this, 'filter_the_comments' ), 10, 2 );
-		}
+		add_filter( 'comments_open', '__return_false', 20, 2 );
+		add_filter( 'pings_open', '__return_false', 20, 2 );
+		add_filter( 'comments_array', array( $this, 'filter_comments_array' ), 10, 2 );
+		add_filter( 'wp_count_comments', array( $this, 'filter_wp_count_comments' ), 10, 2 );
+		add_filter( 'the_comments', array( $this, 'filter_the_comments' ), 10, 2 );
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function must_run() {
+		add_filter( 'lhagentur_available_modules', array( $this, 'add_module' ) );
+	}
+
+	/**
+	 * Add the module defintion for this component.
+	 *
+	 * @param array $modules The available modules.
+	 *
+	 * @return array
+	 */
+	public function add_module( $modules ) {
+		$modules[] = array(
+			'title'       => __( 'Disable Comments', 'lhagenturp' ),
+			'description' => __( 'This module disables comments globally.', 'lhagenturp' ),
+			'slug'        => 'disable_comments',
+		);
+
+		return $modules;
 	}
 
 	/**
 	 * If the feature is an active option.
 	 */
-	private function is_active() {
-		return (bool) get_option( 'lhb_disable_comments_active' );
+	protected function is_active() {
+		return $this->container()->get( Settings::class )->is_module_active( 'disable_comments' );
 	}
 
 	/**
