@@ -2,7 +2,12 @@
  * WordPress dependencies
  */
 import { useState } from '@wordpress/element';
-import { Button, Icon } from '@wordpress/components';
+import {
+	Button,
+	Icon,
+	SlotFillProvider,
+	withFilters,
+} from '@wordpress/components';
 import { dispatch } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 import apiFetch from '@wordpress/api-fetch';
@@ -19,6 +24,7 @@ import ModulesPanel from './settings-page/panels/modules-panel';
 import LoadingPanel from './settings-page/panels/loading-panel';
 import Notices from '../components/settings-notices';
 import LHLogo from '../../../../img/icons/lh_logo.svg';
+import MainSettingsSlotFill from './main-settings-slotfill';
 
 const SettingsPage = () => {
 	/**
@@ -52,6 +58,8 @@ const SettingsPage = () => {
 			setSettingsInitialized(true);
 		});
 	}
+
+	const AdditionalSettings = withFilters('lhbasics.settings')(() => <></>);
 
 	const onSaveSettings = () => {
 		// Compare the current settings with the original settings to determine
@@ -113,7 +121,8 @@ const SettingsPage = () => {
 	};
 
 	return (
-		<>
+		<SlotFillProvider>
+			<AdditionalSettings />
 			<div className="settings_header">
 				<div className="settings_container">
 					<div className="settings_title">
@@ -134,6 +143,9 @@ const SettingsPage = () => {
 							apiSettings={apiSettings}
 							setApiSettings={setApiSettings}
 						/>
+						<MainSettingsSlotFill.Slot
+							fillProps={{ apiSettings, setApiSettings }}
+						/>
 						<div className="settings_buttons">
 							<Button
 								variant="primary"
@@ -150,7 +162,7 @@ const SettingsPage = () => {
 			<div className="settings_notices">
 				<Notices />
 			</div>
-		</>
+		</SlotFillProvider>
 	);
 };
 

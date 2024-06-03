@@ -234,6 +234,13 @@ class Lazysizes extends Plugin_Component {
 		$doc->loadHTML( '<?xml encoding="utf-8" ?>' . $block_content );
 
 		/**
+		 * Check if the block element exists.
+		 */
+		if ( ! $doc->getElementsByTagName( 'body' )?->item( 0 )?->childNodes?->item( 0 ) ) {
+			return $block_content;
+		}
+
+		/**
 		 * Get the block element.
 		 *
 		 * @var \DOMNode|\DOMElement $block_elem

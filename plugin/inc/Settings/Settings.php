@@ -79,6 +79,10 @@ class Settings extends Plugin_Component {
 				)
 			);
 
+			$admin_script_assets = $assets['js/slotfill-test.min.js'] ?? array();
+
+			wp_enqueue_script( 'lhagentur-settings-slotfill-test', plugin()->get_plugin_url() . '/admin/dist/js/slotfill-test.min.js', $admin_script_assets['dependencies'], $admin_script_assets['version'], true );
+
 			wp_enqueue_style( 'lhagentur-settings-page', plugin()->get_plugin_url() . '/admin/dist/css/admin-settings-page.min.css', array( 'wp-components' ), plugin()->get_plugin_version() );
 		}
 	}
