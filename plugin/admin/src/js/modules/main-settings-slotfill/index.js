@@ -7,16 +7,10 @@
  */
 import { createSlotFill } from '@wordpress/components';
 
-const { Fill, Slot } = createSlotFill('LHMainSettings');
-
-const LHMainSettingsSlotFill = {
-	Fill,
-	Slot,
-};
-
 /**
- * Expose the slotfill to window.
+ * Create the main settings slotfill.
  */
-window.LHMainSettingsSlotFill = LHMainSettingsSlotFill;
+const { Fill: MainSettings, Slot: MainSettingsSlot } =
+	createSlotFill('LHMainSettings');
 
-export default LHMainSettingsSlotFill;
+export { MainSettings, MainSettingsSlot };

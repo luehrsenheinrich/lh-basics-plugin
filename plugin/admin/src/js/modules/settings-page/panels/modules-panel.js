@@ -6,6 +6,15 @@ import { __ } from '@wordpress/i18n';
 import SettingsPanel from './../settings-panel';
 import { get } from 'lodash';
 
+/**
+ * A component to render the modules panel on the LH Basics settings page.
+ *
+ * @param {Object}   props                The component props.
+ * @param {Object}   props.apiSettings    The API settings object.
+ * @param {Function} props.setApiSettings The function to set the API settings.
+ *
+ * @return {JSX.Element} The settings panel component.
+ */
 const ModulesPanel = (props) => {
 	const { apiSettings, setApiSettings } = props;
 
