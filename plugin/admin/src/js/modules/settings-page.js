@@ -101,28 +101,43 @@ const SettingsPage = () => {
 			path: '/wp/v2/settings',
 			method: 'POST',
 			data: changedSettingsData,
-		}).then((response) => {
-			setIsSaving(false);
-			setApiSettings(cloneDeep(response));
-			setOriginalApiSettings(cloneDeep(response));
-			dispatch('core/notices').createNotice(
-				'success',
-				__('Settings Saved.', 'lhbasicsp'),
-				{
-					type: 'snackbar',
-					isDismissible: true,
-					icon: <Icon icon="saved" />,
-					actions: [
-						{
-							label: __('Refresh', 'lhbasicsp'),
-							onClick: () => {
-								window.location.reload();
+		}).then(
+			(response) => {
+				setIsSaving(false);
+				setApiSettings(cloneDeep(response));
+				setOriginalApiSettings(cloneDeep(response));
+				dispatch('core/notices').createNotice(
+					'success',
+					__('Settings Saved.', 'lhbasicsp'),
+					{
+						type: 'snackbar',
+						isDismissible: true,
+						icon: <Icon icon="saved" />,
+						actions: [
+							{
+								label: __('Refresh', 'lhbasicsp'),
+								onClick: () => {
+									window.location.reload();
+								},
 							},
-						},
-					],
-				}
-			);
-		});
+						],
+					}
+				);
+			},
+			(e) => {
+				console.error(e); // eslint-disable-line no-console
+				setIsSaving(false);
+				dispatch('core/notices').createNotice(
+					'error',
+					e.message ?? __('Error saving settings.', 'lhbasicsp'),
+					{
+						type: 'snackbar',
+						isDismissible: true,
+						icon: <Icon icon="warning" />,
+					}
+				);
+			}
+		);
 	};
 
 	return (
