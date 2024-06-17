@@ -6,10 +6,10 @@
  *
  * Plugin Name: L//H Basics Test
  * Plugin URI: https://www.luehrsen-heinrich.de
- * Description: A plugin that provides basic functionality for our WordPress projects.
+ * Description: This plugin is a test plugin for the L//H Basics plugin.
  * Author: Luehrsen // Heinrich
  * Author URI: https://www.luehrsen-heinrich.de
- * Version: 0.2.0
+ * Version: 0.0.0.0.0.1
  * Text Domain: lhbasicsp
  * Domain Path: /languages
  */
@@ -40,12 +40,3 @@ require plugin_dir_path( LHBASICSTESTP_FILE ) . 'inc/functions.php';
 
 // Initialize the plugin.
 call_user_func( 'WpMunich\basicsTest\plugin\plugin' );
-
-// Initialize the plugin update checker.
-if ( class_exists( 'Puc_v4_Factory' ) ) {
-	Puc_v4_Factory::buildUpdateChecker(
-		'https://www.luehrsen-heinrich.de/updates/?action=get_metadata&slug=' . plugin()->get_plugin_slug(),
-		__FILE__, // Full path to the main plugin file or functions.php.
-		plugin()->get_plugin_slug()
-	);
-}

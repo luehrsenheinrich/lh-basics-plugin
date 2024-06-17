@@ -6,8 +6,8 @@
  */
 
 namespace WpMunich\basicsTest\plugin\i18n;
-use WpMunich\basics\plugin\Plugin_Component;
-use function WpMunich\basics\plugin\plugin;
+use WpMunich\basicsTest\plugin\Plugin_Component;
+use function WpMunich\basicsTest\plugin\plugin;
 use function add_action;
 use function load_plugin_textdomain;
 

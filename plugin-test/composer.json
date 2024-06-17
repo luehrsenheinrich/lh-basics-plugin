@@ -4,8 +4,7 @@
   "optimize-autoloader": true,
   "require": {
     "cjstroud/classnames-php": "^1.0",
-    "php-di/php-di": "^6.3",
-    "yahnis-elsts/plugin-update-checker": "^4.11"
+    "php-di/php-di": "^6.3"
   },
   "autoload": {
     "psr-4": {

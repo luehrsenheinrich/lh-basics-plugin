@@ -6,6 +6,7 @@
  */
 
 namespace WpMunich\basicsTest\plugin;
+
 use function get_plugin_data;
 use function plugin_dir_url;
 
@@ -18,10 +19,14 @@ class Plugin {
 	/**
 	 * Constructor.
 	 *
-	 * @param i18n\I18N $i18n The i18n component.
+	 * @param i18n\I18N             $i18n The i18n component.
+	 * @param Scripts\Scripts       $scripts The scripts component.
+	 * @param TestModule\TestModule $test_module The test module component.
 	 */
 	public function __construct(
-		private i18n\I18N $i18n
+		private i18n\I18N $i18n,
+		private Scripts\Scripts $scripts,
+		private TestModule\TestModule $test_module
 	) {
 	}
 
