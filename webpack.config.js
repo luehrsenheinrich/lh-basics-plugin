@@ -14,67 +14,57 @@ const DependencyExtractionWebpackPlugin = require('@wordpress/dependency-extract
  *
  * @type {string[]}
  */
-const PluginFrontendJs = globSync('./plugin/src/js/*.js').reduce(function (
-	obj,
-	el
-) {
-	obj['js/' + path.parse(el).name + '.min'] = el;
-	obj['js/' + path.parse(el).name] = el;
-	return obj;
-},
-{});
+const PluginFrontendJs = (targetPath) =>
+	globSync(targetPath).reduce(function (obj, el) {
+		obj['js/' + path.parse(el).name + '.min'] = el;
+		obj['js/' + path.parse(el).name] = el;
+		return obj;
+	}, {});
 
 /**
  * Plugin frontend CSS files
  *
  * @type {string[]}
  */
-const PluginFrontendCSS = globSync('./plugin/src/css/*.css').reduce(function (
-	obj,
-	el
-) {
-	obj['css/' + path.parse(el).name + '.min'] = el;
-	return obj;
-},
-{});
+const PluginFrontendCSS = (targetPath) =>
+	globSync(targetPath).reduce(function (obj, el) {
+		obj['css/' + path.parse(el).name + '.min'] = el;
+		return obj;
+	}, {});
 
 /**
  * Plugin backend JavaScript files
  *
  * @type {string[]}
  */
-const PluginBackendJs = globSync('./plugin/admin/src/js/*.js').reduce(function (
-	obj,
-	el
-) {
-	obj['js/' + path.parse(el).name + '.min'] = el;
-	obj['js/' + path.parse(el).name] = el;
-	return obj;
-},
-{});
+const PluginBackendJs = (targetPath) =>
+	globSync(targetPath).reduce(function (obj, el) {
+		obj['js/' + path.parse(el).name + '.min'] = el;
+		obj['js/' + path.parse(el).name] = el;
+		return obj;
+	}, {});
 
 /**
  * Plugin backend CSS files
  *
  * @type {string[]}
  */
-const PluginBackendCSS = globSync('./plugin/admin/src/css/*.css').reduce(
-	function (obj, el) {
+const PluginBackendCSS = (targetPath) =>
+	globSync(targetPath).reduce(function (obj, el) {
 		obj['css/' + path.parse(el).name + '.min'] = el;
 		return obj;
-	},
-	{}
-);
+	}, {});
 
 /**
  * Plugin PHP files
  *
  * @type {string[]}
  */
-const PluginPhp = globSync('./plugin/**/*.php').reduce(function (obj, el) {
-	obj['php/' + path.parse(el).name] = el;
-	return obj;
-}, {});
+const PluginPhp = (targetPath) =>
+	globSync(targetPath).reduce(function (obj, el) {
+		obj['php/' + path.parse(el).name] = el;
+		return obj;
+	}, {});
 
 /**
  * The default JS loader.
@@ -186,7 +176,7 @@ const defaultConfig = {
 };
 
 /**
- * The webpack config to bundle CSS and JS for the Theme frontend.
+ * The webpack config to bundle CSS and JS for the Plugin frontend.
  *
  * @type {Object}
  */
@@ -194,9 +184,9 @@ const pluginFrontendWebpackOptions = {
 	...defaultConfig,
 	name: 'pluginFrontend',
 	entry: {
-		...PluginFrontendJs,
-		...PluginFrontendCSS,
-		...PluginPhp,
+		...PluginFrontendJs('./plugin/src/js/*.js'),
+		...PluginFrontendCSS('./plugin/src/css/*.css'),
+		...PluginPhp('./plugin/**/*.php'),
 	},
 	output: {
 		...defaultConfig.output,
@@ -216,8 +206,8 @@ const pluginBackendWebpackOptions = {
 	...defaultConfig,
 	name: 'pluginBackend',
 	entry: {
-		...PluginBackendJs,
-		...PluginBackendCSS,
+		...PluginBackendJs('./plugin/admin/src/js/*.js'),
+		...PluginBackendCSS('./plugin/admin/src/css/*.css'),
 	},
 	output: {
 		...defaultConfig.output,
@@ -235,4 +225,59 @@ const pluginBackendWebpackOptions = {
 	],
 };
 
-module.exports = [pluginFrontendWebpackOptions, pluginBackendWebpackOptions];
+/**
+ * The webpack config to bundle CSS and JS for the TEST Plugin frontend.
+ *
+ * @type {Object}
+ */
+const testPluginFrontendWebpackOptions = {
+	...defaultConfig,
+	name: 'pluginFrontend',
+	entry: {
+		...PluginFrontendJs('./plugin-test/src/js/*.js'),
+		...PluginFrontendCSS('./plugin-test/src/css/*.css'),
+		...PluginPhp('./plugin-test/**/*.php'),
+	},
+	output: {
+		...defaultConfig.output,
+		path: path.resolve(__dirname, 'plugin-test/dist'),
+	},
+	module: {
+		rules: [...defaultConfig.module.rules, defaultJsLoader],
+	},
+};
+
+/**
+ * The webpack config to bundle CSS and JS for the TEST Plugin backend.
+ *
+ * @type {Object}
+ */
+const testPluginBackendWebpackOptions = {
+	...defaultConfig,
+	name: 'pluginBackend',
+	entry: {
+		...PluginBackendJs('./plugin-test/admin/src/js/*.js'),
+		...PluginBackendCSS('./plugin-test/admin/src/css/*.css'),
+	},
+	output: {
+		...defaultConfig.output,
+		path: path.resolve(__dirname, 'plugin-test/admin/dist'),
+	},
+	module: {
+		rules: [...defaultConfig.module.rules, wordpressJsLoader],
+	},
+	plugins: [
+		...defaultConfig.plugins,
+		new DependencyExtractionWebpackPlugin({
+			outputFormat: 'json',
+			combineAssets: true,
+		}),
+	],
+};
+
+module.exports = [
+	pluginFrontendWebpackOptions,
+	pluginBackendWebpackOptions,
+	testPluginFrontendWebpackOptions,
+	testPluginBackendWebpackOptions,
+];

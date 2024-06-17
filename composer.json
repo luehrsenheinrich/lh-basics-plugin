@@ -1,5 +1,5 @@
 {
-	"name": "luehrsenheinrich/wp-project-boilerplate",
+	"name": "luehrsenheinrich/basics",
 	"type": "wordpress-plugin",
 	"license": "GPL-2.0-or-later",
 	"optimize-autoloader": true,
@@ -19,10 +19,12 @@
 		"lint": "phpcs -d memory_limit=-1",
 		"fix": "phpcbf -d memory_limit=-1",
 		"post-install-cmd": [
-			"cd plugin && composer install"
+			"cd plugin && composer install",
+			"cd plugin-test && composer install"
 		],
 		"post-update-cmd": [
-			"cd plugin && composer update"
+			"cd plugin && composer update",
+			"cd plugin-test && composer update"
 		],
     "i18n-make-pot": [
       "wp i18n make-pot ./plugin ./plugin/languages/lhbasicsp.pot --exclude=vendor,node_modules,src,blocks/**/*.js"
