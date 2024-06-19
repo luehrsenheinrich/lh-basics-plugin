@@ -40,7 +40,7 @@ class Scripts extends Plugin_Component {
 		wp_enqueue_script(
 			'lhbasicsp-test',
 			plugin()->get_plugin_url() . '/admin/dist/js/script.min.js',
-			$scipt_assets['dependencies'],
+			array_merge( $scipt_assets['dependencies'], array( 'lhbasics' ) ),
 			$scipt_assets['version'],
 			true
 		);
