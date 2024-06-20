@@ -47,7 +47,7 @@
     "@dnd-kit/utilities": "^3.2.2",
     "@svgr/webpack": "^8.1.0",
     "@wordpress/babel-plugin-import-jsx-pragma": "^4.25.0",
-    "@wordpress/babel-preset-default": "^7.20.0",
+    "@wordpress/babel-preset-default": "^8.1.0",
     "@wordpress/dependency-extraction-webpack-plugin": "^6.1.0",
     "@wordpress/env": "^10.1.0",
     "@wordpress/eslint-plugin": "^18.1.0",
