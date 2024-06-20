@@ -7,6 +7,10 @@
 /plugin/dist
 /plugin/admin/dist
 /plugin/vendor
+/plugin-test/dist
+/plugin-test/admin/dist
+/plugin-test/vendor
+
 
 # phpunit
 .phpunit.result.cache

@@ -1,6 +1,7 @@
 {
 	"plugins": [
-		"./plugin"
+		"./plugin",
+    "./plugin-test"
 	],
 	"phpVersion": "8.1",
 	"mappings": {
