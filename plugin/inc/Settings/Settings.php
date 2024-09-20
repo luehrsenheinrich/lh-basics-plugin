@@ -1,8 +1,8 @@
 <?php
 /**
- * LHAGENTURP\Settings\Settings class
+ * Settings Class
  *
- * @package lhagenturp
+ * @package lhbasicsp
  */
 
 namespace WpMunich\basics\plugin\Settings;
@@ -36,8 +36,8 @@ class Settings extends Plugin_Component {
 	 */
 	public function add_options_pages() {
 		add_options_page(
-			__( 'Luehrsen // Heinrich Settings', 'lhagenturp' ),
-			__( 'Luehrsen // Heinrich', 'lhagenturp' ),
+			__( 'Luehrsen // Heinrich Settings', 'lhbasicsp' ),
+			__( 'Luehrsen // Heinrich', 'lhbasicsp' ),
 			'manage_options',
 			'lhagentur-settings',
 			array( $this, 'render_options_page' )

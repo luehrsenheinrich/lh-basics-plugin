@@ -54,8 +54,8 @@ class Disable_Comments extends Plugin_Component {
 	 */
 	public function add_module( $modules ) {
 		$modules[] = array(
-			'title'       => __( 'Disable Comments', 'lhagenturp' ),
-			'description' => __( 'This module disables comments globally.', 'lhagenturp' ),
+			'title'       => __( 'Disable Comments', 'lhbasicsp' ),
+			'description' => __( 'This module disables comments globally.', 'lhbasicsp' ),
 			'slug'        => 'disable_comments',
 		);
 

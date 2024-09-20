@@ -41,8 +41,8 @@ class Gravity_Forms extends Plugin_Component {
 	 */
 	public function add_module( $modules ) {
 		$modules[] = array(
-			'title'       => __( 'Gravity Forms', 'lhagenturp' ),
-			'description' => __( 'This module changes aspects of Gravity Forms.', 'lhagenturp' ),
+			'title'       => __( 'Gravity Forms', 'lhbasicsp' ),
+			'description' => __( 'This module changes aspects of Gravity Forms.', 'lhbasicsp' ),
 			'slug'        => 'gravity_forms',
 		);
 

@@ -47,8 +47,8 @@ class Lightbox extends Plugin_Component {
 	 */
 	public function add_module( $modules ) {
 		$modules[] = array(
-			'title'       => __( 'Lightbox', 'lhagenturp' ),
-			'description' => __( 'This module enables a lightbox for images.', 'lhagenturp' ),
+			'title'       => __( 'Lightbox', 'lhbasicsp' ),
+			'description' => __( 'This module enables a lightbox for images.', 'lhbasicsp' ),
 			'slug'        => 'lightbox',
 		);
 
