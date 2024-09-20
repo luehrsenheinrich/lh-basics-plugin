@@ -21,6 +21,9 @@ class Admin_UX extends Plugin_Component {
 		add_action( 'enqueue_block_editor_assets', array( $this, 'disable_block_editor_full_screen_mode' ) );
 		add_action( 'do_meta_boxes', array( $this, 'remove_dashboard_widgets' ) );
 		add_action( 'login_errors', array( $this, 'use_ambiguous_login_error' ) );
+
+		// Disable XML-RPC.
+		add_filter( 'xmlrpc_enabled', '__return_false' );
 	}
 
 	/**

@@ -26,6 +26,7 @@ class Plugin {
 	 * @param Lightbox\Lightbox                 $lightbox The lightbox component.
 	 * @param Settings\Settings                 $settings The settings component.
 	 * @param Admin_UX\Admin_UX                 $admin_ux The admin UX component.
+	 * @param Performance\Performance           $performance The performance component.
 	 */
 	public function __construct(
 		private i18n\I18N $i18n,
@@ -34,7 +35,8 @@ class Plugin {
 		private Lazysizes\Lazysizes $lazysizes,
 		private Lightbox\Lightbox $lightbox,
 		private Settings\Settings $settings,
-		private Admin_UX\Admin_UX $admin_ux
+		private Admin_UX\Admin_UX $admin_ux,
+		private Performance\Performance $performance
 	) {
 	}
 
