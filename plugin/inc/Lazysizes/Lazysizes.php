@@ -52,8 +52,8 @@ class Lazysizes extends Plugin_Component {
 	 */
 	public function add_module( $modules ) {
 		$modules[] = array(
-			'title'       => __( 'Lazysizes', 'lhagenturp' ),
-			'description' => __( 'This module enables lazy loading of images.', 'lhagenturp' ),
+			'title'       => __( 'Lazysizes', 'lhbasicsp' ),
+			'description' => __( 'This module enables lazy loading of images.', 'lhbasicsp' ),
 			'slug'        => 'lazysizes',
 		);
 

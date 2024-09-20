@@ -47,14 +47,14 @@ const ModulesPanel = (props) => {
 
 	return (
 		<SettingsPanel
-			title={__('Modules', 'lhagenturp')}
+			title={__('Modules', 'lhbasicsp')}
 			icon="admin-settings"
 		>
 			<div className="help-text full-width">
 				<p>
 					{__(
 						'Choose which modules you would like to enable on your site.',
-						'lhagenturp'
+						'lhbasicsp'
 					)}
 				</p>
 			</div>
