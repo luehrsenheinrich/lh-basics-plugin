@@ -27,6 +27,7 @@ class Plugin {
 	 * @param Settings\Settings                 $settings The settings component.
 	 * @param Admin_UX\Admin_UX                 $admin_ux The admin UX component.
 	 * @param Performance\Performance           $performance The performance component.
+	 * @param SVG\SVG                           $svg The svg component.
 	 */
 	public function __construct(
 		private i18n\I18N $i18n,
@@ -37,6 +38,7 @@ class Plugin {
 		private Settings\Settings $settings,
 		private Admin_UX\Admin_UX $admin_ux,
 		private Performance\Performance $performance
+		private SVG\SVG $svg,
 	) {
 	}
 
@@ -102,5 +104,12 @@ class Plugin {
 	 */
 	public function container() {
 		return plugin_container();
+	}
+
+	/**
+	 * Get the SVG component.
+	 */
+	public function svg() {
+		return $this->svg;
 	}
 }
