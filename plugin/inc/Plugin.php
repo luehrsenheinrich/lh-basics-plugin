@@ -6,6 +6,7 @@
  */
 
 namespace WpMunich\basics\plugin;
+
 use function get_plugin_data;
 use function plugin_dir_url;
 
@@ -24,6 +25,8 @@ class Plugin {
 	 * @param Lazysizes\Lazysizes               $lazysizes The lazysizes component.
 	 * @param Lightbox\Lightbox                 $lightbox The lightbox component.
 	 * @param Settings\Settings                 $settings The settings component.
+	 * @param Admin_UX\Admin_UX                 $admin_ux The admin UX component.
+	 * @param Performance\Performance           $performance The performance component.
 	 * @param SVG\SVG                           $svg The svg component.
 	 */
 	public function __construct(
@@ -33,7 +36,9 @@ class Plugin {
 		private Lazysizes\Lazysizes $lazysizes,
 		private Lightbox\Lightbox $lightbox,
 		private Settings\Settings $settings,
-		private SVG\SVG $svg,
+		private Admin_UX\Admin_UX $admin_ux,
+		private Performance\Performance $performance,
+		private SVG\SVG $svg
 	) {
 	}
 
