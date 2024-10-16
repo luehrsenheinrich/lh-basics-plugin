@@ -37,8 +37,8 @@ class Plugin {
 		private Lightbox\Lightbox $lightbox,
 		private Settings\Settings $settings,
 		private Admin_UX\Admin_UX $admin_ux,
-		private Performance\Performance $performance
-		private SVG\SVG $svg,
+		private Performance\Performance $performance,
+		private SVG\SVG $svg
 	) {
 	}
 
