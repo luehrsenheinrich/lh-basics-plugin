@@ -26,6 +26,19 @@ class SVG extends Plugin_Component {
 	private $icon_library;
 
 	/**
+	 * REST controller.
+	 */
+	private $rest_controller;
+
+	/**
+	 * Constructor.
+	 */
+	public function __construct() {
+		parent::__construct();
+		$this->rest_controller = new REST();
+	}
+
+	/**
 	 * {@inheritDoc}
 	 */
 	protected function add_actions() {}

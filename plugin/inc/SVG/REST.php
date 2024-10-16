@@ -8,7 +8,7 @@
  * @package lhbasicsp
  */
 
-namespace WpMunich\basics\plugin\REST;
+namespace WpMunich\basics\plugin\SVG;
 
 use WP_REST_Server;
 
@@ -33,6 +33,14 @@ class REST {
 	 * @var string
 	 */
 	private $rest_namespace = 'lhbasics/v1'; // Could be outsourced to a "blank" REST component or similar.
+
+	/**
+	 * Constructor.
+	 */
+	public function __construct() {
+		$this->add_actions();
+		$this->add_filters();
+	}
 
 	/**
 	 * {@inheritDoc}
