@@ -149,8 +149,6 @@ class Icon implements \JsonSerializable {
 	/**
 	 * Serializes the object to a value that can be serialized natively by wp_|json_encode().
 	 *
-	 * @param array $fields The fields to return.
-	 *
 	 * @return mixed The serialized object.
 	 */
 	#[\ReturnTypeWillChange]

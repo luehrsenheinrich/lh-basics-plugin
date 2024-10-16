@@ -27,6 +27,8 @@ class SVG extends Plugin_Component {
 
 	/**
 	 * REST controller.
+	 *
+	 * @var REST
 	 */
 	private $rest_controller;
 
