@@ -24,6 +24,7 @@ class Plugin {
 	 * @param Lazysizes\Lazysizes               $lazysizes The lazysizes component.
 	 * @param Lightbox\Lightbox                 $lightbox The lightbox component.
 	 * @param Settings\Settings                 $settings The settings component.
+	 * @param SVG\SVG                           $svg The svg component.
 	 */
 	public function __construct(
 		private i18n\I18N $i18n,
@@ -32,6 +33,7 @@ class Plugin {
 		private Lazysizes\Lazysizes $lazysizes,
 		private Lightbox\Lightbox $lightbox,
 		private Settings\Settings $settings,
+		private SVG\SVG $svg,
 	) {
 	}
 
@@ -97,5 +99,12 @@ class Plugin {
 	 */
 	public function container() {
 		return plugin_container();
+	}
+
+	/**
+	 * Get the SVG component.
+	 */
+	public function svg() {
+		return $this->svg;
 	}
 }
