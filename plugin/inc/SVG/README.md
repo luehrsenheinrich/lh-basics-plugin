@@ -9,6 +9,55 @@ current plugin. The component first looks into the theme folder to find the file
 and then in the plugin folder.
 
 
+## Filters
+
+### `lhagentur_svg_icon_library_icons`
+Filters the array of `<Icon>`s passed to the `<Icon_Library>`.
+
+#### Parameters
+* `(array) $icons` - An array of `<Icon>`s.
+
+#### Returns
+* `(array) $icons` - The updated / created array of `<Icon>`s
+
+#### Example
+```PHP
+use WpMunich\basics\plugin\SVG\Icon;
+
+# ...
+add_filter( 'lhagentur_svg_icons_library_icons', 'my_svg_icons_library_icons' );
+
+# ...
+function my_svg_icons_library_icons( array $icons ): array {
+	// If there's some case in which no icons should be registered.
+	if (some_other_condition) {
+		return $icons;
+	}
+
+	$img_path = 'my/img/path/';
+	$my_icons = array(
+		new Icon(
+			$icon_path . 'icons/my-icon.svg',
+			'my-icon--slug',
+			__( 'My Icon Label', 'textdomain' )
+		),
+		# ...
+	);
+
+	// If you want to add icons.
+	if ( some_condition ) {
+		return array_merge(
+			$icons,
+			$my_icons
+		);
+	}
+
+	// If you want to override icons.
+	return $my_icons;
+}
+```
+
+
 ## Functions
 
 ### get_svg( (sting) $path, (array) $arguments )
