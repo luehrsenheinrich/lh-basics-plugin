@@ -70,7 +70,7 @@
     "normalise": "^10.0.0",
     "normalize.css": "^8.0.1",
     "null-loader": "^4.0.1",
-    "postcss": "^8.4.24",
+    "postcss": "^8.5.1",
     "postcss-import": "^16.1.0",
     "postcss-loader": "^8.1.1",
     "postcss-preset-env": "^10.0.7",
