@@ -272,6 +272,13 @@ class Lazysizes extends Plugin_Component {
 		}
 
 		/**
+		 * Re-add attributes from the original image to the new image.
+		 */
+		foreach ( $block_image->attributes as $attribute ) {
+			$new_image_html = str_replace( '<img', '<img ' . $attribute->name . '="' . $attribute->value . '"', $new_image_html );
+		}
+
+		/**
 		 * Load the new image tag into the DOMDocument.
 		 */
 		$img_doc->loadHTML( '<?xml encoding="utf-8" ?>' . $new_image_html );
