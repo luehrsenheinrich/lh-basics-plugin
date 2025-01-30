@@ -262,7 +262,11 @@ class Lazysizes extends Plugin_Component {
 		/**
 		 * Create a new image element.
 		 */
-		$new_image_html = wp_get_attachment_image( $block['attrs']['id'] ?? null, $block['attrs']['sizeSlug'] ?? 'full' );
+		$old_image_attrs = array();
+		foreach ( $block_image->attributes as $attribute ) {
+			$old_image_attrs[ $attribute->name ] = $attribute->value;
+		}
+		$new_image_html = wp_get_attachment_image( $block['attrs']['id'] ?? null, $block['attrs']['sizeSlug'] ?? 'full', false, $old_image_attrs );
 
 		/**
 		 * If there is no image, we cannot do anything.
