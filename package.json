@@ -2,7 +2,7 @@
   "name": "lh-basics-plugin-project",
   "title": "LH Basics Plugin Project",
   "slug": "lhbasics",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "A WordPress plugin project by Luehrsen // Heinrich ",
   "scripts": {
     "build": "webpack",
