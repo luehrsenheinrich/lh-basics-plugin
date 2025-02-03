@@ -64,7 +64,8 @@ class Settings extends Plugin_Component {
 		$screen = get_current_screen();
 		$assets = wp_json_file_decode( plugin()->get_plugin_path() . '/admin/dist/assets.json', array( 'associative' => true ) );
 
-		wp_register_script( 'lhbasics', plugin()->get_plugin_url() . '/admin/dist/js/lhbasics.min.js', array(), plugin()->get_plugin_version(), true );
+		$lhbasics_assets = $assets['js/lhbasics.min.js'] ?? array();
+		wp_register_script( 'lhbasics', plugin()->get_plugin_url() . '/admin/dist/js/lhbasics.min.js', $lhbasics_assets['dependencies'], $lhbasics_assets['version'], true );
 
 		if ( in_array( $screen->id, array( 'settings_page_lhagentur-settings' ), true ) ) {
 			$admin_script_assets = $assets['js/admin-settings-page.min.js'] ?? array();

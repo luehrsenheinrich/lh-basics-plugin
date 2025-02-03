@@ -70,7 +70,7 @@ class Blocks extends Plugin_Component {
 			wp_enqueue_script(
 				'basicsTestp-blocks-helper',
 				plugin()->get_plugin_url() . 'admin/dist/js/blocks-helper.min.js',
-				array_merge( array(), $block_helper_assets['dependencies'] ),
+				array_merge( array( 'lhbasics-blocks-helper' ), $block_helper_assets['dependencies'] ),
 				$block_helper_assets['version'],
 				true
 			);
@@ -80,7 +80,7 @@ class Blocks extends Plugin_Component {
 		wp_enqueue_script(
 			'basicsTestp-blocks',
 			plugin()->get_plugin_url() . 'admin/dist/js/blocks.min.js',
-			array_merge( array(), $block_assets['dependencies'] ),
+			array_merge( array( 'lhbasics-blocks-helper' ), $block_assets['dependencies'] ),
 			$block_assets['version'],
 			true
 		);
