@@ -25,11 +25,19 @@ dispatch(coreStore).addEntities([
 
 /**
  * Returns all icons.
+ *
+ * @param {Object} params
  */
-export const useIcons = () => {
+export const useIcons = (params = {}) => {
+	// eslint-disable-next-line camelcase
+	const { search = '', page = 1, per_page = 20 } = params;
+
 	// Map records to icons, pass everything else.
 	const { records: icons, ...states } = useEntityRecords('root', 'icons', {
-		per_page: 100,
+		// eslint-disable-next-line camelcase
+		per_page,
+		page,
+		search,
 	});
 	return { icons, ...states };
 };
