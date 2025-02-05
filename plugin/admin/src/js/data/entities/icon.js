@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { dispatch } from '@wordpress/data';
 import {
 	store as coreStore,
@@ -24,32 +25,31 @@ dispatch(coreStore).addEntities([
 ]);
 
 /**
- * Returns all icons.
+ * Retrieves a list of icons with optional filtering and pagination.
  *
- * @param {Object} params
+ * @param {Object} [params={}]          - Query parameters for filtering icons.
+ * @param {string} [params.search='']   - A search term to filter icons by title.
+ * @param {number} [params.page=1]      - The page number for pagination.
+ * @param {number} [params.per_page=20] - The number of icons to retrieve per page.
+ * @return {Object} An object containing the icons (as `records`) and other state properties.
  */
 export const useIcons = (params = {}) => {
-	/* eslint-disable camelcase */
 	const { search = '', page = 1, per_page = 20 } = params;
-
-	// Map records to icons, pass everything else.
 	const { records: icons, ...states } = useEntityRecords('root', 'icons', {
-		per_page,
-		page,
 		search,
+		page,
+		per_page,
 	});
 	return { icons, ...states };
 };
 
 /**
- * Returns a single icon.
+ * Retrieves a single icon by its slug.
  *
- * @param {string} slug - Icon slug.
- *
- * @return {Object} - Icon object.
+ * @param {string} slug - The unique slug identifier for the icon.
+ * @return {Object} An object containing the icon (as `record`) and other state properties.
  */
 export const useIcon = (slug) => {
-	// Map record to icon, pass everything else.
 	const { record: icon, ...states } = useEntityRecord('single', 'icon', slug);
 	return { icon, ...states };
 };
