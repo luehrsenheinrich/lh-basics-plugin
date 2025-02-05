@@ -104,6 +104,23 @@ class REST {
 		// Register endpoint for retrieving a single icon by slug.
 		register_rest_route(
 			$this->rest_namespace,
+			'/icons/(?P<slug>[a-z0-9-]+)/',
+			array(
+				'methods'             => WP_REST_Server::READABLE,
+				'callback'            => array( $this, 'rest_get_icon' ),
+				'permission_callback' => '__return_true',
+				'args'                => array(
+					'slug' => array(
+						'required' => true,
+						'type'     => 'string',
+					),
+				),
+			)
+		);
+
+		// Keep the old route for compatibility reasons.
+		register_rest_route(
+			$this->rest_namespace,
 			'/icon/(?P<slug>[a-z0-9-]+)/',
 			array(
 				'methods'             => WP_REST_Server::READABLE,

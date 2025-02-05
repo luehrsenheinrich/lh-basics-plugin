@@ -1,80 +1,75 @@
-/**
- * WordPress dependencies.
- */
 import { useMemo } from '@wordpress/element';
 import { Icon as WPIcon } from '@wordpress/components';
 
-/**
- * External dependencies.
- */
 import classNames from 'classnames';
 import parse, { attributesToProps, domToReact } from 'html-react-parser';
 
-/**
- * Internal dependencies.
- */
 import { useIcon } from '../../data/entities/icon';
 
 /**
- * Returns a wp.components.Icon element with icon from API.
+ * LHIcon renders a wp.components.Icon element using an SVG either passed as a prop
+ * or retrieved via the API using the icon's slug.
  *
- * @param {Object} props           - Component props.
+ * @param {Object} props
  * @param {string} props.slug      - Icon slug.
- * @param {string} props.svg       - Icon SVG.
- * @param {string} props.className - Icon class name.
+ * @param {string} props.svg       - Icon SVG markup.
+ * @param {string} props.className - Additional CSS class names.
  *
- * @return {Object} - Icon component.
+ * @return {Object|null} Icon component or null if no icon data is available.
  */
-const LHIcon = (props) => {
-	const { slug, svg } = props;
+const LHIcon = ({ slug, svg, className, ...rest }) => {
 	const { icon } = useIcon(slug);
-
-	// Further processing of the icon data.
 	const markup = svg || icon?.svg;
+
+	// Memoize the parsed SVG markup to avoid unnecessary re-parsing.
 	const parsedSvg = useMemo(
 		() => (markup ? parse(markup, getParserOptions()) : null),
 		[markup]
 	);
 
 	if (icon && parsedSvg) {
-		const className = classNames(
-			props?.className || '',
-			`lh-icon icon-${icon?.slug || slug || 'svg'}`
+		const computedClassName = classNames(
+			className,
+			`lh-icon icon-${icon.slug || slug || 'svg'}`
 		);
+		const size = parseInt(icon?.width || icon?.height, 10) || null;
 
 		return (
 			<WPIcon
-				{...props}
+				{...rest}
 				icon={parsedSvg}
-				className={className}
-				size={parseInt(icon?.width || icon?.height) || null}
+				className={computedClassName}
+				size={size}
 			/>
 		);
 	}
 
-	return <></>;
+	return null;
 };
 
 export default LHIcon;
 
 /**
- * Returns the parser options for the html-react-parser library.
+ * Returns parser options for html-react-parser.
+ *
+ * The replace callback transforms <svg> elements by converting their attributes
+ * to React props and preserving their children.
+ *
+ * @return {Object} Parser options.
  */
-const getParserOptions = () => {
-	return {
-		replace: (domNode) => {
-			if (domNode.name === 'svg') {
-				// Define the custom tag name.
-				const CustomTag = domNode.name;
-				const props = attributesToProps(domNode.attribs);
+const getParserOptions = () => ({
+	replace: (domNode) => {
+		if (domNode.name === 'svg') {
+			const CustomTag = domNode.name;
+			const props = attributesToProps(domNode.attribs);
 
-				return (
-					<CustomTag {...props} key={domNode.attribs.id}>
-						{domToReact(domNode.children)}
-					</CustomTag>
-				);
-			}
-			return domNode;
-		},
-	};
-};
+			return (
+				<CustomTag {...props} key={domNode.attribs.id}>
+					{domToReact(domNode.children)}
+				</CustomTag>
+			);
+		}
+
+		return domNode;
+	},
+});

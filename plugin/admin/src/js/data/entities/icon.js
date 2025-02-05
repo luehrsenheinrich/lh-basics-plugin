@@ -9,15 +9,8 @@ import {
 // Register icons as entities.
 dispatch(coreStore).addEntities([
 	{
-		label: 'Icon',
-		name: 'icon',
-		kind: 'single',
-		baseURL: '/lhbasics/v1/icon',
-		key: 'slug',
-	},
-	{
 		label: 'Icons',
-		name: 'icons',
+		name: 'icon',
 		kind: 'root',
 		baseURL: '/lhbasics/v1/icons',
 		key: 'slug',
@@ -35,7 +28,7 @@ dispatch(coreStore).addEntities([
  */
 export const useIcons = (params = {}) => {
 	const { search = '', page = 1, per_page = 20 } = params;
-	const { records: icons, ...states } = useEntityRecords('root', 'icons', {
+	const { records: icons, ...states } = useEntityRecords('root', 'icon', {
 		search,
 		page,
 		per_page,
@@ -50,6 +43,6 @@ export const useIcons = (params = {}) => {
  * @return {Object} An object containing the icon (as `record`) and other state properties.
  */
 export const useIcon = (slug) => {
-	const { record: icon, ...states } = useEntityRecord('single', 'icon', slug);
+	const { record: icon, ...states } = useEntityRecord('root', 'icon', slug);
 	return { icon, ...states };
 };
