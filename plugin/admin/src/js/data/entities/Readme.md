@@ -1,21 +1,12 @@
 # Icon Data Module
 
-This module registers two icon-related entities with the WordPress Core Data store and provides custom hooks to fetch icon data. It allows you to retrieve a list of icons with filtering and pagination or a single icon by its slug.
+This module registers an icon entity with the WordPress Core Data store and provides custom hooks to fetch icon data. It allows you to retrieve a list of icons with filtering and pagination or a single icon by its slug.
 
-## Entities
-
-Two entities are registered:
-
-- **Icon**
-  - **Label:** "Icon"
-  - **Name:** `icon`
-  - **Kind:** `single`
-  - **Base URL:** `/lhbasics/v1/icon`
-  - **Key:** `slug`
+## Entity
 
 - **Icons**
   - **Label:** "Icons"
-  - **Name:** `icons`
+  - **Name:** `icon`
   - **Kind:** `root`
   - **Base URL:** `/lhbasics/v1/icons`
   - **Key:** `slug`
@@ -56,7 +47,7 @@ An object containing:
 ## Example Usage
 
 ```jsx
-import { useIcons, useIcon } from '/';
+import { useIcons, useIcon } from 'path/to/icon-data-module';
 
 const IconGallery = () => {
   // Retrieve a paginated list of icons with an optional search term.
@@ -95,4 +86,4 @@ const IconGallery = () => {
 export default IconGallery;
 ```
 
-This module leverages the WordPress Core Data store to register and manage icon entities. Use the provided hooks to seamlessly integrate icon selection and display functionality into your Gutenberg or custom WordPress components.
+This module leverages the WordPress Core Data store to register and manage the icon entity. Use the provided hooks to seamlessly integrate icon selection and display functionality into your Gutenberg or custom WordPress components.
