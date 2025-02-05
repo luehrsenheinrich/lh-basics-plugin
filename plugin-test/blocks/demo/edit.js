@@ -5,9 +5,11 @@ import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
 import { PanelBody } from '@wordpress/components';
 const { IconSelectControl } = window.lhbasics.components;
-import { useState } from '@wordpress/element';
-const Edit = () => {
-	const [selectedIcon, setSelectedIcon] = useState();
+
+const Edit = (props) => {
+	const { attributes, setAttributes } = props;
+
+	const { icon } = attributes;
 
 	return (
 		<>
@@ -16,8 +18,8 @@ const Edit = () => {
 					<p>{__('This is a demo block.', 'lhpbpp')}</p>
 					<IconSelectControl
 						label={__('Select an icon', 'lhpbpp')}
-						value={selectedIcon}
-						onChange={setSelectedIcon}
+						value={icon}
+						onChange={(value) => setAttributes({ icon: value })}
 					/>
 				</PanelBody>
 			</InspectorControls>

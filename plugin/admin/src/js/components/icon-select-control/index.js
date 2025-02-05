@@ -2,18 +2,14 @@
  * WordPress dependencies.
  */
 import { useEffect, useState } from '@wordpress/element';
-import {
-	BaseControl,
-	Spinner,
-	useBaseControlProps,
-} from '@wordpress/components';
+import { BaseControl, useBaseControlProps } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 
 /**
  * External dependencies.
  */
 import Select from 'react-select';
-import { useIcons } from '../../data/entities/icon';
+import { useIcons, useIcon } from '../../data/entities/icon';
 
 /**
  * Internal dependencies.
@@ -25,79 +21,94 @@ const IconSelectControl = ({
 	help = '',
 	value,
 	onChange,
-	blackList,
-	whiteList,
+	blackList = [],
+	whiteList = [],
 }) => {
-	const [selectedOption, setSelectedOption] = useState();
+	const [selectedOption, setSelectedOption] = useState(null);
+	const [searchTerm, setSearchTerm] = useState('');
 	const { baseControlProps, controlProps } = useBaseControlProps({
 		label,
 		help,
 	});
-	const { icons, ...fetchIcons } = useIcons();
+	const { icons, hasResolved } = useIcons({
+		search: searchTerm,
+		must_include: value,
+	});
 
+	// Load the icon for the current value, it might not have been in the initial list of icons.
+	const { icon: valueIcon, hasResolved: valueIconHasResolved } =
+		useIcon(value);
+
+	// If the valueIcon has resolved and selectedOption is not set, set it.
 	useEffect(() => {
-		if (icons?.length && selectedOption?.value !== value) {
-			const icon = icons.find((i) => i?.slug === value) || {};
-			// Prepare the Select value.
+		if (valueIconHasResolved && valueIcon && !selectedOption) {
 			setSelectedOption({
-				icon: { ...icon },
-				value: icon.slug,
-				label: icon.title,
+				icon: valueIcon,
+				value: valueIcon.slug,
+				label: valueIcon.title,
 			});
 		}
-	}, [icons, value, selectedOption]);
+	}, [valueIcon, valueIconHasResolved, selectedOption]);
 
-	const onSelectIcon = (option) => {
-		onChange(option?.value);
-		if (!option?.value) {
+	useEffect(() => {
+		if (icons?.length && value) {
+			const icon = icons.find((i) => i.slug === value) || null;
+			if (icon && selectedOption?.value !== icon.slug) {
+				setSelectedOption({
+					icon,
+					value: icon.slug,
+					label: icon.title,
+				});
+			}
+		} else if (!value && selectedOption) {
 			setSelectedOption(null);
 		}
+	}, [icons, value, selectedOption]); // include selectedOption here
+
+	const onSelectIcon = (option) => {
+		onChange(option?.value || null);
+		setSelectedOption(option || null);
 	};
 
-	let options = icons?.slice() || []; // Create a copy of the icons array
+	const onInputChange = (inputValue) => {
+		setSearchTerm(inputValue);
+	};
 
-	// Filter options over black- or whitelist, prefering white over blacklist.
-	if (whiteList?.length) {
-		options = options.filter(
-			(option) => whiteList.indexOf(option.slug) > -1
-		);
-	} else if (blackList?.length) {
-		options = options.filter(
-			(option) => blackList.indexOf(option.slug) < 0
-		);
+	let options = icons ? [...icons] : [];
+
+	if (whiteList.length) {
+		options = options.filter((option) => whiteList.includes(option.slug));
+	} else if (blackList.length) {
+		options = options.filter((option) => !blackList.includes(option.slug));
 	}
 
 	return (
 		<BaseControl {...baseControlProps}>
-			{!fetchIcons?.hasResolved && <Spinner />}
-			{fetchIcons?.hasResolved && (
-				<Select
-					{...controlProps}
-					openMenuOnClick={true}
-					openMenuOnFocus={true}
-					classNamePrefix="react-select"
-					className="lh-icon-select-control react-select"
-					value={selectedOption}
-					onChange={onSelectIcon}
-					isSearchable={true}
-					isDisabled={!icons.length}
-					isClearable={true}
-					options={options.map((icon) => ({
-						icon: { ...icon },
-						value: icon.slug,
-						label: icon.title,
-					}))}
-					getOptionLabel={(option) => (
-						<div className="lh-icon-select-option-label">
-							<LHIcon
-								slug={option.icon.slug}
-								svg={option.icon.svg}
-							/>
-							<span>{option.label}</span>
-						</div>
-					)}
-				/>
-			)}
+			<Select
+				{...controlProps}
+				openMenuOnClick
+				openMenuOnFocus
+				classNamePrefix="react-select"
+				className="lh-icon-select-control react-select"
+				value={selectedOption}
+				onChange={onSelectIcon}
+				onInputChange={onInputChange}
+				isSearchable
+				inputValue={searchTerm}
+				isClearable
+				isLoading={!hasResolved}
+				options={options.map((icon) => ({
+					icon,
+					value: icon.slug,
+					label: icon.title,
+				}))}
+				getOptionLabel={(option) => (
+					<div className="lh-icon-select-option-label">
+						<LHIcon slug={option.icon.slug} svg={option.icon.svg} />
+						<span>{option.label}</span>
+					</div>
+				)}
+			/>
 		</BaseControl>
 	);
 };
