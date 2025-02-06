@@ -51,7 +51,7 @@
     "@wordpress/dependency-extraction-webpack-plugin": "^6.17.0",
     "@wordpress/env": "^10.17.0",
     "@wordpress/eslint-plugin": "^21.3.0",
-    "@wordpress/stylelint-config": "^23.2.0",
+    "@wordpress/stylelint-config": "^23.9.0",
     "archiver": "^7.0.1",
     "babel": "^6.23.0",
     "babel-loader": "^9.2.1",
