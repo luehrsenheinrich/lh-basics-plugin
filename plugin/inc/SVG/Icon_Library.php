@@ -46,7 +46,7 @@ class Icon_Library {
 	/**
 	 * Get all registered icons.
 	 *
-	 * @return array Array of icons.
+	 * @return Icon[] Array of icons.
 	 */
 	public function get_icons() {
 		return $this->icons;

@@ -19,6 +19,7 @@ class Plugin {
 	/**
 	 * Constructor.
 	 *
+	 * @param Blocks\Blocks                     $blocks The blocks component.
 	 * @param i18n\I18N                         $i18n The i18n component.
 	 * @param Disable_Comments\Disable_Comments $disable_comments The disable comments component.
 	 * @param Gravity_Forms\Gravity_Forms       $gravity_forms The gravity forms component.
@@ -30,6 +31,7 @@ class Plugin {
 	 * @param SVG\SVG                           $svg The svg component.
 	 */
 	public function __construct(
+		private Blocks\Blocks $blocks,
 		private i18n\I18N $i18n,
 		private Disable_Comments\Disable_Comments $disable_comments,
 		private Gravity_Forms\Gravity_Forms $gravity_forms,

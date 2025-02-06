@@ -18,3 +18,8 @@ window.lhbasics = {};
  * The settings object for the plugin.
  */
 window.lhbasics.settings = SettingsObject;
+
+/**
+ * The components we expose.
+ */
+window.lhbasics.components = {};
