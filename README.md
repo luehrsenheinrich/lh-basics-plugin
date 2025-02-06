@@ -6,11 +6,27 @@ TWelcome to the L//H Basics Plugin, your go-to solution for bundling essential f
 
 ## Features
 
-All features are disabled by default, allowing you to enable only what you need through the plugin settings. Here’s what you can add to your project:
+- **Disable Comments**
+  Easily turn off comments site‑wide—removing comment forms, menus, and dashboard elements—to keep your site clutter‑free and reduce spam.
+  [Learn more](plugin/inc/Disable_Comments/Disable_Comments.php)
 
-- **Disable Comments:** Effortlessly disable comments on all post types, keeping your site free from unwanted discussions.
-- **Lazysizes:** Integrate [lazysizes](https://github.com/aFarkas/lazysizes) into your project for efficient lazy loading of images, improving your site's performance.
-- **Lightbox:** Enhance your media presentation with [glightbox](https://biati-digital.github.io/glightbox/), a sleek and responsive lightbox library.
+- **Lazy Loading Images**
+  Improve page load speeds by loading images only when they enter the viewport, ensuring a smoother experience for your visitors.
+  Powered by [lazysizes](https://github.com/aFarkas/lazysizes).
+
+- **Responsive Lightbox**
+  Enhance media display with a modern lightbox that provides an engaging, full‑screen view for images and galleries.
+  Powered by [GLightbox](https://github.com/biati-digital/glightbox).
+
+- **Enhanced Gravity Forms**
+  Enjoy a streamlined and optimized experience with Gravity Forms, including tailored display formats that improve form usability.
+
+- **Intuitive Settings Panel**
+  Configure and activate only the features you need via a user‑friendly settings page, making it simple to customize your site’s behavior.
+
+- **Built‑In Performance Optimizations**
+  Benefit from behind‑the‑scenes enhancements that help your site load faster and run more efficiently without any extra effort.
+
 
 ---
 
