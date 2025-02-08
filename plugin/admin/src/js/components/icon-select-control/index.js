@@ -145,6 +145,11 @@ const IconSelectControl = ({
 				isLoading={!hasResolved}
 				options={selectOptions}
 				/**
+				 * Disable React Select's built-in filtering so that our externally
+				 * provided options (already filtered) are not further modified.
+				 */
+				filterOption={() => true}
+				/**
 				 * Custom renderer for the options in the dropdown.
 				 * Renders the icon (via LHIcon) along with its title.
 				 * @param {Object} option
