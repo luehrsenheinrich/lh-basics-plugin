@@ -5,10 +5,15 @@
  * to the global lhbasics.components namespace.
  */
 
-// Import the IconSelectControl component
+// Import components
 import IconSelectControl from './components/icon-select-control';
+import LHIcon from './components/icon';
 
-// Register the IconSelectControl component to the global lhbasics.components namespace
 window.lhbasics = window.lhbasics || {};
 window.lhbasics.components = window.lhbasics.components || {};
+
+// Register the IconSelectControl component to the global lhbasics.components namespace
 window.lhbasics.components.IconSelectControl = IconSelectControl;
+
+// Register the LHIcon component to the global lhbasics.components namespace
+window.lhbasics.components.LHIcon = LHIcon;

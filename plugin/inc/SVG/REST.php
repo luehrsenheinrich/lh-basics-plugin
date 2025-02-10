@@ -153,12 +153,7 @@ class REST {
 
 		// If a search term is provided, filter icons whose titles contain the term.
 		if ( $search ) {
-			$lib_icons = array_filter(
-				$lib_icons,
-				function( $icon ) use ( $search ) {
-					return false !== stripos( $icon->get_title(), $search );
-				}
-			);
+			$lib_icons = $this->fuzzy_filter_icons_by_title( $lib_icons, $search, 0.3 );
 		}
 
 		// Retrieve pagination parameters.
@@ -234,4 +229,102 @@ class REST {
 
 		return rest_ensure_response( $response );
 	}
+
+	/**
+	 * Convert a UTF‑8 string to a single‐byte extended ASCII representation.
+	 *
+	 * This function finds all multibyte sequences and, for each unique one, assigns a
+	 * single-byte code in the range 128–255 (in order of appearance). It then returns
+	 * the converted string.
+	 *
+	 * @param string $str The input UTF‑8 string.
+	 * @param array  &$map A reference to an encoding map. Unique multibyte sequences will be added here.
+	 * @return string The converted string.
+	 */
+	private function utf8_to_extended_ascii( $str, &$map ) {
+		// Find all multibyte sequences in the string.
+		if ( ! preg_match_all( '/[\xC0-\xF7][\x80-\xBF]+/', $str, $matches ) ) {
+			// If no multibyte characters, return the original string.
+			return $str;
+		}
+
+		// For each multibyte character, if we haven’t seen it, map it to a unique code.
+		foreach ( $matches[0] as $mbc ) {
+			if ( ! isset( $map[ $mbc ] ) ) {
+				$map[ $mbc ] = chr( 128 + count( $map ) );
+			}
+		}
+
+		// Replace the multibyte sequences with their corresponding single-byte codes.
+		return strtr( $str, $map );
+	}
+
+	/**
+	 * A UTF‑8–aware wrapper for levenshtein().
+	 *
+	 * This function converts both input strings using utf8_to_extended_ascii() so that
+	 * the built‑in levenshtein() function (which works on bytes) produces a result that
+	 * better reflects character differences.
+	 *
+	 * @param string $s1 First string.
+	 * @param string $s2 Second string.
+	 * @return int The Levenshtein distance.
+	 */
+	private function levenshtein_utf8( $s1, $s2 ) {
+		$char_map = array();
+		$s1_ascii = $this->utf8_to_extended_ascii( $s1, $char_map );
+		// Note: reusing the same map ensures that identical multibyte sequences get mapped to the same byte.
+		$s2_ascii = $this->utf8_to_extended_ascii( $s2, $char_map );
+		return levenshtein( $s1_ascii, $s2_ascii );
+	}
+
+	/**
+	 * Fuzzy filter icons by title using a sliding window and UTF‑8–aware Levenshtein.
+	 *
+	 * This method compares the search query against substrings of the icon's title (of the same length
+	 * as the search query) and returns icons for which the normalized Levenshtein distance is less than
+	 * or equal to the specified threshold.
+	 *
+	 * @param array  $lib_icons Array of icon objects.
+	 * @param string $search    The search query.
+	 * @param float  $threshold Normalized threshold (e.g. 0.3 means at most 30% difference).
+	 * @return array Filtered array of icon objects.
+	 */
+	private function fuzzy_filter_icons_by_title( $lib_icons, $search, $threshold = 0.3 ) {
+		// Normalize the search query.
+		$search        = mb_strtolower( trim( $search ), 'UTF-8' );
+		$search_length = mb_strlen( $search, 'UTF-8' );
+
+		return array_filter(
+			$lib_icons,
+			function( $icon ) use ( $search, $search_length, $threshold ) {
+				// Normalize the icon title.
+				$title        = mb_strtolower( $icon->get_title(), 'UTF-8' );
+				$title_length = mb_strlen( $title, 'UTF-8' );
+
+				if ( $title_length < $search_length ) {
+					// If the title is shorter than the search query, compare the entire title.
+					$distance   = $this->levenshtein_utf8( $title, $search );
+					$normalized = $distance / $search_length;
+				} else {
+					// Slide a window over the title to compute the minimum distance.
+					$min_distance = PHP_INT_MAX;
+					for ( $i = 0; $i <= $title_length - $search_length; $i++ ) {
+						$substring = mb_substr( $title, $i, $search_length, 'UTF-8' );
+						$distance  = $this->levenshtein_utf8( $substring, $search );
+						if ( $distance < $min_distance ) {
+							$min_distance = $distance;
+							// Early exit if an exact match is found.
+							if ( 0 === $min_distance ) {
+								break;
+							}
+						}
+					}
+					$normalized = $min_distance / $search_length;
+				}
+				return ( $normalized <= $threshold );
+			}
+		);
+	}
+
 }
