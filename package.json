@@ -59,7 +59,7 @@
     "classnames": "^2.5.1",
     "css-loader": "^7.1.2",
     "cssnano": "^7.0.6",
-    "eslint": "^8.50.0",
+    "eslint": "^9.21.0",
     "glightbox": "^3.3.1",
     "glob": "^11.0.1",
     "html-react-parser": "^5.2.2",
