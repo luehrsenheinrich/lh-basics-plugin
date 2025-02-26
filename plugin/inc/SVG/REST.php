@@ -155,13 +155,6 @@ class REST {
 		// If a search term is provided, filter icons whose titles contain the term.
 		if ( $search ) {
 			$lib_icons = $this->fuzzy_filter_icons_by_title( $lib_icons, $search, 0.3 );
-		} else if ( $must_include ) {
-			// If there's no search but must_include is provided, get the required icon.
-			$must_include_icon = plugin()->svg()->get_icon_library()->get_icon( $must_include );
-			// Push the icon to the beginning of the array, if it exists.
-			if ( $must_include_icon ) {
-				array_unshift( $lib_icons, $must_include_icon );
-			}
 		}
 
 		// Retrieve pagination parameters.
@@ -183,6 +176,12 @@ class REST {
 
 		// Determine the offset and slice the icons array for the current page.
 		$offset      = ( $page - 1 ) * $per_page;
+		if ( ! $search && ! empty( $must_include ) ) {
+			// If there's no search but must_include is provided, get the required icon.
+			$must_include_icon = plugin()->svg()->get_icon_library()->get_icon( $must_include );
+			// Add the icon to the $offset index of $lib_icons.
+			$lib_icons = array_merge( array_slice( $lib_icons, 0, $offset ), array( $must_include_icon ), array_slice( $lib_icons, $offset ) );
+		}
 		$paged_icons = array_slice( $lib_icons, $offset, $per_page );
 
 		// Prepare icons for the response by merging JSON data with the SVG markup.
