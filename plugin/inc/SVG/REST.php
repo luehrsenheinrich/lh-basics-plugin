@@ -147,13 +147,21 @@ class REST {
 	 */
 	public function rest_get_icons( WP_REST_Request $request ): WP_REST_Response {
 		// Retrieve parameters from the request.
-		$slugs     = $request->get_param( 'slugs' );
-		$search    = $request->get_param( 'search' );
+		$slugs        = $request->get_param( 'slugs' );
+		$search       = $request->get_param( 'search' );
+		$must_include = $request->get_param( 'must_include' );
 		$lib_icons = plugin()->svg()->get_icon_library()->get_icons();
 
 		// If a search term is provided, filter icons whose titles contain the term.
 		if ( $search ) {
 			$lib_icons = $this->fuzzy_filter_icons_by_title( $lib_icons, $search, 0.3 );
+		} else if ( $must_include ) {
+			// If there's no search but must_include is provided, get the required icon.
+			$must_include_icon = plugin()->svg()->get_icon_library()->get_icon( $must_include );
+			// Push the icon to the beginning of the array, if it exists.
+			if ( $must_include_icon ) {
+				array_unshift( $lib_icons, $must_include_icon );
+			}
 		}
 
 		// Retrieve pagination parameters.
