@@ -150,7 +150,7 @@ class REST {
 		$slugs        = $request->get_param( 'slugs' );
 		$search       = $request->get_param( 'search' );
 		$must_include = $request->get_param( 'must_include' );
-		$lib_icons = plugin()->svg()->get_icon_library()->get_icons();
+		$lib_icons    = plugin()->svg()->get_icon_library()->get_icons();
 
 		// If a search term is provided, filter icons whose titles contain the term.
 		if ( $search ) {
@@ -175,7 +175,7 @@ class REST {
 		}
 
 		// Determine the offset and slice the icons array for the current page.
-		$offset      = ( $page - 1 ) * $per_page;
+		$offset = ( $page - 1 ) * $per_page;
 		if ( ! $search && ! empty( $must_include ) ) {
 			// If there's no search but must_include is provided, get the required icon.
 			$must_include_icon = plugin()->svg()->get_icon_library()->get_icon( $must_include );
