@@ -20,18 +20,20 @@ dispatch(coreStore).addEntities([
 /**
  * Retrieves a list of icons with optional filtering and pagination.
  *
- * @param {Object} [params={}]          - Query parameters for filtering icons.
- * @param {string} [params.search='']   - A search term to filter icons by title.
- * @param {number} [params.page=1]      - The page number for pagination.
- * @param {number} [params.per_page=20] - The number of icons to retrieve per page.
+ * @param {Object} [params={}]           - Query parameters for filtering icons.
+ * @param {string} [params.search='']    - A search term to filter icons by title.
+ * @param {number} [params.page=1]       - The page number for pagination.
+ * @param {number} [params.per_page=20]  - The number of icons to retrieve per page.
+ * @param {string} [params.must_include] - A single icon slug.
  * @return {Object} An object containing the icons (as `records`) and other state properties.
  */
 export const useIcons = (params = {}) => {
-	const { search = '', page = 1, per_page = 20 } = params;
+	const { search = '', page = 1, per_page = 20, must_include } = params;
 	const { records: icons, ...states } = useEntityRecords('root', 'icon', {
 		search,
 		page,
 		per_page,
+		must_include,
 	});
 	return { icons, ...states };
 };

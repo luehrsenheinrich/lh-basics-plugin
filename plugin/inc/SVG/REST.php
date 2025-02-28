@@ -147,9 +147,10 @@ class REST {
 	 */
 	public function rest_get_icons( WP_REST_Request $request ): WP_REST_Response {
 		// Retrieve parameters from the request.
-		$slugs     = $request->get_param( 'slugs' );
-		$search    = $request->get_param( 'search' );
-		$lib_icons = plugin()->svg()->get_icon_library()->get_icons();
+		$slugs        = $request->get_param( 'slugs' );
+		$search       = $request->get_param( 'search' );
+		$must_include = $request->get_param( 'must_include' );
+		$lib_icons    = plugin()->svg()->get_icon_library()->get_icons();
 
 		// If a search term is provided, filter icons whose titles contain the term.
 		if ( $search ) {
@@ -174,7 +175,13 @@ class REST {
 		}
 
 		// Determine the offset and slice the icons array for the current page.
-		$offset      = ( $page - 1 ) * $per_page;
+		$offset = ( $page - 1 ) * $per_page;
+		if ( ! $search && ! empty( $must_include ) ) {
+			// If there's no search but must_include is provided, get the required icon.
+			$must_include_icon = plugin()->svg()->get_icon_library()->get_icon( $must_include );
+			// Add the icon to the $offset index of $lib_icons.
+			$lib_icons = array_merge( array_slice( $lib_icons, 0, $offset ), array( $must_include_icon ), array_slice( $lib_icons, $offset ) );
+		}
 		$paged_icons = array_slice( $lib_icons, $offset, $per_page );
 
 		// Prepare icons for the response by merging JSON data with the SVG markup.
