@@ -35,11 +35,11 @@ import {
 const EntitySelectControl = ({
 	kind: entityKind = 'postType',
 	name: entityName = 'post',
+	label = __('Select posts', 'lhbasicsp'),
+	help = '',
 	value,
 	onChange,
 	query = {},
-	label = __('Select posts', 'lhbasicsp'),
-	help = '',
 	multiple = true,
 }) => {
 	const { baseControlProps, controlProps } = useBaseControlProps({
