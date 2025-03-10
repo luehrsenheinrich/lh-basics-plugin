@@ -179,8 +179,11 @@ class REST {
 		if ( ! $search && ! empty( $must_include ) ) {
 			// If there's no search but must_include is provided, get the required icon.
 			$must_include_icon = plugin()->svg()->get_icon_library()->get_icon( $must_include );
-			// Add the icon to the $offset index of $lib_icons.
-			$lib_icons = array_merge( array_slice( $lib_icons, 0, $offset ), array( $must_include_icon ), array_slice( $lib_icons, $offset ) );
+
+			if ( $must_include_icon ) {
+				// Add the icon to the $offset index of $lib_icons.
+				$lib_icons = array_merge( array_slice( $lib_icons, 0, $offset ), array( $must_include_icon ), array_slice( $lib_icons, $offset ) );
+			}
 		}
 		$paged_icons = array_slice( $lib_icons, $offset, $per_page );
 
