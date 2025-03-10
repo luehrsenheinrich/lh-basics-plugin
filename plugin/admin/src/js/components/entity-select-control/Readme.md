@@ -143,6 +143,6 @@ export default MyTagIdsSelector;
 
 ### `multiple`
 
-- **Type:** `(value: string | null) => void`
+- **Type:** `(value: boolean | null) => void`
 - **Required:** Yes
 - **Description:** Wether multiple select is allowed or not.
