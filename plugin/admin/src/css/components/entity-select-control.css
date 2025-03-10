@@ -1,0 +1,6 @@
+.lh-entity-select-control {
+
+	& .react-select__input:focus {
+		box-shadow: none;
+	}
+}

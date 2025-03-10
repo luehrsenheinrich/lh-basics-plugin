@@ -45,6 +45,7 @@ const EntitySelectControl = ({
 	const { baseControlProps, controlProps } = useBaseControlProps({
 		label,
 		help,
+		className: 'lh-entity-select-control',
 	});
 	const { records: entityRecords = [], isResolving } = useEntityRecords(
 		entityKind,
