@@ -44,5 +44,6 @@ class Scripts extends Plugin_Component {
 			$scipt_assets['version'],
 			true
 		);
+		wp_enqueue_style( 'lhbasicsp-admin-components' );
 	}
 }
