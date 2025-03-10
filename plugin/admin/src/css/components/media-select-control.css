@@ -30,8 +30,6 @@
 
 .lh-media-select-control__toggle {
 	display: block;
-	width: 100%;
-	min-height: 90px;
 	padding: 8px 0;
 	line-height: 20px;
 	text-align: center;
@@ -46,7 +44,9 @@
 	align-items: center;
 	justify-content: center;
 	width: 100%;
-	height: auto;
+	height: auto !important;
+	padding: 0 !important;
+	border: 0;
 
 	& img {
 		max-width: 100%;

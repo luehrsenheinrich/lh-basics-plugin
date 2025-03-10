@@ -88,7 +88,9 @@ const MediaSelectControl = ({
 	}
 
 	const clsPrefix = 'lh-media-select-control';
-	const controlClassNames = classNames(clsPrefix, 'stack', className);
+	const controlClassNames = classNames(clsPrefix, 'stack', className, {
+		'is-selected': isSelected,
+	});
 
 	return (
 		<BaseControl
@@ -119,11 +121,9 @@ const MediaSelectControl = ({
 							{!value && <>{labelSet}</>}
 							{hasMedia && (
 								<ResponsiveWrapper>
-									<div className={`${clsPrefix}__preview`}>
-										{getPreview
-											? getPreview({ media })
-											: getPreviewImage()}
-									</div>
+									{getPreview
+										? getPreview({ media })
+										: getPreviewImage()}
 								</ResponsiveWrapper>
 							)}
 						</Button>
