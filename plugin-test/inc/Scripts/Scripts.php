@@ -37,6 +37,7 @@ class Scripts extends Plugin_Component {
 
 		$scipt_assets = $assets['js/script.min.js'];
 
+		wp_enqueue_media(); // Required for MediaSelectControl.
 		wp_enqueue_script(
 			'lhbasicsp-test',
 			plugin()->get_plugin_url() . '/admin/dist/js/script.min.js',
@@ -44,5 +45,6 @@ class Scripts extends Plugin_Component {
 			$scipt_assets['version'],
 			true
 		);
+		wp_enqueue_style( 'lhbasicsp-admin-components' );
 	}
 }
