@@ -8,6 +8,7 @@
 // Import components
 import IconSelectControl from './components/icon-select-control';
 import LHIcon from './components/icon';
+import MediaSelectControl from './components/media-select-control';
 import EntitySelectControl, {
 	PostSelectControl,
 	TaxonomySelectControl,
@@ -24,3 +25,6 @@ window.lhbasics.components.TaxonomySelectControl = TaxonomySelectControl;
 
 // Register the LHIcon component to the global lhbasics.components namespace
 window.lhbasics.components.LHIcon = LHIcon;
+
+// Register the MediaSelectControl component to the global lhbasics.components namespace
+window.lhbasics.components.MediaSelectControl = MediaSelectControl;

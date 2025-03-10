@@ -5,13 +5,18 @@ import { addFilter } from '@wordpress/hooks';
 import { ToggleControl } from '@wordpress/components';
 import { useState } from '@wordpress/element';
 
-const { EntitySelectControl, PostSelectControl, TaxonomySelectControl } =
-	window.lhbasics.components;
+const {
+	EntitySelectControl,
+	PostSelectControl,
+	TaxonomySelectControl,
+	MediaSelectControl,
+} = window.lhbasics.components;
 
 function slotFillTest(Component) {
 	const { MainSettings, SettingsPanel } = window.lhSettings;
 
 	return (props) => {
+		const [mediaId, setMediaId] = useState(null);
 		const [selectedEntities, setSelectedEntitites] = useState({
 			entity: null,
 			page: null,
@@ -75,6 +80,14 @@ function slotFillTest(Component) {
 										tags: value,
 									})
 								}
+							/>
+						</div>
+						<div className="full-width">
+							<p>Entity Select Control Tests</p>
+							<MediaSelectControl
+								value={mediaId}
+								onChange={setMediaId}
+								isSelected={true}
 							/>
 						</div>
 					</SettingsPanel>
