@@ -10,6 +10,7 @@ const {
 	PostSelectControl,
 	TaxonomySelectControl,
 	MediaSelectControl,
+	WeblinkSetting,
 } = window.lhbasics.components;
 
 function slotFillTest(Component) {
@@ -22,6 +23,13 @@ function slotFillTest(Component) {
 			page: null,
 			tags: null,
 		});
+		const [weblink, setWeblink] = useState({
+			title: '',
+			url: '',
+			opensInNewTab: false,
+			id: null, // Not needed in non-persistent state, but added for demonstration.
+		});
+
 		const { apiSettings, setApiSettings } = props;
 
 		return (
@@ -90,6 +98,11 @@ function slotFillTest(Component) {
 								isSelected={true}
 							/>
 						</div>
+						<WeblinkSetting
+							label={'Weblink Setting'}
+							value={weblink}
+							onChange={setWeblink}
+						/>
 					</SettingsPanel>
 				</MainSettings>
 			</>

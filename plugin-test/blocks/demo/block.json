@@ -19,6 +19,14 @@
     },
     "postSingle": {
       "type": "number"
+    },
+    "link": {
+      "type": "object",
+      "default": {
+        "url": "",
+        "title": "",
+        "opensInNewTab": false
+      }
     }
   },
   "example": {},

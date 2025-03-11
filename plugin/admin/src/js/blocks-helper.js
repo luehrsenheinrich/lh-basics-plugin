@@ -13,18 +13,28 @@ import EntitySelectControl, {
 	PostSelectControl,
 	TaxonomySelectControl,
 } from './components/entity-select-control';
+import WeblinkControl from './components/weblink-control';
+import WeblinkSetting from './components/weblink-control/setting';
+import WeblinkToolbarButton from './components/weblink-control/toolbar-button';
 
 window.lhbasics = window.lhbasics || {};
 window.lhbasics.components = window.lhbasics.components || {};
 
 // Register the IconSelectControl component to the global lhbasics.components namespace
 window.lhbasics.components.IconSelectControl = IconSelectControl;
-window.lhbasics.components.EntitySelectControl = EntitySelectControl;
-window.lhbasics.components.PostSelectControl = PostSelectControl;
-window.lhbasics.components.TaxonomySelectControl = TaxonomySelectControl;
 
 // Register the LHIcon component to the global lhbasics.components namespace
 window.lhbasics.components.LHIcon = LHIcon;
 
+// Register the EntitySelectControl component to the global lhbasics.components namespace
+window.lhbasics.components.EntitySelectControl = EntitySelectControl;
+window.lhbasics.components.PostSelectControl = PostSelectControl;
+window.lhbasics.components.TaxonomySelectControl = TaxonomySelectControl;
+
 // Register the MediaSelectControl component to the global lhbasics.components namespace
 window.lhbasics.components.MediaSelectControl = MediaSelectControl;
+
+// Register the WeblinkControl component to the global lhbasics.components namespace
+window.lhbasics.components.WeblinkControl = WeblinkControl;
+window.lhbasics.components.WeblinkSetting = WeblinkSetting;
+window.lhbasics.components.WeblinkToolbarButton = WeblinkToolbarButton;
