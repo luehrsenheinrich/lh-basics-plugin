@@ -84,5 +84,8 @@
     "webpack-cli": "^6.0.1",
     "webpack-livereload-plugin": "^3.0.2",
     "webpack-remove-empty-scripts": "^1.0.4"
+  },
+  "dependencies": {
+    "@wordpress/icons": "^10.19.0"
   }
 }

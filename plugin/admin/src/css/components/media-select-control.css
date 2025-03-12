@@ -15,6 +15,13 @@
 		margin-bottom: calc(8px);
 		padding: 0;
 	}
+
+	&.is-selected {
+
+		& .lh-media-select-control__preview {
+			background-color: #f0f0f1;
+		}
+	}
 }
 
 .lh-media-select-control__container {
