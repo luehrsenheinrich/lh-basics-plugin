@@ -46,7 +46,7 @@
     "@dnd-kit/sortable": "^10.0.0",
     "@dnd-kit/utilities": "^3.2.2",
     "@svgr/webpack": "^8.1.0",
-    "@wordpress/babel-plugin-import-jsx-pragma": "^5.19.0",
+    "@wordpress/babel-plugin-import-jsx-pragma": "^5.20.0",
     "@wordpress/babel-preset-default": "^8.18.0",
     "@wordpress/dependency-extraction-webpack-plugin": "^6.19.0",
     "@wordpress/env": "^10.19.0",
