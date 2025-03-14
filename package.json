@@ -50,7 +50,7 @@
     "@wordpress/babel-preset-default": "^8.18.0",
     "@wordpress/dependency-extraction-webpack-plugin": "^6.19.0",
     "@wordpress/env": "^10.19.0",
-    "@wordpress/eslint-plugin": "^22.5.0",
+    "@wordpress/eslint-plugin": "^22.6.0",
     "@wordpress/stylelint-config": "^23.11.0",
     "archiver": "^7.0.1",
     "babel": "^6.23.0",
