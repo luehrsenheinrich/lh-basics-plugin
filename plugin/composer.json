@@ -5,7 +5,8 @@
   "require": {
     "cjstroud/classnames-php": "^1.0",
     "php-di/php-di": "^6.3",
-    "yahnis-elsts/plugin-update-checker": "^4.11"
+    "yahnis-elsts/plugin-update-checker": "^4.11",
+    "erusev/parsedown": "^1.7"
   },
   "autoload": {
     "psr-4": {

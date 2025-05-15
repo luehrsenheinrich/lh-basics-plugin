@@ -9,6 +9,8 @@ namespace WpMunich\basics\plugin\Documentation;
 
 use WpMunich\basics\plugin\Plugin_Component;
 use WpMunich\basics\plugin\Documentation\Documentation_Item;
+use WpMunich\basics\plugin\Plugin;
+use \Parsedown;
 
 /**
  * A class to provide documentation for this and related plugins.
@@ -77,6 +79,90 @@ class Documentation extends Plugin_Component {
 			'example-item'
 		);
 
+		// Load documentation items from markdown files.
+		$items = array_merge( $items, $this->load_documentation_items_from_markdown() );
+
 		return $items;
+	}
+
+	/**
+	 * Load documentation items from markdown files.
+	 *
+	 * @return Documentation_Item[] The documentation items.
+	 */
+	public function load_documentation_items_from_markdown() {
+		$plugin    = $this->container()->get( Plugin::class );
+		$parsedown = new Parsedown();
+
+		$markdown_files = apply_filters(
+			'documentation_markdown_files',
+			array(
+				$plugin->get_plugin_path() . 'inc/Documentation/Default.md',
+			)
+		);
+
+		$documentation_items = array();
+
+		foreach ( $markdown_files as $file_path ) {
+			if ( ! file_exists( $file_path ) ) {
+				continue;
+			}
+
+			$content = file_get_contents( $file_path );
+			if ( $content === false ) {
+				continue;
+			}
+
+			// Extract the first H1 as the title and remove it from content.
+			if ( preg_match( '/^# (.+)$/m', $content, $matches ) ) {
+				$title   = trim( $matches[1] );
+				$content = preg_replace( '/^# .+$/m', '', $content, 1 );
+			} else {
+				$title = basename( $file_path );
+			}
+
+			// Step down all other headlines by one level (to max 6).
+			$content = preg_replace_callback(
+				'/^(#{1,5})\s(.+)$/m',
+				function ( $m ) {
+					$level = min( strlen( $m[1] ) + 1, 6 );
+					return str_repeat( '#', $level ) . ' ' . $m[2];
+				},
+				$content
+			);
+
+			// Make image URLs relative to the markdown file location.
+			$dir      = dirname( $file_path );
+			$base_url = str_replace( ABSPATH, site_url( '/' ), $dir ) . '/';
+			$content  = preg_replace_callback(
+				'/!\[([^\]]*)\]\(([^)]+)\)/',
+				function ( $matches ) use ( $base_url ) {
+					$alt = $matches[1];
+					$src = $matches[2];
+					// If the src is already absolute (starts with http or /), leave it.
+					if ( preg_match( '#^(https?://|/)#', $src ) ) {
+						return $matches[0];
+					}
+					// Otherwise, make it relative to the markdown file's URL.
+					$relative_url = $base_url . ltrim( $src, '/' );
+					return '![' . $alt . '](' . $relative_url . ')';
+				},
+				$content
+			);
+
+			$html_content = $parsedown->text( trim( $content ) );
+
+			// Generate a slug from the title.
+			$slug = sanitize_title( $title );
+
+			$documentation_items[] = new Documentation_Item(
+				$title,
+				$html_content,
+				'admin-generic',
+				md5( $file_path )
+			);
+		}
+
+		return $documentation_items;
 	}
 }

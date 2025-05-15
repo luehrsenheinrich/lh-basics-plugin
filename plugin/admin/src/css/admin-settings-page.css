@@ -103,13 +103,17 @@
 				padding-bottom: 1rem;
 				border-bottom: 1px solid #e2e4e7;
 			}
+
+			& img {
+				max-width: 100%;
+				height: auto;
+			}
 		}
 
 		& > .settings-panel-header {
 			background-color: #f9f9f9;
 			border-bottom: 1px solid #e2e4e7;
 			padding: 1rem;
-			margin-bottom: 0.5rem;
 
 			& > .settings-panel-title {
 				margin: 0;
