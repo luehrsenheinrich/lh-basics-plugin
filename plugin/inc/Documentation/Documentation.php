@@ -82,6 +82,9 @@ class Documentation extends Plugin_Component {
 		// Load documentation items from markdown files.
 		$items = array_merge( $items, $this->load_documentation_items_from_markdown() );
 
+		// Filter the items before returning.
+		$items = apply_filters( 'lhbasics/documentation_items', $items );
+
 		return $items;
 	}
 
@@ -95,7 +98,7 @@ class Documentation extends Plugin_Component {
 		$parsedown = new Parsedown();
 
 		$markdown_files = apply_filters(
-			'documentation_markdown_files',
+			'lhbasics/documentation_markdown_files',
 			array(
 				$plugin->get_plugin_path() . 'inc/Documentation/Default.md',
 			)

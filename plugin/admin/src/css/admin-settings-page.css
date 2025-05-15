@@ -108,6 +108,12 @@
 				max-width: 100%;
 				height: auto;
 			}
+
+			& ul, ol {
+				list-style: initial;
+
+				margin-left: 1em;
+			}
 		}
 
 		& > .settings-panel-header {
