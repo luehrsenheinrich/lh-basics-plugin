@@ -29,6 +29,7 @@ class Plugin {
 	 * @param Admin_UX\Admin_UX                 $admin_ux The admin UX component.
 	 * @param Performance\Performance           $performance The performance component.
 	 * @param SVG\SVG                           $svg The svg component.
+	 * @param Documentation\Documentation       $documentation The documentation component.
 	 */
 	public function __construct(
 		private Blocks\Blocks $blocks,
@@ -40,7 +41,8 @@ class Plugin {
 		private Settings\Settings $settings,
 		private Admin_UX\Admin_UX $admin_ux,
 		private Performance\Performance $performance,
-		private SVG\SVG $svg
+		private SVG\SVG $svg,
+		private Documentation\Documentation $documentation
 	) {
 	}
 

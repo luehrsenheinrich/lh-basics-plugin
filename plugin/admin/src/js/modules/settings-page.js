@@ -25,6 +25,7 @@ import LoadingPanel from './settings-page/panels/loading-panel';
 import Notices from '../components/settings-notices';
 import LHLogo from '../../../../img/icons/lh_logo.svg';
 import { MainSettingsSlot } from './main-settings-slotfill';
+import SettingsPanel from './settings-page/settings-panel';
 
 /**
  * This is the main settings page component.
@@ -36,6 +37,17 @@ const SettingsPage = () => {
 	 * The state of whether the settings have been loaded from the API.
 	 */
 	const [settingsInitialized, setSettingsInitialized] = useState(false);
+
+	/**
+	 * The state of wheather the documentation has been loaded from the API.
+	 */
+	const [documentationInitialized, setDocumentationInitialized] =
+		useState(false);
+
+	/**
+	 * The state of the currently active tab. By default it is the 'dashboard' tab.
+	 */
+	const [activeTab, setActiveTab] = useState('settings');
 
 	/**
 	 * If we are currently saving the settings.
@@ -54,13 +66,28 @@ const SettingsPage = () => {
 	const [originalApiSettings, setOriginalApiSettings] = useState({});
 
 	/**
+	 * The documentation object from the API.
+	 */
+	const [documentation, setDocumentation] = useState({});
+
+	/**
 	 * If the settings have not been initialized, fetch them from the API.
 	 */
-	if (!settingsInitialized) {
+	if (!settingsInitialized && activeTab === 'settings') {
 		apiFetch({ path: '/wp/v2/settings' }).then((response) => {
 			setApiSettings(cloneDeep(response));
 			setOriginalApiSettings(cloneDeep(response));
 			setSettingsInitialized(true);
+		});
+	}
+
+	/**
+	 * If the documentation tab is active, fetch the documentation from the API.
+	 */
+	if (!documentationInitialized && activeTab === 'documentation') {
+		apiFetch({ path: '/lhbasics/v1/documentation' }).then((response) => {
+			setDocumentation(cloneDeep(response));
+			setDocumentationInitialized(true);
 		});
 	}
 
@@ -153,33 +180,68 @@ const SettingsPage = () => {
 							alt={__('Luehrsen // Heinrich', 'lhbasicsp')}
 							className="settings_logo"
 						/>
-						<br />
-						<h1>{__('System Settings', 'lhbasicsp')}</h1>
 					</div>
 				</div>
 			</div>
-			<div className="settings_main">
-				{!settingsInitialized && <LoadingPanel />}
-				{settingsInitialized && (
-					<>
-						<ModulesPanel
-							apiSettings={apiSettings}
-							setApiSettings={setApiSettings}
-						/>
-						<MainSettingsSlot />
-						<div className="settings_buttons">
-							<Button
-								variant="primary"
-								isBusy={isSaving}
-								disabled={isSaving}
-								onClick={() => onSaveSettings()}
-							>
-								{__('Save', 'lhbasicsp')}
-							</Button>
-						</div>
-					</>
-				)}
+
+			<div className="settings_tabbar">
+				<button
+					className={`settings_tabbar_item ${activeTab === 'settings' ? 'active' : ''}`}
+					onClick={() => setActiveTab('settings')}
+				>
+					{__('Settings', 'lhbasicsp')}
+				</button>
+				<button
+					className={`settings_tabbar_item ${activeTab === 'documentation' ? 'active' : ''}`}
+					onClick={() => setActiveTab('documentation')}
+				>
+					{__('Documentation', 'lhbasicsp')}
+				</button>
 			</div>
+			{activeTab === 'settings' && (
+				<div className="settings_main tab_settings">
+					{!settingsInitialized && <LoadingPanel />}
+					{settingsInitialized && (
+						<>
+							<ModulesPanel
+								apiSettings={apiSettings}
+								setApiSettings={setApiSettings}
+							/>
+							<MainSettingsSlot />
+							<div className="settings_buttons">
+								<Button
+									variant="primary"
+									isBusy={isSaving}
+									disabled={isSaving}
+									onClick={() => onSaveSettings()}
+								>
+									{__('Save', 'lhbasicsp')}
+								</Button>
+							</div>
+						</>
+					)}
+				</div>
+			)}
+			{activeTab === 'documentation' && (
+				<div className="settings_main tab_documentation">
+					{!documentationInitialized && <LoadingPanel />}
+					{documentationInitialized &&
+						documentation.map((item) => (
+							<SettingsPanel
+								key={item.slug}
+								title={item.headline}
+								icon={item.icon ?? 'admin-generic'}
+							>
+								<div
+									className="full-width"
+									dangerouslySetInnerHTML={{
+										__html: item.html_content,
+									}}
+								/>
+							</SettingsPanel>
+						))}
+				</div>
+			)}
 			<div className="settings_notices">
 				<Notices />
 			</div>
