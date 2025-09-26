@@ -49,9 +49,9 @@
     "@wordpress/babel-plugin-import-jsx-pragma": "^5.27.0",
     "@wordpress/babel-preset-default": "^8.27.0",
     "@wordpress/dependency-extraction-webpack-plugin": "^6.23.0",
-    "@wordpress/env": "^10.23.0",
+    "@wordpress/env": "^10.31.0",
     "@wordpress/eslint-plugin": "^22.9.0",
-    "@wordpress/stylelint-config": "^23.15.0",
+    "@wordpress/stylelint-config": "^23.23.0",
     "archiver": "^7.0.1",
     "babel": "^6.23.0",
     "babel-loader": "^10.0.0",
@@ -62,7 +62,7 @@
     "eslint": "^8.50.0",
     "glightbox": "^3.3.1",
     "glob": "^11.0.3",
-    "html-react-parser": "^5.2.5",
+    "html-react-parser": "^5.2.6",
     "ignore": "^7.0.5",
     "lazysizes": "^5.3.2",
     "lodash": "^4.17.21",
@@ -70,7 +70,7 @@
     "normalise": "^10.0.0",
     "normalize.css": "^8.0.1",
     "null-loader": "^4.0.1",
-    "postcss": "^8.5.3",
+    "postcss": "^8.5.6",
     "postcss-import": "^16.1.0",
     "postcss-loader": "^8.1.1",
     "postcss-preset-env": "^10.2.4",
@@ -83,9 +83,9 @@
     "webpack": "^5.100.2",
     "webpack-cli": "^6.0.1",
     "webpack-livereload-plugin": "^3.0.2",
-    "webpack-remove-empty-scripts": "^1.0.4"
+    "webpack-remove-empty-scripts": "^1.1.1"
   },
   "dependencies": {
-    "@wordpress/icons": "^10.23.0"
+    "@wordpress/icons": "^10.31.0"
   }
 }
