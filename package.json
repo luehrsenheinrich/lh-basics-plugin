@@ -66,7 +66,7 @@
     "ignore": "^7.0.5",
     "lazysizes": "^5.3.2",
     "lodash": "^4.17.21",
-    "mini-css-extract-plugin": "^2.9.2",
+    "mini-css-extract-plugin": "^2.9.4",
     "normalise": "^10.0.0",
     "normalize.css": "^8.0.1",
     "null-loader": "^4.0.1",
