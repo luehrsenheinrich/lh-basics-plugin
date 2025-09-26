@@ -3,55 +3,59 @@
 # The action expects a valid zip file in the `./update/` folder and the `slug` key in the
 # `package.json` to be set.
 
-name: 🚀 Create Release
+name: 🚀 Release Please
 
 on:
-  # This action is triggered manually.
-  workflow_dispatch:
-    inputs:
-      version:
-        description: 'The version number of this release. Runs `npm version`.'
-        required: true
-        default: 'patch'
+  push:
+    branches:
+      - main
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
 jobs:
-  main:
+  release-please:
+    name: Release Please
     runs-on: ubuntu-latest
     steps:
 
+      - uses: googleapis/release-please-action@v4
+        id: release
+        with:
+          token: ${{ secrets.GH_ADMIN_TOKEN }}
+
       - uses: actions/checkout@v3
+        if: ${{ steps.release.outputs.release_created }}
         with:
           fetch-depth: 0
           token: ${{ secrets.GH_ADMIN_TOKEN }}
 
       - name: ⚙️ Configure git
+        if: ${{ steps.release.outputs.release_created }}
         run: |
           git config user.name $GITHUB_ACTOR
           git config user.email gh-actions-${GITHUB_ACTOR}@github.com
 
       - uses: actions/setup-node@v3
+        if: ${{ steps.release.outputs.release_created }}
         with:
-          node-version: 16
+          node-version: 20
 
       - name: ⚙️ Setup PHP with tools
+        if: ${{ steps.release.outputs.release_created }}
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.1'
+          php-version: '8.3'
           tools: composer:v2
 
-      - name: ⚙️ Get project slug
-        id: package
-        run: echo "slug=$(node -p "require('./package.json').slug")" >> $GITHUB_OUTPUT
-
       - name: 💾 Get node.js cache directory
+        if: ${{ steps.release.outputs.release_created }}
         id: node-cache-dir
         run: echo "dir=$(npm config get cache)" >> $GITHUB_OUTPUT # Use $(yarn cache dir) for yarn
 
       - name: 💾 Cache dependencies
+        if: ${{ steps.release.outputs.release_created }}
         uses: actions/cache@v3
         with:
           path: ${{ steps.node-cache-dir.outputs.dir }}
@@ -59,10 +63,12 @@ jobs:
           restore-keys: ${{ runner.os }}-node-
 
       - name: 💾 Get composer cache directory
+        if: ${{ steps.release.outputs.release_created }}
         id: composer-cache
         run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 
       - name: ⚙️ Cache dependencies
+        if: ${{ steps.release.outputs.release_created }}
         uses: actions/cache@v3
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
@@ -70,52 +76,33 @@ jobs:
           restore-keys: ${{ runner.os }}-composer-
 
       - name: ⚙️ Install Composer Packages
+        if: ${{ steps.release.outputs.release_created }}
         run: composer install --prefer-dist
 
       - name: ⚙️ Install Node Packages
-        run: npm ci
+        if: ${{ steps.release.outputs.release_created }}
+        run: npm i
 
-      - name: ✍️ Create Changelog
-        shell: bash
-        id: changelog
-        run: |
-          EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
-          log=$(git log $(git describe --tags --abbrev=0)..HEAD --pretty=format:'* %s (%h)')
-          echo "CHANGELOG<<$EOF" >> $GITHUB_ENV
-          echo "$log" >> $GITHUB_ENV
-          echo "$EOF" >> $GITHUB_ENV
+      - name: 🔎 Lint the code
+        if: ${{ steps.release.outputs.release_created }}
+        run: npm run lint
 
-      - name: Check Status
-        run: git status
+      - name: 🏗 Build the code release
+        if: ${{ steps.release.outputs.release_created }}
+        run: npm run release
 
-      - name: 🔼 Bump version
-        run: npm version ${{ github.event.inputs.version }} -m 'Tagging %s'
-
-      - name: ⚙️ Get new version
-        id: version
-        run: echo "version=$(node -p "require('./package.json').version")" >> $GITHUB_OUTPUT
-
-      - name: Push the version to git
-        run: |
-            git push
+      - name: Upload Release Artifact
+        if: ${{ steps.release.outputs.release_created }}
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_ADMIN_TOKEN }}
-
-      - name: 🚀 Create Release
-        id: create_release
-        uses: softprops/action-gh-release@v1
-        with:
-          body: |
-            ${{ env.CHANGELOG }}
-          files: ./archives/*.zip
-          tag_name: v${{ steps.version.outputs.version }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh release upload ${{ steps.release.outputs.tag_name }} ./archives/*.zip --clobber
 
       - name: 🚢 Deploy to Update Server
-        if: ${{ success() }}
-        uses: SamKirkland/FTP-Deploy-Action@4.2.0
+        if: ${{ success() && steps.release.outputs.release_created }}
+        uses: easingthemes/ssh-deploy@main
         with:
-          server: ${{ secrets.UPDATE_SERVER_HOST }}
-          username: ${{ secrets.UPDATE_SERVER_USER }}
-          password: ${{ secrets.UPDATE_SERVER_PASSWORD }}
-          local-dir: ./archives/
-          state-name: .${{ steps.package.outputs.slug }}-sync-state.json
+          SSH_PRIVATE_KEY: ${{ secrets.UPDATE_SERVER_PRIVATE_KEY }}
+          SOURCE: "./archives/"
+          REMOTE_HOST: ${{ secrets.UPDATE_SERVER_HOST }}
+          REMOTE_USER: ${{ secrets.UPDATE_SERVER_USER }}
+          TARGET: ${{ secrets.UPDATE_SERVER_PATH }}

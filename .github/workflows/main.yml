@@ -3,7 +3,7 @@
 # It assumes that `npm install`, `composer install` and `npx grunt release` are valid commands.
 # The action expects a valid zip file in the `./update/` folder and the `slug` key in the
 # `package.json` to be set.
-name: 🧪 Test
+name: 🏗 Build & Deploy
 
 on:
   push:
@@ -19,7 +19,8 @@ concurrency:
   cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
 jobs:
-  main:
+  bnd:
+    name: Build & Deploy
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -31,7 +32,7 @@ jobs:
       - name: ⚙️ Setup PHP with tools
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.1'
+          php-version: '8.3'
           tools: composer:v2
 
       - name: 💾 Get node.js cache directory
@@ -56,8 +57,14 @@ jobs:
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: ${{ runner.os }}-composer-
 
-      - name: 🚀 Start the environment
-        run: npm start
+      - name: ⚙️ Install Composer Packages
+        run: composer install --prefer-dist --optimize-autoloader
 
-      - name: 🧪 Run tests
-        run: npm test
+      - name: ⚙️ Install Node Packages
+        run: npm i
+
+      - name: 🔎 Lint the code
+        run: npm run lint
+
+      - name: 🏗 Build the code release
+        run: npm run release
