@@ -42,9 +42,9 @@ const MediaSelectControl = ({
 			const { sizes } = media.media_details;
 			const sizeKey = sizes[imageSize] !== undefined ? imageSize : 'full';
 
-			mediaWidth = sizes[sizeKey].width;
-			mediaHeight = sizes[sizeKey].height;
-			mediaSourceUrl = sizes[sizeKey].source_url;
+			mediaWidth = sizes[sizeKey]?.width || media.media_details.width;
+			mediaHeight = sizes[sizeKey]?.height || media.media_details.height;
+			mediaSourceUrl = sizes[sizeKey]?.source_url || media.source_url;
 		} else {
 			// TODO: Better non-image media type previews.
 			mediaWidth = 64;
