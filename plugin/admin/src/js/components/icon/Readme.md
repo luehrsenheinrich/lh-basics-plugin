@@ -8,7 +8,7 @@ LHIcon integrates seamlessly with Gutenberg and custom interfaces. For example:
 
 ```jsx
 import { useState } from '@wordpress/element';
-import LHIcon from 'path/to/LHIcon';
+const { LHIcon } = window.lhbasics.components;
 
 const Example = () => {
   const [ iconSlug, setIconSlug ] = useState('home');
@@ -60,7 +60,7 @@ Below is an example of how to integrate LHIcon into your application:
 
 ```jsx
 import { useState } from '@wordpress/element';
-import LHIcon from 'path/to/LHIcon';
+const { LHIcon } = window.lhbasics.components;
 
 const IconDisplay = () => {
   const [ selectedIcon, setSelectedIcon ] = useState('settings');

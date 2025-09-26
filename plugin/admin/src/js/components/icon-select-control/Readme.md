@@ -6,7 +6,7 @@ IconSelectControl is a component for selecting icons from a list. It leverages r
 
 ```jsx
 import { useState } from '@wordpress/element';
-import IconSelectControl from 'path/to/IconSelectControl';
+const { IconSelectControl } = window.lhbasics.components;
 
 const MyIconSelector = () => {
 	const [ selectedIcon, setSelectedIcon ] = useState( null );

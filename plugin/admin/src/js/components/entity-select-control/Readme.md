@@ -11,7 +11,7 @@ It can be adjusted to create a select of any `kind` (postType, taxonomy, ...) wi
 
 ```jsx
 import { useState } from '@wordpress/element';
-import EntitySelectControl from 'path/to/EntitySelectControl';
+const { EntitySelectControl } = window.lhbasics.components;
 
 const MyEntitySelector = () => {
 	const [selectedEntities, setSelectedEntities] = useState( null );
@@ -39,7 +39,7 @@ Attenttion: All properties excepted by `<EntitySelectControl />` will be passed 
 
 ```jsx
 import { useState } from '@wordpress/element';
-import { PostSelectControl } from 'path/to/EntitySelectControl';
+const { PostSelectControl } = window.lhbasics.components;
 
 const MyEventSelector = () => {
 	const [selectedPage, setSelectedPage] = useState( null );
@@ -69,7 +69,7 @@ Attenttion: All properties excepted by `<EntitySelectControl />` will be passed 
 
 ```jsx
 import { useState } from '@wordpress/element';
-import { TaxonomySelectControl } from 'path/to/EntitySelectControl';
+const { TaxonomySelectControl } = window.lhbasics.components;
 
 const MyTagIdsSelector = () => {
 	// We just want to save the tag-IDs, not the whole term objects.
