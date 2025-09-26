@@ -8,7 +8,7 @@ this component requires to enqueue wp media assets as well with `wp_enqueue_medi
 
 ```jsx
 import { useState } from '@wordpress/element';
-import MediaSelectControl from 'path/to/MediaSelectControl';
+const { MediaSelectControl } = window.lhbasics.components;
 
 const MyIconSelector = () => {
 	const [ mediaId, setMediaId ] = useState( null );

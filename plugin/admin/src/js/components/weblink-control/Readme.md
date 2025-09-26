@@ -22,7 +22,7 @@ The (default) link object schema to use with the `<WeblinkControl />`.
 
 ```jsx
 import { useState } from '@wordpress/element';
-import WeblinkControl from 'path/to/WeblinkControl';
+const { WeblinkControl } = window.lhbasics.components;
 
 const MyWeblinkControl = () => {
 	const [link, setLink] = useState({ url: '', link: '', opensInNewTab: false });
@@ -88,7 +88,7 @@ The (default) link object schema to use with the `<WeblinkToolbarButton />`.
 ```jsx
 import { BlockControls } from `@wordpress/block-editor`;
 import { useState } from '@wordpress/element';
-import WeblinkToolbarButton from 'path/to/WeblinkToolbarButton';
+const { WeblinkToolbarButton } = window.lhbasics.components;
 
 const MyWeblinkControl = () => {
 	const [link, setLink] = useState({ url: '', link: '', opensInNewTab: false });
@@ -143,7 +143,7 @@ Note2: The `id` is mandatory here for a more straight forward approach to hold i
 
 ```jsx
 import { useState } from '@wordpress/element';
-import WeblinkSetting from 'path/to/WeblinkSetting';
+const { WeblinkSetting } = window.lhbasics.components;
 
 const MyWeblinkSetting = () => {
 	const [link, setLink] = useState({ id: 0, url: '', link: '', opensInNewTab: false });
