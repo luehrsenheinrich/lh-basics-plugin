@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.2](https://github.com/luehrsenheinrich/lh-basics-plugin/compare/lh-basics-plugin-project-v0.4.1...lh-basics-plugin-project-v0.4.2) (2026-01-20)
+
+
+### Bug Fixes
+
+* Expose GLightbox as lhGlightbox to window ([#440](https://github.com/luehrsenheinrich/lh-basics-plugin/issues/440)) ([15741c3](https://github.com/luehrsenheinrich/lh-basics-plugin/commit/15741c3f7aedb2a2a45658635f11a54084db6d18))
+
 ## [0.4.1](https://github.com/luehrsenheinrich/lh-basics-plugin/compare/lh-basics-plugin-project-v0.4.0...lh-basics-plugin-project-v0.4.1) (2025-09-26)
 
 
