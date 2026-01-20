@@ -1,5 +1,7 @@
 import GLightbox from 'glightbox';
 
+window.lhGlightbox = window?.lhGlightbox ?? GLightbox;
+
 document.addEventListener('DOMContentLoaded', () => {
 	new LightboxControl();
 });
