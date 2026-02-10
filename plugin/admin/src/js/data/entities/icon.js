@@ -44,14 +44,12 @@ export const useIcons = (params = {}) => {
 			: must_include;
 
 	// Determine the per_page value: if must_include is an array and exceeds per_page, use its length
-	let effectivePerPage = per_page;
-	if (
+	const effectivePerPage =
 		Array.isArray(must_include) &&
 		must_include.length > 0 &&
 		must_include.length > per_page
-	) {
-		effectivePerPage = must_include.length;
-	}
+			? must_include.length
+			: per_page;
 
 	const { records: icons, ...states } = useEntityRecords('root', 'icon', {
 		search,

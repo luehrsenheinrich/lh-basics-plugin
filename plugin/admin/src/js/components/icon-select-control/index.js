@@ -45,30 +45,25 @@ const IconSelectControl = ({
 	// 1. The current value (if set)
 	// 2. All icons from the whiteList (if provided)
 	// 3. All icons from the blackList (if provided)
-	const mustIncludeArray = [];
+	const mustIncludeSet = new Set();
 
 	// Add current value to must_include if it exists
 	if (value) {
-		mustIncludeArray.push(value);
+		mustIncludeSet.add(value);
 	}
 
 	// Add whitelist icons to must_include
 	if (whiteList.length > 0) {
-		whiteList.forEach((slug) => {
-			if (!mustIncludeArray.includes(slug)) {
-				mustIncludeArray.push(slug);
-			}
-		});
+		whiteList.forEach((slug) => mustIncludeSet.add(slug));
 	}
 
 	// Add blacklist icons to must_include
 	if (blackList.length > 0) {
-		blackList.forEach((slug) => {
-			if (!mustIncludeArray.includes(slug)) {
-				mustIncludeArray.push(slug);
-			}
-		});
+		blackList.forEach((slug) => mustIncludeSet.add(slug));
 	}
+
+	// Convert Set to array
+	const mustIncludeArray = Array.from(mustIncludeSet);
 
 	// Retrieve icons matching the search term.
 	// The "must_include" parameter ensures that the icon matching the current "value"
