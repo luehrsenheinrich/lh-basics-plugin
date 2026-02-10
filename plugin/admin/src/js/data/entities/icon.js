@@ -20,20 +20,45 @@ dispatch(coreStore).addEntities([
 /**
  * Retrieves a list of icons with optional filtering and pagination.
  *
- * @param {Object} [params={}]           - Query parameters for filtering icons.
- * @param {string} [params.search='']    - A search term to filter icons by title.
- * @param {number} [params.page=1]       - The page number for pagination.
- * @param {number} [params.per_page=20]  - The number of icons to retrieve per page.
- * @param {string} [params.must_include] - A single icon slug.
+ * @param {Object}          [params={}]           - Query parameters for filtering icons.
+ * @param {string}          [params.search='']    - A search term to filter icons by title.
+ * @param {number}          [params.page=1]       - The page number for pagination.
+ * @param {number}          [params.per_page=20]  - The number of icons to retrieve per page.
+ * @param {string|string[]} [params.must_include] - A single icon slug or array of icon slugs.
+ * @param {Object}          [params.query={}]     - Additional query parameters to pass through.
  * @return {Object} An object containing the icons (as `records`) and other state properties.
  */
 export const useIcons = (params = {}) => {
-	const { search = '', page = 1, per_page = 20, must_include } = params;
+	const {
+		search = '',
+		page = 1,
+		per_page = 20,
+		must_include,
+		query = {},
+	} = params;
+
+	// Convert must_include to comma-separated string if it's an array
+	const processedMustInclude =
+		Array.isArray(must_include) && must_include.length > 0
+			? must_include.join(',')
+			: must_include;
+
+	// Determine the per_page value: if must_include is an array and exceeds per_page, use its length
+	let effectivePerPage = per_page;
+	if (
+		Array.isArray(must_include) &&
+		must_include.length > 0 &&
+		must_include.length > per_page
+	) {
+		effectivePerPage = must_include.length;
+	}
+
 	const { records: icons, ...states } = useEntityRecords('root', 'icon', {
 		search,
 		page,
-		per_page,
-		must_include,
+		per_page: effectivePerPage,
+		must_include: processedMustInclude,
+		...query,
 	});
 	return { icons, ...states };
 };
