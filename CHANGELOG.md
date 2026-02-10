@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.3](https://github.com/luehrsenheinrich/lh-basics-plugin/compare/lh-basics-plugin-project-v0.4.2...lh-basics-plugin-project-v0.4.3) (2026-02-10)
+
+
+### Bug Fixes
+
+* Enhance IconSelectControl with array-based must_include and query parameters ([#443](https://github.com/luehrsenheinrich/lh-basics-plugin/issues/443)) ([b46b480](https://github.com/luehrsenheinrich/lh-basics-plugin/commit/b46b480009f7330e8bb9d493c5f0fe1dc4ffdf33))
+
 ## [0.4.2](https://github.com/luehrsenheinrich/lh-basics-plugin/compare/lh-basics-plugin-project-v0.4.1...lh-basics-plugin-project-v0.4.2) (2026-01-20)
 
 
