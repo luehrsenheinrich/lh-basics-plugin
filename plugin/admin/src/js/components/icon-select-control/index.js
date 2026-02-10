@@ -27,6 +27,7 @@ const IconSelectControl = ({
 	onChange,
 	blackList = [],
 	whiteList = [],
+	query = {},
 }) => {
 	// Local state to hold the currently selected option.
 	const [selectedOption, setSelectedOption] = useState(null);
@@ -39,11 +40,39 @@ const IconSelectControl = ({
 		help,
 	});
 
+	// Build the must_include parameter.
+	// This should include:
+	// 1. The current value (if set)
+	// 2. All icons from the whiteList (if provided)
+	// 3. All icons from the blackList (if provided)
+	const mustIncludeSet = new Set();
+
+	// Add current value to must_include if it exists
+	if (value) {
+		mustIncludeSet.add(value);
+	}
+
+	// Add whitelist icons to must_include
+	if (whiteList.length > 0) {
+		whiteList.forEach((slug) => mustIncludeSet.add(slug));
+	}
+
+	// Add blacklist icons to must_include
+	if (blackList.length > 0) {
+		blackList.forEach((slug) => mustIncludeSet.add(slug));
+	}
+
+	// Convert Set to array
+	const mustIncludeArray = Array.from(mustIncludeSet);
+
 	// Retrieve icons matching the search term.
-	// The "must_include" parameter ensures that the icon matching the current "value" is always present.
+	// The "must_include" parameter ensures that the icon matching the current "value"
+	// and all whitelist/blacklist icons are always present.
 	const { icons, hasResolved } = useIcons({
 		search: searchTerm,
-		must_include: value,
+		must_include:
+			mustIncludeArray.length > 0 ? mustIncludeArray : undefined,
+		query,
 	});
 
 	// Load the icon for the current value using a dedicated hook.
