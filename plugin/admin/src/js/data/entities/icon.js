@@ -69,6 +69,6 @@ export const useIcons = (params = {}) => {
  * @return {Object} An object containing the icon (as `record`) and other state properties.
  */
 export const useIcon = (slug) => {
-	const { record: icon, ...states } = useEntityRecord('root', 'icon', slug);
+	const { record: icon, ...states } = useEntityRecord('root', 'lhicon', slug);
 	return { icon, ...states };
 };
