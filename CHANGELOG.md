@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.4](https://github.com/luehrsenheinrich/lh-basics-plugin/compare/lh-basics-plugin-project-v0.4.3...lh-basics-plugin-project-v0.4.4) (2026-05-26)
+
+
+### Bug Fixes
+
+* Make WP7.0 ready ([#445](https://github.com/luehrsenheinrich/lh-basics-plugin/issues/445)) ([2538cb7](https://github.com/luehrsenheinrich/lh-basics-plugin/commit/2538cb74ca9f6b01ec48be67d9b87768b93c059f))
+
 ## [0.4.3](https://github.com/luehrsenheinrich/lh-basics-plugin/compare/lh-basics-plugin-project-v0.4.2...lh-basics-plugin-project-v0.4.3) (2026-02-10)
 
 
