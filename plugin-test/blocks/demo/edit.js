@@ -7,7 +7,7 @@ import {
 	useBlockProps,
 } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
-import { PanelBody, TextControl } from '@wordpress/components';
+import { PanelBody } from '@wordpress/components';
 const { IconSelectControl, WeblinkControl, WeblinkToolbarButton } =
 	window.lhbasics.components;
 
@@ -21,11 +21,6 @@ const Edit = (props) => {
 			<InspectorControls>
 				<PanelBody title={__('Settings', 'lhpbpp')}>
 					<p>{__('This is a demo block.', 'lhpbpp')}</p>
-					<TextControl
-						label={__('Demo block text', 'lhpbpp')}
-						value={attributes.text || ''}
-						onChange={(value) => setAttributes({ text: value })}
-					/>
 					<IconSelectControl
 						label={__('Select an icon', 'lhpbpp')}
 						value={icon}
