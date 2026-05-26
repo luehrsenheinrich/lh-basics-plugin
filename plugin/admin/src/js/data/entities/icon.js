@@ -10,7 +10,7 @@ import {
 dispatch(coreStore).addEntities([
 	{
 		label: 'Icons',
-		name: 'icon',
+		name: 'lhicon',
 		kind: 'root',
 		baseURL: '/lhbasics/v1/icons',
 		key: 'slug',
@@ -51,13 +51,14 @@ export const useIcons = (params = {}) => {
 			? must_include.length
 			: per_page;
 
-	const { records: icons, ...states } = useEntityRecords('root', 'icon', {
+	const { records: icons, ...states } = useEntityRecords('root', 'lhicon', {
 		search,
 		page,
 		per_page: effectivePerPage,
 		must_include: processedMustInclude,
 		...query,
 	});
+
 	return { icons, ...states };
 };
 
