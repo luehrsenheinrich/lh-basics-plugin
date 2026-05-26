@@ -189,6 +189,8 @@ const IconSelectControl = ({
 						<span>{option.label}</span>
 					</div>
 				)}
+				// Debug
+				// menuIsOpen={true}
 			/>
 		</BaseControl>
 	);

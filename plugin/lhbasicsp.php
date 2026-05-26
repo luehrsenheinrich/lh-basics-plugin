@@ -9,7 +9,9 @@
  * Description: A plugin that provides basic functionality for our WordPress projects.
  * Author: Luehrsen // Heinrich
  * Author URI: https://www.luehrsen-heinrich.de
- * Version: 0.4.0
+ * x-release-please-start-version
+ * Version: 0.4.3
+ * x-release-please-end
  * Text Domain: lhbasicsp
  * Domain Path: /languages
  */

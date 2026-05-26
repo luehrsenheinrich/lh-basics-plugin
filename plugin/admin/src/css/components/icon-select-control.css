@@ -8,6 +8,11 @@
 	& input[type="text"]:focus {
 		box-shadow: none;
 	}
+
+	& .react-select__control {
+		border-radius: 2px;
+		border: 1px solid var(--wp-components-color-gray-600, #949494);
+	}
 }
 
 .lh-icon-select-option-label {

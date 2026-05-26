@@ -93,7 +93,7 @@ export default function WeblinkControl({
 								onChange({ ...value, ...newValue });
 							}}
 							renderControlBottom={() => (
-								<div className="block-editor-link-control__tools lh-weblink-control__tools">
+								<div className="lh-weblink-control__tools">
 									<PanelRow className="panel-row-full-width">
 										<TextControl
 											label={__('Title', 'lhbasicsp')}
