@@ -1,13 +1,32 @@
 /* Control */
 .lh-weblink-control__tools {
 	display: block;
+
+	& .components-base-control {
+		width: 100%;
+	}
 }
 
 .lh-weblink-control__dropdown-content {
 
+	& .block-editor-link-control__field {
+		margin: 0;
+	}
+
 	& .components-popover__content {
 		overflow-y: initial;
 		min-width: 18rem;
+	}
+
+	& .block-editor-link-control__preview {
+		padding: 0;
+	}
+
+	& .block-editor-link-control {
+
+		& > * {
+			margin: 12px;
+		}
 	}
 }
 
