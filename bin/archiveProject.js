@@ -1,18 +1,21 @@
 /**
  * External Dependencies
  */
-const fs = require('fs');
-const archiver = require('archiver');
-const ignore = require('ignore');
-const { globSync } = require('glob');
-const pkg = require('./../package.json');
+import fs from 'fs';
+import { ZipArchive } from 'archiver';
+import ignore from 'ignore';
+import { globSync } from 'glob';
+import { createRequire } from 'module';
+
+const require = createRequire(import.meta.url);
+const pkg = require('../package.json');
 
 const createArchive = (path, srcPath, slug) => {
 	// Define the output stream
 	const output = fs.createWriteStream(path + '/' + slug + '.zip');
 
 	// Initialize the archive
-	const archive = archiver('zip', {
+	const archive = new ZipArchive({
 		zlib: { level: 9 }, // Sets the compression level.
 	});
 
@@ -52,8 +55,10 @@ const createArchive = (path, srcPath, slug) => {
 		// Finalize the archive
 		archive.finalize();
 	} catch (error) {
+		// eslint-disable-next-line no-console
 		console.error(error);
 	}
 };
 
 createArchive('./archives', './plugin', pkg.slug + 'p');
+createArchive('./archives', './theme', pkg.slug + 't');
