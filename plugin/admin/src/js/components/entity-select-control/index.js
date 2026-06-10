@@ -175,9 +175,9 @@ export const SearchSelectControl = ({ ...props }) => {
 	return (
 		<EntitySelectControl
 			{...props}
-			name={'lhSearch'}
+			name={'lhsearch'}
 			kind={'root'}
-			query={{ subtype: ['post', 'page'], ...(props?.query || {}) }}
+			query={{ type: 'post', per_page: 20, ...(props?.query || {}) }}
 		/>
 	);
 };
