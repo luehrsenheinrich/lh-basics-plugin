@@ -8,13 +8,17 @@ import {
 } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
 import { PanelBody } from '@wordpress/components';
-const { IconSelectControl, WeblinkControl, WeblinkToolbarButton } =
-	window.lhbasics.components;
+const {
+	IconSelectControl,
+	SearchSelectControl,
+	WeblinkControl,
+	WeblinkToolbarButton,
+} = window.lhbasics.components;
 
 const Edit = (props) => {
 	const { attributes, setAttributes } = props;
 
-	const { icon, link } = attributes;
+	const { icon, link, postSingle } = attributes;
 
 	return (
 		<>
@@ -25,6 +29,15 @@ const Edit = (props) => {
 						label={__('Select an icon', 'lhpbpp')}
 						value={icon}
 						onChange={(value) => setAttributes({ icon: value })}
+					/>
+					<SearchSelectControl
+						label={__('Search for something', 'lhpbpp')}
+						value={{ value: postSingle }}
+						onChange={({ value }) =>
+							setAttributes({ postSingle: value })
+						}
+						query={{ search: 'example' }}
+						multiple={false}
 					/>
 				</PanelBody>
 			</InspectorControls>

@@ -171,6 +171,17 @@ export const TaxonomySelectControl = ({ taxonomy = 'category', ...props }) => {
 	return <EntitySelectControl {...props} name={taxonomy} kind={'taxonomy'} />;
 };
 
+export const SearchSelectControl = ({ ...props }) => {
+	return (
+		<EntitySelectControl
+			{...props}
+			name={'lhsearch'}
+			kind={'root'}
+			query={{ subtype: ['post', 'page'], ...(props?.query || {}) }}
+		/>
+	);
+};
+
 export default EntitySelectControl;
 
 function getSelectValue(value, options = [], multiple) {

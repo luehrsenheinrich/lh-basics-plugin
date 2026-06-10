@@ -12,6 +12,7 @@ import MediaSelectControl from './components/media-select-control';
 import EntitySelectControl, {
 	PostSelectControl,
 	TaxonomySelectControl,
+	SearchSelectControl,
 } from './components/entity-select-control';
 import WeblinkControl from './components/weblink-control';
 import WeblinkSetting from './components/weblink-control/setting';
@@ -30,6 +31,7 @@ window.lhbasics.components.LHIcon = LHIcon;
 window.lhbasics.components.EntitySelectControl = EntitySelectControl;
 window.lhbasics.components.PostSelectControl = PostSelectControl;
 window.lhbasics.components.TaxonomySelectControl = TaxonomySelectControl;
+window.lhbasics.components.SearchSelectControl = SearchSelectControl;
 
 // Register the MediaSelectControl component to the global lhbasics.components namespace
 window.lhbasics.components.MediaSelectControl = MediaSelectControl;

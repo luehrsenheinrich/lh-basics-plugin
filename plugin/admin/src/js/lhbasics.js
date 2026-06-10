@@ -1,7 +1,7 @@
 /**
  * This file exposes some key variables to the global scope.
  */
-
+import './data/stores';
 import SettingsObject from './modules/settings-object';
 
 /**
