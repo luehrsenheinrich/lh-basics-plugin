@@ -111,6 +111,13 @@ class Plugin {
 	}
 
 	/**
+	 * Get the Settings component.
+	 */
+	public function settings() {
+		return $this->settings;
+	}
+
+	/**
 	 * Get the SVG component.
 	 */
 	public function svg() {

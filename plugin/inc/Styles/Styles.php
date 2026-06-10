@@ -7,6 +7,7 @@
 
 namespace WpMunich\basics\plugin\Styles;
 use WpMunich\basics\plugin\Settings\Settings;
+use function WpMunich\basics\plugin\plugin;
 
 use WpMunich\basics\plugin\Plugin_Component;
 
@@ -22,6 +23,7 @@ class Styles extends Plugin_Component {
 		if ( $this->is_active() ) {
 			add_action( 'enqueue_block_assets', array( $this, 'action_enqueue_block_assets_create_color_vars' ), 20 );
 			add_action( 'wp_enqueue_scripts', array( $this, 'action_enqueue_scripts_create_color_vars' ), 20 );
+			add_action( 'admin_enqueue_scripts', array( $this, 'action_admin_enqueue_scripts_create_color_vars' ), 20 );
 		}
 	}
 
@@ -79,6 +81,19 @@ class Styles extends Plugin_Component {
 	 */
 	public function action_enqueue_scripts_create_color_vars() {
 		$this->create_color_helper_vars( 'global-styles' );
+	}
+
+	/**
+	 * Action callback for enqueueing admin scripts to create color helper variables.
+	 *
+	 * @return void
+	 */
+	public function action_admin_enqueue_scripts_create_color_vars() {
+		if ( ! plugin()->settings()->is_lh_settings_page() ) {
+			return;
+		}
+
+		$this->create_color_helper_vars( 'lhagentur-settings-page' );
 	}
 
 	/**

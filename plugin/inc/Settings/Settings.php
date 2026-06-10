@@ -61,7 +61,6 @@ class Settings extends Plugin_Component {
 	 * @return void
 	 */
 	public function enqueue_assets() {
-		$screen = get_current_screen();
 		$assets = wp_json_file_decode(
 			plugin()->get_plugin_path() . '/admin/dist/assets.json',
 			array( 'associative' => true )
@@ -76,7 +75,7 @@ class Settings extends Plugin_Component {
 			true
 		);
 
-		if ( in_array( $screen->id, array( 'settings_page_lhagentur-settings' ), true ) ) {
+		if ( $this->is_lh_settings_page() ) {
 			$admin_script_assets = $assets['js/admin-settings-page.min.js'] ?? array();
 			wp_enqueue_script(
 				'lhagentur-settings-page',
@@ -103,6 +102,17 @@ class Settings extends Plugin_Component {
 				plugin()->get_plugin_version()
 			);
 		}
+	}
+
+	/**
+	 * Check whether the current screen is the plugin settings page.
+	 *
+	 * @return bool
+	 */
+	public function is_lh_settings_page() {
+		$screen = get_current_screen();
+
+		return ! empty( $screen ) && 'settings_page_lhagentur-settings' === $screen->id;
 	}
 
 	/**
