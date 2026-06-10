@@ -119,9 +119,8 @@ class Styles extends Plugin_Component {
 			return;
 		}
 
-		// Somehow $handle will be empty when called with one parameter, so we need to default it like this.
+		// Fallback if an empty handle is provided.
 		$handle = empty( $handle ) ? 'global-styles-css-custom-properties' : $handle;
-
 		// Note: Handle must be an existing one, not a new one.
 		wp_add_inline_style( $handle, $palette_css );
 	}
