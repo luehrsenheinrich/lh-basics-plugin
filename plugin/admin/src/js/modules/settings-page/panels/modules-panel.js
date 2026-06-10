@@ -13,7 +13,7 @@ import { get } from 'lodash';
  * @param {Object}   props.apiSettings    The API settings object.
  * @param {Function} props.setApiSettings The function to set the API settings.
  *
- * @return {JSX.Element} The settings panel component.
+ * @return {Component} The settings panel component.
  */
 const ModulesPanel = (props) => {
 	const { apiSettings, setApiSettings } = props;
