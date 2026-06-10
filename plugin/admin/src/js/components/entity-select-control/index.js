@@ -177,7 +177,7 @@ export const SearchSelectControl = ({ ...props }) => {
 			{...props}
 			name={'lhsearch'}
 			kind={'root'}
-			query={{ type: 'post', per_page: 20, ...(props?.query || {}) }}
+			query={{ subtype: ['post', 'page'], ...(props?.query || {}) }}
 		/>
 	);
 };
