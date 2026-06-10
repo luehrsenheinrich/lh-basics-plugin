@@ -3,7 +3,7 @@ import { store as coreStore } from '@wordpress/core-data';
 
 dispatch(coreStore).addEntities([
 	{
-		name: 'lhSearch',
+		name: 'lhsearch',
 		kind: 'root',
 		baseURL: '/wp/v2/search',
 	},
