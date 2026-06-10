@@ -19,16 +19,17 @@ class Plugin {
 	/**
 	 * Constructor.
 	 *
-	 * @param Blocks\Blocks                     $blocks The blocks component.
-	 * @param i18n\I18N                         $i18n The i18n component.
+	 * @param Blocks\Blocks                     $blocks           The blocks component.
+	 * @param i18n\I18N                         $i18n             The i18n component.
 	 * @param Disable_Comments\Disable_Comments $disable_comments The disable comments component.
-	 * @param Gravity_Forms\Gravity_Forms       $gravity_forms The gravity forms component.
-	 * @param Lazysizes\Lazysizes               $lazysizes The lazysizes component.
-	 * @param Lightbox\Lightbox                 $lightbox The lightbox component.
-	 * @param Settings\Settings                 $settings The settings component.
-	 * @param Admin_UX\Admin_UX                 $admin_ux The admin UX component.
-	 * @param Performance\Performance           $performance The performance component.
-	 * @param SVG\SVG                           $svg The svg component.
+	 * @param Gravity_Forms\Gravity_Forms       $gravity_forms    The gravity forms component.
+	 * @param Lazysizes\Lazysizes               $lazysizes        The lazysizes component.
+	 * @param Lightbox\Lightbox                 $lightbox         The lightbox component.
+	 * @param Settings\Settings                 $settings         The settings component.
+	 * @param Admin_UX\Admin_UX                 $admin_ux         The admin UX component.
+	 * @param Performance\Performance           $performance      The performance component.
+	 * @param Styles\Styles                     $styles           The styles component.
+	 * @param SVG\SVG                           $svg              The svg component.
 	 */
 	public function __construct(
 		private Blocks\Blocks $blocks,
@@ -40,6 +41,7 @@ class Plugin {
 		private Settings\Settings $settings,
 		private Admin_UX\Admin_UX $admin_ux,
 		private Performance\Performance $performance,
+		private Styles\Styles $styles,
 		private SVG\SVG $svg
 	) {
 	}
