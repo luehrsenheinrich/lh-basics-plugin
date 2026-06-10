@@ -93,6 +93,36 @@ const MyTagIdsSelector = () => {
 export default MyTagIdsSelector;
 ```
 
+## SearchSelectControl (Wrapper-)Component
+
+The wrapper component `<SearchSelectControl />` wraps the `<EntitySelectControl />` and uses the search endpoint entity (`kind: 'root'`, `name: 'lhsearch'`).
+
+Attenttion: All properties excepted by `<EntitySelectControl />` will be passed down. You can use `query` to pass search endpoint params like `subtype`.
+
+### Example Usage
+
+```jsx
+import { useState } from '@wordpress/element';
+const { SearchSelectControl } = window.lhbasics.components;
+
+const MySearchSelector = () => {
+	const [selectedEntries, setSelectedEntries] = useState( null );
+
+	return (
+		<SearchSelectControl
+			label="Select Search Result"
+			help="Select entries from search results."
+			query={{ subtype: ['post', 'my_cpt'] }}
+			value={selectedEntries}
+			onChange={setSelectedEntries}
+			multiple={false}
+		/>
+	);
+};
+
+export default MySearchSelector;
+```
+
 ## Props
 
 ### `kind`
