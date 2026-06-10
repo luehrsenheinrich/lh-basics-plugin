@@ -38,7 +38,7 @@ class Styles extends Plugin_Component {
 	}
 
 	/**
-	 * If the lightbox feature is an active option.
+	 * Whether the CSS Vars Helper module is active.
 	 */
 	protected function is_active() {
 		return $this->container()->get( Settings::class )->is_module_active( 'css-vars-helper' );
