@@ -10,7 +10,7 @@
  * Author: Luehrsen // Heinrich
  * Author URI: https://www.luehrsen-heinrich.de
  * x-release-please-start-version
- * Version: 0.4.3
+ * Version: 0.4.4
  * x-release-please-end
  * Text Domain: lhbasicsp
  * Domain Path: /languages
