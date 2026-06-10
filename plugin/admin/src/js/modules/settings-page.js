@@ -29,7 +29,7 @@ import { MainSettingsSlot } from './main-settings-slotfill';
 /**
  * This is the main settings page component.
  *
- * @return {JSX.Element} The settings page component.
+ * @return {Component} The settings page component.
  */
 const SettingsPage = () => {
 	/**

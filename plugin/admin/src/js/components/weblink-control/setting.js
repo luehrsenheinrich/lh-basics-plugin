@@ -68,6 +68,7 @@ export default function WeblinkSetting({
 			}
 			return data;
 		} catch (err) {
+			console.error(err); // eslint-disable-line no-console
 			return [];
 		}
 	};
