@@ -46,8 +46,9 @@ jobs:
         if: ${{ steps.release.outputs.release_created }}
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.3'
+          php-version: '8.4'
           tools: composer:v2
+          github-token: ''
 
       - name: 💾 Get node.js cache directory
         if: ${{ steps.release.outputs.release_created }}
