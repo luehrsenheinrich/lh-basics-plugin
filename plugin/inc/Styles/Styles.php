@@ -52,7 +52,7 @@ class Styles extends Plugin_Component {
 	 */
 	public function add_module( $modules ) {
 		if ( ! wp_theme_has_theme_json() ) {
-			return;
+			return $modules;
 		}
 		$modules[] = array(
 			'title'       => __( 'CSS Vars Helper', 'lhbasicsp' ),
