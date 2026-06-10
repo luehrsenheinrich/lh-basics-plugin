@@ -82,11 +82,12 @@ class Styles extends Plugin_Component {
 	}
 
 	/**
-	 * Generates CSS variables from the theme's JSON file.
+	 * Generates CSS helper classes from the theme.json color palette.
 	 *
-	 * @param string $handle Optional handle parameter.
+	 * @param string $handle Style handle to attach the inline helper CSS to (must already be enqueued).
+	 * @return void
 	 */
-	public function create_color_helper_vars( $handle ) {
+	public function create_color_helper_vars( $handle = 'global-styles-css-custom-properties' ) {
 		if ( ! wp_theme_has_theme_json() ) {
 			return;
 		}
