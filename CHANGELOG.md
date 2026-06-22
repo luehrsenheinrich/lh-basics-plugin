@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.5.0](https://github.com/luehrsenheinrich/lh-basics-plugin/compare/lh-basics-plugin-project-v0.4.4...lh-basics-plugin-project-v0.5.0) (2026-06-10)
+
+
+### Features
+
+* Add CSS Vars Helper module ([#465](https://github.com/luehrsenheinrich/lh-basics-plugin/issues/465)) ([e96d0ae](https://github.com/luehrsenheinrich/lh-basics-plugin/commit/e96d0aebb032ca1a60ff1c16f0cbf0f246a4e023))
+* Add SearchSelectControl ([#464](https://github.com/luehrsenheinrich/lh-basics-plugin/issues/464)) ([57c35bd](https://github.com/luehrsenheinrich/lh-basics-plugin/commit/57c35bda5dcb46fabfc75b4a93337c34c98d6a0d))
+
 ## [0.4.4](https://github.com/luehrsenheinrich/lh-basics-plugin/compare/lh-basics-plugin-project-v0.4.3...lh-basics-plugin-project-v0.4.4) (2026-05-26)
 
 
