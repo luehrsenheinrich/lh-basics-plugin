@@ -6,3 +6,11 @@
 		box-shadow: none;
 	}
 }
+
+:root .react-select__menu {
+	z-index: 10;
+}
+
+.interface-complementary-area .components-panel {
+	z-index: 1;
+}
