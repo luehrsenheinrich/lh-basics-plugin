@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.1](https://github.com/luehrsenheinrich/lh-basics-plugin/compare/lh-basics-plugin-project-v0.5.0...lh-basics-plugin-project-v0.5.1) (2026-06-24)
+
+
+### Bug Fixes
+
+* EntitySelectControl dropdown stacking in editor side panels ([#479](https://github.com/luehrsenheinrich/lh-basics-plugin/issues/479)) ([99e0807](https://github.com/luehrsenheinrich/lh-basics-plugin/commit/99e0807048a6cc21a94f9b3931499a5ea47ef477))
+
 ## [0.5.0](https://github.com/luehrsenheinrich/lh-basics-plugin/compare/lh-basics-plugin-project-v0.4.4...lh-basics-plugin-project-v0.5.0) (2026-06-10)
 
 
