@@ -32,10 +32,25 @@ class Blocks extends Plugin_Component {
 	 * Register assets.
 	 */
 	public function register_assets() {
+		// Load script assets.
 		$assets = wp_json_file_decode(
 			plugin()->get_plugin_path() . '/admin/dist/assets.json',
 			array( 'associative' => true )
 		);
+
+		// Get blocks helper assets.
+		$blocks_helper_assets = $assets['js/blocks-helper.min.js'] ?? array();
+
+		// Handle tinyMCE dependencies.
+		// Guard this as it's loading a lot of unecessary stuff if not needed.
+		$use_tiny_mce = apply_filters( 'lhbasics_use_tinymce', false );
+		if ( $use_tiny_mce ) {
+			$blocks_helper_assets['dependencies'][] = 'wp-editor';
+			$blocks_helper_assets['dependencies'][] = 'wp-tinymce';
+
+			wp_enqueue_editor();
+			wp_enqueue_media();
+		}
 
 		$blocks_helper_assets = $assets['js/blocks-helper.min.js'] ?? array();
 		wp_register_script(
@@ -51,6 +66,16 @@ class Blocks extends Plugin_Component {
 			array(),
 			plugin()->get_plugin_version(),
 			'all'
+		);
+
+		wp_localize_script(
+			'lhbasics-blocks-helper',
+			'lhbasicsBlocksHelper',
+			array(
+				'useTinyMCE' => $use_tiny_mce,
+				'settings'   => wp_get_global_settings(),
+				'cssUri'     => apply_filters( 'lhbasics_tinymce_css_uri', '' ),
+			)
 		);
 	}
 

@@ -14,6 +14,7 @@ import EntitySelectControl, {
 	TaxonomySelectControl,
 	SearchSelectControl,
 } from './components/entity-select-control';
+import TinyMCE from './components/tiny-mce';
 import WeblinkControl from './components/weblink-control';
 import WeblinkSetting from './components/weblink-control/setting';
 import WeblinkToolbarButton from './components/weblink-control/toolbar-button';
@@ -40,3 +41,6 @@ window.lhbasics.components.MediaSelectControl = MediaSelectControl;
 window.lhbasics.components.WeblinkControl = WeblinkControl;
 window.lhbasics.components.WeblinkSetting = WeblinkSetting;
 window.lhbasics.components.WeblinkToolbarButton = WeblinkToolbarButton;
+
+// Register the TinyMCE component to the global lhbasics.components namespace
+window.lhbasics.components.TinyMCE = TinyMCE;
