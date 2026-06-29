@@ -93,7 +93,7 @@ function WPTinyMCE({ id = 'lh-editor', value, onChange, ...baseProps }) {
 							className="wp-media-buttons-icon"
 							aria-hidden="true"
 						></span>
-						{__('Add Media', 'm94526p')}
+						{__('Add Media', 'lhbasicsp')}
 					</Button>
 				</div>
 				<div className="tinymce-container">
