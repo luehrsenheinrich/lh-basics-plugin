@@ -14,7 +14,7 @@ export default class HexToVarFixObserver {
 					continue;
 				}
 
-				// Color popup erkannt
+				// Detect the color popup.
 				if (
 					node.matches?.('.mce-colorbutton-grid') ||
 					node.querySelector?.('.mce-colorbutton-grid')

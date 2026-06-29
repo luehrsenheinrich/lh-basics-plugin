@@ -8,7 +8,8 @@ import { __ } from '@wordpress/i18n';
 
 import HexToVarFixObserver from './HexToVarFixObserver';
 
-const COLOR_PALETTE = window.lhbasicsBlocksHelper.settings.color.palette.theme;
+const COLOR_PALETTE =
+	window?.lhbasicsBlocksHelper?.settings?.color?.palette?.theme ?? [];
 const TEXTCOLOR_MAP = COLOR_PALETTE.flatMap(({ color, name }) => [color, name]);
 
 function WPTinyMCE({ id = 'lh-editor', value, onChange, ...baseProps }) {
@@ -82,7 +83,7 @@ function WPTinyMCE({ id = 'lh-editor', value, onChange, ...baseProps }) {
 					<Button
 						variant="secondary"
 						type="button"
-						id="insert-media-button"
+						id={`insert-media-button-${id}`}
 						className="insert-media add_media"
 						data-editor={id}
 						aria-haspopup="dialog"
@@ -92,7 +93,7 @@ function WPTinyMCE({ id = 'lh-editor', value, onChange, ...baseProps }) {
 							className="wp-media-buttons-icon"
 							aria-hidden="true"
 						></span>
-						{__('Add Media', 'm94526p')}
+						{__('Add Media', 'lhbasicsp')}
 					</Button>
 				</div>
 				<div className="tinymce-container">
