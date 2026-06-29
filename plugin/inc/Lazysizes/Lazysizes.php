@@ -82,7 +82,7 @@ class Lazysizes extends Plugin_Component {
 		if ( isset( $attr['srcset'] ) && ! empty( $attr['srcset'] ) ) {
 
 			// Modify the class of the image.
-			$attr['class'] = classNames(
+			$attr['class'] = \lhbasicsp_classNames(
 				$attr['class'] ? $attr['class'] : null,
 				array(
 					'lazyload' => true,

@@ -30,6 +30,7 @@ class Plugin {
 	 * @param Performance\Performance           $performance      The performance component.
 	 * @param Styles\Styles                     $styles           The styles component.
 	 * @param SVG\SVG                           $svg              The svg component.
+	 * @param Logging\Logs                      $logs             The logs component.
 	 */
 	public function __construct(
 		private Blocks\Blocks $blocks,
@@ -42,7 +43,8 @@ class Plugin {
 		private Admin_UX\Admin_UX $admin_ux,
 		private Performance\Performance $performance,
 		private Styles\Styles $styles,
-		private SVG\SVG $svg
+		private SVG\SVG $svg,
+		private Logging\Logs $logs
 	) {
 	}
 
@@ -104,10 +106,19 @@ class Plugin {
 	/**
 	 * Get the DI container.
 	 *
-	 * @return \DI\Container The DI container.
+	 * @return \WpMunich\basics\plugin\Dependencies\DI\Container The DI container.
 	 */
 	public function container() {
 		return plugin_container();
+	}
+
+	/**
+	 * Get the plugin logger.
+	 *
+	 * @return Logging\Logger_Interface The plugin logger.
+	 */
+	public function logger() {
+		return $this->container()->get( Logging\Logger_Interface::class );
 	}
 
 	/**
