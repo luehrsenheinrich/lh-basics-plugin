@@ -8,7 +8,8 @@ import { __ } from '@wordpress/i18n';
 
 import HexToVarFixObserver from './HexToVarFixObserver';
 
-const COLOR_PALETTE = window.lhbasicsBlocksHelper.settings.color.palette.theme;
+const COLOR_PALETTE =
+	window?.lhbasicsBlocksHelper?.settings?.color?.palette?.theme ?? [];
 const TEXTCOLOR_MAP = COLOR_PALETTE.flatMap(({ color, name }) => [color, name]);
 
 function WPTinyMCE({ id = 'lh-editor', value, onChange, ...baseProps }) {
