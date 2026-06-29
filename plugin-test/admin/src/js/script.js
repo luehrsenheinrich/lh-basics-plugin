@@ -10,6 +10,7 @@ const {
 	PostSelectControl,
 	TaxonomySelectControl,
 	MediaSelectControl,
+	TinyMCE,
 	WeblinkSetting,
 } = window.lhbasics.components;
 
@@ -29,6 +30,7 @@ function slotFillTest(Component) {
 			opensInNewTab: false,
 			id: null, // Not needed in non-persistent state, but added for demonstration.
 		});
+		const [tinyMceContent, setTinyMceContent] = useState('');
 
 		const { apiSettings, setApiSettings } = props;
 
@@ -103,6 +105,14 @@ function slotFillTest(Component) {
 							value={weblink}
 							onChange={setWeblink}
 						/>
+						<div className="full-width">
+							<TinyMCE
+								id={`settings-test-widget-wysiwyg`}
+								label={'Content'}
+								value={tinyMceContent}
+								onChange={setTinyMceContent}
+							/>
+						</div>
 					</SettingsPanel>
 				</MainSettings>
 			</>

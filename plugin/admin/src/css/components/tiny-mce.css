@@ -1,0 +1,46 @@
+:root {
+	--mce-border-color: var(--wp-components-color-gray-600, #949494);
+
+	& .mce-tinymce {
+		box-shadow: none;
+	}
+
+	& .mce-edit-area {
+		border: solid var(--mce-border-color);
+		border-width: 0 1px 0 1px !important;
+	}
+
+	& .mce-top-part {
+
+		&::before {
+			box-shadow: none;
+		}
+
+		& .mce-toolbar-grp {
+			background-color: #fff;
+			border: 1px solid var(--mce-border-color);
+		}
+	}
+
+	& .mce-btn.mce-active,
+	& .mce-btn.mce-active:hover {
+
+		&,
+		& button,
+		& i {
+			color: inherit;
+		}
+	}
+
+	& div.mce-statusbar {
+		border-color: var(--mce-border-color);
+		border-style: solid;
+		border-width: 1px 1px 1px 1px !important;
+
+		& .mce-path {
+			display: inline-flex;
+			align-items: center;
+			column-gap: 3px;
+		}
+	}
+}

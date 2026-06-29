@@ -37,6 +37,7 @@ class Blocks extends Plugin_Component {
 	 */
 	protected function add_filters() {
 		add_filter( 'block_categories_all', array( $this, 'add_block_categories' ), 10, 2 );
+		add_filter( 'lhbasics_use_tinymce', '__return_true' );
 	}
 
 	/**
