@@ -21,6 +21,7 @@ class Blocks extends Plugin_Component {
 	protected function add_actions() {
 		add_action( 'init', array( $this, 'register_assets' ) );
 		add_action( 'enqueue_block_editor_assets', array( $this, 'enqueue_block_editor_assets' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
 	}
 
 	/**
@@ -44,7 +45,7 @@ class Blocks extends Plugin_Component {
 
 		// Handle tinyMCE dependencies.
 		// Guard this as it's loading a lot of unecessary stuff if not needed.
-		$use_tiny_mce = apply_filters( 'lhbasics_use_tinymce', false );
+		$use_tiny_mce = $this->is_tiny_mce_enabled();
 		if ( $use_tiny_mce ) {
 			$blocks_helper_extra_assets[] = 'wp-editor';
 			$blocks_helper_extra_assets[] = 'wp-tinymce';
@@ -68,12 +69,17 @@ class Blocks extends Plugin_Component {
 			plugin()->get_plugin_version(),
 			'all'
 		);
+	}
 
+	/**
+	 * Admin enqueue assets.
+	 */
+	public function admin_enqueue_scripts() {
 		wp_localize_script(
 			'lhbasics-blocks-helper',
 			'lhbasicsBlocksHelper',
 			array(
-				'useTinyMCE' => $use_tiny_mce,
+				'useTinyMCE' => $this->is_tiny_mce_enabled(),
 				'settings'   => wp_get_global_settings(),
 				'cssUri'     => apply_filters( 'lhbasics_tinymce_css_uri', '' ),
 			)
@@ -86,5 +92,12 @@ class Blocks extends Plugin_Component {
 	public function enqueue_block_editor_assets() {
 		wp_enqueue_script( 'lhbasics-blocks-helper' );
 		wp_enqueue_style( 'lhbasicsp-admin-components' );
+	}
+
+	/**
+	 * Check if tiny mce is enabled.
+	 */
+	public function is_tiny_mce_enabled() {
+		return apply_filters( 'lhbasics_use_tinymce', false );
 	}
 }
