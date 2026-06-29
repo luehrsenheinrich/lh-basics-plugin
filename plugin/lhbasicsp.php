@@ -17,6 +17,7 @@
  */
 
 use function WpMunich\basics\plugin\plugin;
+use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
 
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
@@ -44,8 +45,8 @@ require plugin_dir_path( LHBASICSP_FILE ) . 'inc/functions.php';
 call_user_func( 'WpMunich\basics\plugin\plugin' );
 
 // Initialize the plugin update checker.
-if ( class_exists( 'Puc_v4_Factory' ) ) {
-	Puc_v4_Factory::buildUpdateChecker(
+if ( class_exists( PucFactory::class ) ) {
+	PucFactory::buildUpdateChecker(
 		'https://www.luehrsen-heinrich.de/updates/?action=get_metadata&slug=' . plugin()->get_plugin_slug(),
 		__FILE__, // Full path to the main plugin file or functions.php.
 		plugin()->get_plugin_slug()

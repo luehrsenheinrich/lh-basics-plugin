@@ -64,7 +64,7 @@ export default function WeblinkSetting({
 		try {
 			const data = await apiFetch({ path: searchUrl });
 			if (query.startsWith('http')) {
-				return [...data, ...DEFAULT_OPTIONS];
+				return [...DEFAULT_OPTIONS, ...data];
 			}
 			return data;
 		} catch (err) {
@@ -84,6 +84,27 @@ export default function WeblinkSetting({
 	}, [value, selectedPost]);
 
 	const isExternalUrl = value?.id === 0;
+
+	const onSelectPost = (selectedItem) => {
+		if (!selectedItem) {
+			setSelectedPost(null);
+			onChange({
+				...value,
+				id: null,
+				title: '',
+				url: '',
+			});
+			return;
+		}
+
+		setSelectedPost(selectedItem.id > 0 ? selectedItem : null);
+		onChange({
+			...value,
+			id: selectedItem.id,
+			title: selectedItem.title || '',
+			url: selectedItem.url || '',
+		});
+	};
 
 	return (
 		<div className={CLS_BASE} ref={setPopoverAnchor}>
@@ -136,16 +157,9 @@ export default function WeblinkSetting({
 								getOptionLabel={(option) => option.title}
 								getOptionValue={(option) => option.id}
 								defaultValue={selectedPost}
-								// defaultOptions={DEFAULT_OPTIONS}
+								defaultOptions={DEFAULT_OPTIONS}
 								loadOptions={loadOptions}
-								onChange={(selectedItem) => {
-									onChange({
-										...value,
-										id: selectedItem?.id || 0,
-										title: selectedItem?.title || '',
-										url: selectedItem?.url || '',
-									});
-								}}
+								onChange={onSelectPost}
 							/>
 							<TextControl
 								label={__('Title', 'kbsp')}

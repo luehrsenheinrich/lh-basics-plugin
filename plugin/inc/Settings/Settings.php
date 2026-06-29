@@ -95,10 +95,12 @@ class Settings extends Plugin_Component {
 				)
 			);
 
+			wp_enqueue_style( 'lhbasicsp-admin-components' );
+
 			wp_enqueue_style(
 				'lhagentur-settings-page',
 				plugin()->get_plugin_url() . '/admin/dist/css/admin-settings-page.min.css',
-				array( 'wp-components' ),
+				array( 'lhbasicsp-admin-components' ),
 				plugin()->get_plugin_version()
 			);
 		}
