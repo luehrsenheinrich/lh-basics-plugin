@@ -52,7 +52,7 @@
     "@svgr/webpack": "^8.1.0",
     "@wordpress/babel-plugin-import-jsx-pragma": "^5.49.0",
     "@wordpress/babel-preset-default": "^8.48.1",
-    "@wordpress/dependency-extraction-webpack-plugin": "^6.48.0",
+    "@wordpress/dependency-extraction-webpack-plugin": "^6.49.0",
     "@wordpress/env": "^11.8.1",
     "@wordpress/eslint-plugin": "^25.5.0",
     "@wordpress/icons": "^14.0.0",
