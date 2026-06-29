@@ -199,29 +199,41 @@
 	}
 
 	& .lh-weblink-setting__select__control {
+		min-height: 36px;
 		border-radius: 2px;
 		border-color: #949494;
 	}
 
 	& .lh-weblink-setting__select__indicator-separator {
 		background-color: #949494;
+		margin: 4px 0;
 	}
 
 	& .lh-weblink-setting__select__indicator {
 		color: #949494;
+		padding: 6px 8px;
 	}
 
 	& .lh-weblink-setting__select + * {
 		margin-top: 0.5rem;
 	}
 
+	& .components-toggle-control {
+		margin-top: 0.5rem;
+	}
+
 	& .lh-weblink-setting__select__input {
+		min-height: 0;
+		height: auto;
 		box-shadow: none !important;
-		border: 1px solid transparent; /* Makes the input 32px high, just like <TextControl /> */
+		border: 0;
 	}
 
 	& .lh-weblink-setting__select__value-container,
 	& .lh-weblink-setting__select__input-container {
+		margin: 0 2px;
+		padding-left: 0;
+		padding-right: 0;
 		padding-top: 0;
 		padding-bottom: 0;
 	}

@@ -48,7 +48,7 @@ class Blocks extends Plugin_Component {
 		wp_register_style(
 			'lhbasicsp-admin-components',
 			plugin()->get_plugin_url() . '/admin/dist/css/components.min.css',
-			array(),
+			array( 'wp-components' ),
 			plugin()->get_plugin_version(),
 			'all'
 		);
