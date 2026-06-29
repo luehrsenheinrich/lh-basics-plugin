@@ -74,16 +74,20 @@ export default function WeblinkSetting({
 	};
 
 	useEffect(() => {
-		if (value?.id > 0 && !selectedPost) {
+		if (value?.id > 0) {
 			apiFetch({ path: `${REST_SEARCH_PATH}?include=${value.id}` }).then(
 				(data) => {
-					setSelectedPost(data);
+					setSelectedPost(data?.[0] ?? null);
 				}
 			);
+			return;
 		}
-	}, [value, selectedPost]);
+
+		setSelectedPost(null);
+	}, [value?.id]);
 
 	const isExternalUrl = value?.id === 0;
+	const selectedOption = isExternalUrl ? DEFAULT_OPTIONS[0] : selectedPost;
 
 	const onSelectPost = (selectedItem) => {
 		if (!selectedItem) {
@@ -156,7 +160,7 @@ export default function WeblinkSetting({
 								isClearable
 								getOptionLabel={(option) => option.title}
 								getOptionValue={(option) => option.id}
-								defaultValue={selectedPost}
+								value={selectedOption}
 								defaultOptions={DEFAULT_OPTIONS}
 								loadOptions={loadOptions}
 								onChange={onSelectPost}
