@@ -83,7 +83,7 @@ function WPTinyMCE({ id = 'lh-editor', value, onChange, ...baseProps }) {
 					<Button
 						variant="secondary"
 						type="button"
-						id="insert-media-button"
+						id={`insert-media-button-${id}`}
 						className="insert-media add_media"
 						data-editor={id}
 						aria-haspopup="dialog"
