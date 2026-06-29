@@ -2,8 +2,11 @@
  * WordPress dependencies.
  */
 import { addFilter } from '@wordpress/hooks';
-import { ToggleControl } from '@wordpress/components';
+import { Button, ToggleControl } from '@wordpress/components';
+import { dispatch } from '@wordpress/data';
 import { useState } from '@wordpress/element';
+import { __ } from '@wordpress/i18n';
+import apiFetch from '@wordpress/api-fetch';
 
 const {
 	EntitySelectControl,
@@ -18,6 +21,7 @@ function slotFillTest(Component) {
 	const { MainSettings, SettingsPanel } = window.lhSettings;
 
 	return (props) => {
+		const [isCreatingLogEntry, setIsCreatingLogEntry] = useState(false);
 		const [mediaId, setMediaId] = useState(null);
 		const [selectedEntities, setSelectedEntitites] = useState({
 			entity: null,
@@ -33,6 +37,43 @@ function slotFillTest(Component) {
 		const [tinyMceContent, setTinyMceContent] = useState('');
 
 		const { apiSettings, setApiSettings } = props;
+
+		const createLogEntry = () => {
+			setIsCreatingLogEntry(true);
+
+			apiFetch({
+				path: '/lhbasicsp-test/v1/log',
+				method: 'POST',
+			}).then(
+				(response) => {
+					setIsCreatingLogEntry(false);
+					dispatch('core/notices').createNotice(
+						'success',
+						response.message ??
+							__('Test log entry created.', 'lhbasicsp'),
+						{
+							type: 'snackbar',
+							isDismissible: true,
+						}
+					);
+					window.dispatchEvent(
+						new CustomEvent('lhbasicsp:test-log-created')
+					);
+				},
+				(error) => {
+					setIsCreatingLogEntry(false);
+					dispatch('core/notices').createNotice(
+						'error',
+						error.message ??
+							__('Error creating test log entry.', 'lhbasicsp'),
+						{
+							type: 'snackbar',
+							isDismissible: true,
+						}
+					);
+				}
+			);
+		};
 
 		return (
 			<>
@@ -55,6 +96,16 @@ function slotFillTest(Component) {
 								})
 							}
 						/>
+						<div className="full-width">
+							<Button
+								variant="secondary"
+								isBusy={isCreatingLogEntry}
+								disabled={isCreatingLogEntry}
+								onClick={createLogEntry}
+							>
+								{__('Create test log entry', 'lhbasicsp')}
+							</Button>
+						</div>
 						<div className="full-width">
 							<p>Entity Select Control Tests</p>
 							{/* "Raw" component, Posts of `post` by default */}

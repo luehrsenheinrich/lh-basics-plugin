@@ -23,12 +23,14 @@ class Plugin {
 	 * @param Scripts\Scripts       $scripts The scripts component.
 	 * @param TestModule\TestModule $test_module The test module component.
 	 * @param Blocks\Blocks         $blocks The blocks component.
+	 * @param LogTester\LogTester   $log_tester The log tester component.
 	 */
 	public function __construct(
 		private i18n\I18N $i18n,
 		private Scripts\Scripts $scripts,
 		private TestModule\TestModule $test_module,
-		private Blocks\Blocks $blocks
+		private Blocks\Blocks $blocks,
+		private LogTester\LogTester $log_tester
 	) {
 	}
 

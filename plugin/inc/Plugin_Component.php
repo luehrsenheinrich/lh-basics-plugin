@@ -58,10 +58,19 @@ abstract class Plugin_Component {
 	/**
 	 * Get the DI container.
 	 *
-	 * @return \DI\Container The DI container.
+	 * @return \WpMunich\basics\plugin\Dependencies\DI\Container The DI container.
 	 */
 	protected function container() {
 		return plugin_container();
+	}
+
+	/**
+	 * Get the plugin logger.
+	 *
+	 * @return Logging\Logger_Interface The plugin logger.
+	 */
+	protected function logger() {
+		return $this->container()->get( Logging\Logger_Interface::class );
 	}
 
 	/**
