@@ -39,7 +39,7 @@
 			"composer/installers": true
 		},
     "platform": {
-      "php": "8.5"
+      "php": "8.4"
     }
 	}
 }

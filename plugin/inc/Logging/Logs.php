@@ -8,6 +8,7 @@
 namespace WpMunich\basics\plugin\Logging;
 
 use WpMunich\basics\plugin\Plugin_Component;
+use WpMunich\basics\plugin\Settings\Settings;
 
 /**
  * Registers logging settings and admin REST endpoints.
@@ -52,6 +53,15 @@ class Logs extends Plugin_Component {
 	 */
 	protected function must_run() {
 		add_filter( 'lhagentur_available_modules', array( $this, 'add_module' ) );
+	}
+
+	/**
+	 * Whether the logs module is active.
+	 *
+	 * @return bool Whether the logs module is active.
+	 */
+	protected function is_active() {
+		return $this->container()->get( Settings::class )->is_module_active( self::MODULE );
 	}
 
 	/**

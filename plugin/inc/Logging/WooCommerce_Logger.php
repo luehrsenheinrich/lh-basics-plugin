@@ -52,7 +52,9 @@ class WooCommerce_Logger implements Logger_Interface {
 			return;
 		}
 
-		$context['source'] = 'lhbasicsp';
+		if ( empty( $context['source'] ) ) {
+			$context['source'] = 'lhbasicsp';
+		}
 
 		$this->logger->log( $level, $message, $context );
 	}

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b1bd26834a112fa929ec114784796d6c",
+    "content-hash": "54f9ffd90690dcd426f5c5fb4015a858",
     "packages": [
         {
             "name": "cjstroud/classnames-php",
@@ -2234,7 +2234,7 @@
     "platform": {},
     "platform-dev": {},
     "platform-overrides": {
-        "php": "8.5"
+        "php": "8.4"
     },
     "plugin-api-version": "2.9.0"
 }
