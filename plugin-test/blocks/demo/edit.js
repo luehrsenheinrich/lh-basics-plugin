@@ -9,6 +9,7 @@ import {
 import { __ } from '@wordpress/i18n';
 import { PanelBody } from '@wordpress/components';
 const {
+	PostSelectControl,
 	IconSelectControl,
 	SearchSelectControl,
 	WeblinkControl,
@@ -18,7 +19,7 @@ const {
 const Edit = (props) => {
 	const { attributes, setAttributes } = props;
 
-	const { icon, link, postSingle } = attributes;
+	const { icon, link, postSingle, posts } = attributes;
 
 	return (
 		<>
@@ -29,6 +30,16 @@ const Edit = (props) => {
 						label={__('Select an icon', 'lhpbpp')}
 						value={icon}
 						onChange={(value) => setAttributes({ icon: value })}
+					/>
+					<PostSelectControl
+						label={__('Select posts', 'lhpbpp')}
+						value={posts.map((id) => ({ value: id }))}
+						onChange={(value) =>
+							setAttributes({
+								posts: value.map((item) => item.value),
+							})
+						}
+						multiple={true}
 					/>
 					<SearchSelectControl
 						label={__('Search for something', 'lhpbpp')}

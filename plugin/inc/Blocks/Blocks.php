@@ -21,6 +21,7 @@ class Blocks extends Plugin_Component {
 	protected function add_actions() {
 		add_action( 'init', array( $this, 'register_assets' ) );
 		add_action( 'enqueue_block_editor_assets', array( $this, 'enqueue_block_editor_assets' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
 	}
 
 	/**
@@ -32,16 +33,32 @@ class Blocks extends Plugin_Component {
 	 * Register assets.
 	 */
 	public function register_assets() {
+		// Load script assets.
 		$assets = wp_json_file_decode(
 			plugin()->get_plugin_path() . '/admin/dist/assets.json',
 			array( 'associative' => true )
 		);
 
+		// Get blocks helper assets.
+		$blocks_helper_assets       = $assets['js/blocks-helper.min.js'] ?? array();
+		$blocks_helper_extra_assets = array();
+
+		// Handle tinyMCE dependencies.
+		// Guard this as it's loading a lot of unecessary stuff if not needed.
+		$use_tiny_mce = $this->is_tiny_mce_enabled();
+		if ( $use_tiny_mce ) {
+			$blocks_helper_extra_assets[] = 'wp-editor';
+			$blocks_helper_extra_assets[] = 'wp-tinymce';
+
+			wp_enqueue_editor();
+			wp_enqueue_media();
+		}
+
 		$blocks_helper_assets = $assets['js/blocks-helper.min.js'] ?? array();
 		wp_register_script(
 			'lhbasics-blocks-helper',
 			plugin()->get_plugin_url() . '/admin/dist/js/blocks-helper.min.js',
-			array_merge( array( 'lhbasics' ), $blocks_helper_assets['dependencies'] ),
+			array_merge( array( 'lhbasics' ), $blocks_helper_assets['dependencies'], $blocks_helper_extra_assets ),
 			$blocks_helper_assets['version'],
 			true
 		);
@@ -55,10 +72,32 @@ class Blocks extends Plugin_Component {
 	}
 
 	/**
+	 * Admin enqueue assets.
+	 */
+	public function admin_enqueue_scripts() {
+		wp_localize_script(
+			'lhbasics-blocks-helper',
+			'lhbasicsBlocksHelper',
+			array(
+				'useTinyMCE' => $this->is_tiny_mce_enabled(),
+				'settings'   => wp_get_global_settings(),
+				'cssUri'     => apply_filters( 'lhbasics_tinymce_css_uri', '' ),
+			)
+		);
+	}
+
+	/**
 	 * Enqueue block editor assets.
 	 */
 	public function enqueue_block_editor_assets() {
 		wp_enqueue_script( 'lhbasics-blocks-helper' );
 		wp_enqueue_style( 'lhbasicsp-admin-components' );
+	}
+
+	/**
+	 * Check if tiny mce is enabled.
+	 */
+	public function is_tiny_mce_enabled() {
+		return apply_filters( 'lhbasics_use_tinymce', false );
 	}
 }
