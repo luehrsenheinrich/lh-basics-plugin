@@ -36,6 +36,11 @@ This plugin aims to simplify your development process by providing out-of-the-bo
 
 Every bit of help is highly appreciated. Even if you don't code you can file an issue and help us find bugs or shape new features. Please see the [CONTRIBUTING.md](./CONTRIBUTING.md) on how to contribute.
 
+## Developer Documentation
+
+- [Public APIs and extension points](./docs/public-apis.md)
+- [Agent instructions](./AGENTS.md)
+
 ## License
 
 This plugin is licensed under [GNU General Public License v2 (or later)](./LICENSE.md).
