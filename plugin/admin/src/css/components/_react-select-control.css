@@ -1,10 +1,35 @@
 :root .react-select__control {
-	border-radius: 0;
+	min-height: 36px;
+	border-radius: 2px;
 	border: 1px solid var(--wp-components-color-gray-600, #949494);
 
 	& input[type="text"]:focus {
 		box-shadow: none;
 	}
+}
+
+:root .react-select__value-container {
+	padding: 0 8px;
+}
+
+:root .react-select__input-container {
+	margin: 0 2px;
+	padding: 0;
+}
+
+:root .react-select__input {
+	min-height: 0;
+	height: auto;
+	border: 0;
+	box-shadow: none;
+}
+
+:root .react-select__indicator {
+	padding: 6px 8px;
+}
+
+:root .react-select__indicator-separator {
+	margin: 4px 0;
 }
 
 :root .react-select__menu {

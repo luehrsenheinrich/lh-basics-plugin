@@ -64,7 +64,7 @@ export default function WeblinkSetting({
 		try {
 			const data = await apiFetch({ path: searchUrl });
 			if (query.startsWith('http')) {
-				return [...data, ...DEFAULT_OPTIONS];
+				return [...DEFAULT_OPTIONS, ...data];
 			}
 			return data;
 		} catch (err) {
@@ -74,16 +74,41 @@ export default function WeblinkSetting({
 	};
 
 	useEffect(() => {
-		if (value?.id > 0 && !selectedPost) {
+		if (value?.id > 0) {
 			apiFetch({ path: `${REST_SEARCH_PATH}?include=${value.id}` }).then(
 				(data) => {
-					setSelectedPost(data);
+					setSelectedPost(data?.[0] ?? null);
 				}
 			);
+			return;
 		}
-	}, [value, selectedPost]);
+
+		setSelectedPost(null);
+	}, [value?.id]);
 
 	const isExternalUrl = value?.id === 0;
+	const selectedOption = isExternalUrl ? DEFAULT_OPTIONS[0] : selectedPost;
+
+	const onSelectPost = (selectedItem) => {
+		if (!selectedItem) {
+			setSelectedPost(null);
+			onChange({
+				...value,
+				id: null,
+				title: '',
+				url: '',
+			});
+			return;
+		}
+
+		setSelectedPost(selectedItem.id > 0 ? selectedItem : null);
+		onChange({
+			...value,
+			id: selectedItem.id,
+			title: selectedItem.title || '',
+			url: selectedItem.url || '',
+		});
+	};
 
 	return (
 		<div className={CLS_BASE} ref={setPopoverAnchor}>
@@ -135,17 +160,10 @@ export default function WeblinkSetting({
 								isClearable
 								getOptionLabel={(option) => option.title}
 								getOptionValue={(option) => option.id}
-								defaultValue={selectedPost}
-								// defaultOptions={DEFAULT_OPTIONS}
+								value={selectedOption}
+								defaultOptions={DEFAULT_OPTIONS}
 								loadOptions={loadOptions}
-								onChange={(selectedItem) => {
-									onChange({
-										...value,
-										id: selectedItem?.id || 0,
-										title: selectedItem?.title || '',
-										url: selectedItem?.url || '',
-									});
-								}}
+								onChange={onSelectPost}
 							/>
 							<TextControl
 								label={__('Title', 'kbsp')}
