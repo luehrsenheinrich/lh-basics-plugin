@@ -13,7 +13,7 @@
     "icon": {
       "type": "string"
     },
-    "post": {
+    "posts": {
       "type": "array",
       "default": []
     },
