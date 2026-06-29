@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.6.0](https://github.com/luehrsenheinrich/lh-basics-plugin/compare/lh-basics-plugin-project-v0.5.1...lh-basics-plugin-project-v0.6.0) (2026-06-29)
+
+
+### Features
+
+* add tinymce component ([#482](https://github.com/luehrsenheinrich/lh-basics-plugin/issues/482)) ([5723042](https://github.com/luehrsenheinrich/lh-basics-plugin/commit/57230429e409271a5617b76727b82dca0d2234c3))
+
+
+### Bug Fixes
+
+* update dependencies and weblink controls ([#481](https://github.com/luehrsenheinrich/lh-basics-plugin/issues/481)) ([14afa8e](https://github.com/luehrsenheinrich/lh-basics-plugin/commit/14afa8e09e021ccc08f36bdaa9afa4c1c8c07d86))
+
 ## [0.5.1](https://github.com/luehrsenheinrich/lh-basics-plugin/compare/lh-basics-plugin-project-v0.5.0...lh-basics-plugin-project-v0.5.1) (2026-06-24)
 
 
