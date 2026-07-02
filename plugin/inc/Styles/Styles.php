@@ -75,9 +75,6 @@ class Styles extends Plugin_Component {
 	 * @return void
 	 */
 	public function create_color_helper_vars() {
-		if ( ! $this->is_active() ) {
-			return;
-		}
 		if ( ! wp_theme_has_theme_json() ) {
 			return;
 		}
