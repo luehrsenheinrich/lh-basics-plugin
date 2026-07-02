@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.6.1](https://github.com/luehrsenheinrich/lh-basics-plugin/compare/lh-basics-plugin-project-v0.6.0...lh-basics-plugin-project-v0.6.1) (2026-07-02)
+
+
+### Bug Fixes
+
+* Better enqueue logic for color helper vars module ([#496](https://github.com/luehrsenheinrich/lh-basics-plugin/issues/496)) ([0a5e981](https://github.com/luehrsenheinrich/lh-basics-plugin/commit/0a5e981e17e6ec3f4da907dc88f847f5e6c09e67))
+
 ## [0.6.0](https://github.com/luehrsenheinrich/lh-basics-plugin/compare/lh-basics-plugin-project-v0.5.1...lh-basics-plugin-project-v0.6.0) (2026-06-29)
 
 
