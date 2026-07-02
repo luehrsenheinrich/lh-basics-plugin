@@ -21,9 +21,9 @@ class Styles extends Plugin_Component {
 	 */
 	protected function add_actions() {
 		if ( $this->is_active() ) {
-			add_action( 'enqueue_block_assets', array( $this, 'action_enqueue_block_assets_create_color_vars' ), 20 );
-			add_action( 'wp_enqueue_scripts', array( $this, 'action_enqueue_scripts_create_color_vars' ), 20 );
-			add_action( 'admin_enqueue_scripts', array( $this, 'action_admin_enqueue_scripts_create_color_vars' ), 20 );
+			add_action( 'enqueue_block_assets', array( $this, 'create_color_helper_vars' ), 99 );
+			add_action( 'wp_enqueue_scripts', array( $this, 'create_color_helper_vars' ), 99 );
+			add_action( 'admin_enqueue_scripts', array( $this, 'create_color_helper_vars' ), 99 );
 		}
 	}
 
@@ -56,6 +56,10 @@ class Styles extends Plugin_Component {
 		if ( ! wp_theme_has_theme_json() ) {
 			return $modules;
 		}
+		if ( apply_filters( 'lhagentur_disable_color_helper_module', false ) ) {
+			return $modules;
+		}
+
 		$modules[] = array(
 			'title'       => __( 'CSS Vars Helper', 'lhbasicsp' ),
 			'description' => __( 'This module enables autogeneration of CSS variables helper classes depending on the theme\'s color palette defined at the theme.json. By default generates `--current-color` and `--current-background-color` variables.', 'lhbasicsp' ),
@@ -66,46 +70,18 @@ class Styles extends Plugin_Component {
 	}
 
 	/**
-	 * Action callback for enqueueing block assets to create color helper variables.
-	 *
-	 * @return void
-	 */
-	public function action_enqueue_block_assets_create_color_vars() {
-		$this->create_color_helper_vars( 'global-styles-css-custom-properties' );
-	}
-
-	/**
-	 * Action callback for enqueueing scripts to create color helper variables.
-	 *
-	 * @return void
-	 */
-	public function action_enqueue_scripts_create_color_vars() {
-		$this->create_color_helper_vars( 'global-styles' );
-	}
-
-	/**
-	 * Action callback for enqueueing admin scripts to create color helper variables.
-	 *
-	 * @return void
-	 */
-	public function action_admin_enqueue_scripts_create_color_vars() {
-		if ( ! plugin()->settings()->is_lh_settings_page() ) {
-			return;
-		}
-
-		$this->create_color_helper_vars( 'lhagentur-settings-page' );
-	}
-
-	/**
 	 * Generates CSS helper classes from the theme.json color palette.
 	 *
-	 * @param string $handle Style handle to attach the inline helper CSS to (must already be enqueued).
 	 * @return void
 	 */
-	public function create_color_helper_vars( $handle = 'global-styles-css-custom-properties' ) {
+	public function create_color_helper_vars() {
+		if ( ! $this->is_active() ) {
+			return;
+		}
 		if ( ! wp_theme_has_theme_json() ) {
 			return;
 		}
+
 		$wp_colors     = wp_get_global_settings( array( 'color' ) );
 		$theme_palette = $wp_colors['palette']['theme'] ?? array();
 
@@ -134,9 +110,8 @@ class Styles extends Plugin_Component {
 			return;
 		}
 
-		// Fallback if an empty handle is provided.
-		$handle = empty( $handle ) ? 'global-styles-css-custom-properties' : $handle;
-		// Note: Handle must be an existing one, not a new one.
-		wp_add_inline_style( $handle, $palette_css );
+		wp_register_style( 'lh-global-styles-helper', false );
+		wp_add_inline_style( 'lh-global-styles-helper', $palette_css );
+		wp_enqueue_style( 'lh-global-styles-helper' );
 	}
 }
