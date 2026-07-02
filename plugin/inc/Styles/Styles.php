@@ -55,9 +55,6 @@ class Styles extends Plugin_Component {
 		if ( ! wp_theme_has_theme_json() ) {
 			return $modules;
 		}
-		if ( apply_filters( 'lhagentur_disable_color_helper_module', false ) ) {
-			return $modules;
-		}
 
 		$modules[] = array(
 			'title'       => __( 'CSS Vars Helper', 'lhbasicsp' ),
