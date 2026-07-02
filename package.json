@@ -38,7 +38,7 @@
   "authorUrl": "https://www.luehrsen-heinrich.de",
   "license": "GPLv2",
   "overrides": {
-    "react": "18.3.1",
+    "react": "19.2.7",
     "react-dom": "19.2.7",
     "@typescript-eslint/typescript-estree": {
       "minimatch": "^9.0.9"
@@ -82,7 +82,7 @@
     "postcss-preset-env": "^11.3.1",
     "prettier": "^3.9.4",
     "raw-loader": "^4.0.2",
-    "react": "18.3.1",
+    "react": "19.2.7",
     "react-dom": "19.2.7",
     "react-select": "^5.10.2",
     "style-loader": "^4.0.0",
