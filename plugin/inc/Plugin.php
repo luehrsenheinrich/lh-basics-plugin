@@ -118,7 +118,18 @@ class Plugin {
 	}
 
 	/**
+	 * Get the Styles component.
+	 *
+	 * @return Styles\Styles The Styles component.
+	 */
+	public function styles() {
+		return $this->styles;
+	}
+
+	/**
 	 * Get the SVG component.
+	 *
+	 * @return SVG\SVG The SVG component.
 	 */
 	public function svg() {
 		return $this->svg;
