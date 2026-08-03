@@ -31,7 +31,7 @@ abstract class Plugin_Component {
 	public function __construct() {
 		$this->must_run();
 
-		if ( did_action( 'after_setup_theme' ) ) {
+		if ( did_action( 'after_setup_theme' ) && ! doing_action( 'after_setup_theme' ) ) {
 			$this->initialize();
 			return;
 		}
