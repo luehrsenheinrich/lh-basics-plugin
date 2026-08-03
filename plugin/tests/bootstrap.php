@@ -37,5 +37,21 @@ function _manually_load_plugin() {
 
 tests_add_filter( 'muplugins_loaded', '_manually_load_plugin' );
 
+/**
+ * Register a module activation override after the active theme has loaded.
+ */
+function _lhbasicsp_register_module_activation_override() {
+	add_filter(
+		'lhagentur_is_module_active',
+		function ( $is_active, $module ) {
+			return 'lightbox' === $module ? true : $is_active;
+		},
+		10,
+		2
+	);
+}
+
+tests_add_filter( 'after_setup_theme', '_lhbasicsp_register_module_activation_override' );
+
 // Start up the WP testing environment.
 require "{$_tests_dir}/includes/bootstrap.php";

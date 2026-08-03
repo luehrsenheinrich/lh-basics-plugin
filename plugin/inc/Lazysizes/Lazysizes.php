@@ -21,16 +21,14 @@ class Lazysizes extends Plugin_Component {
 	 * {@inheritDoc}
 	 */
 	protected function add_actions() {
-		if ( $this->is_active() ) {
-			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
-		}
+		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	protected function add_filters() {
-		if ( $this->is_active() && ! is_admin() ) {
+		if ( ! is_admin() ) {
 			add_filter( 'wp_get_attachment_image_attributes', array( $this, 'modify_image_attributes' ), 10, 3 );
 			add_filter( 'render_block_core/image', array( $this, 'rewrite_image_block' ), 10, 3 );
 		}

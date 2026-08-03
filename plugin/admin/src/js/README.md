@@ -34,6 +34,21 @@ return apply_filters( 'lhagentur_is_module_active', $is_module_active, $module )
 
 Please not the helper functions in the `WpMunich\basics\plugin\Settings\Settings` class to get the active modules and to check if a module is active.
 
+The `lhagentur_available_modules` filter only controls which module toggles are
+shown on the settings page. It does not determine whether a module is active.
+Use `lhagentur_is_module_active` to enforce a module's runtime state. The filter
+can be registered by a plugin or in the active theme's `functions.php`:
+
+```php
+add_filter('lhagentur_is_module_active', function($is_active, $module) {
+	if ('my_module' === $module) {
+		return true;
+	}
+
+	return $is_active;
+}, 10, 2);
+```
+
 ## MainSettings Slot
 
 The MainSettings Slot is a simple way to add your own settings to the settings page.

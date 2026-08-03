@@ -61,4 +61,3 @@ const createArchive = (path, srcPath, slug) => {
 };
 
 createArchive('./archives', './plugin', pkg.slug + 'p');
-createArchive('./archives', './theme', pkg.slug + 't');
