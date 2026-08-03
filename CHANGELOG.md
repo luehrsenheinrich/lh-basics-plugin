@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.7.0](https://github.com/luehrsenheinrich/lh-basics-plugin/compare/lh-basics-plugin-project-v0.6.1...lh-basics-plugin-project-v0.7.0) (2026-08-03)
+
+
+### Features
+
+* add prefixed dependencies and logging ([#484](https://github.com/luehrsenheinrich/lh-basics-plugin/issues/484)) ([2c02c21](https://github.com/luehrsenheinrich/lh-basics-plugin/commit/2c02c21860a39387bd53b16f1e6ed0755aef9e3c))
+
+
+### Bug Fixes
+
+* Fix race condition with module filters to enable "force activate modules" ([#510](https://github.com/luehrsenheinrich/lh-basics-plugin/issues/510)) ([61b8ccf](https://github.com/luehrsenheinrich/lh-basics-plugin/commit/61b8ccfde509673956c6ec6c382255c683635713))
+
 ## [0.6.1](https://github.com/luehrsenheinrich/lh-basics-plugin/compare/lh-basics-plugin-project-v0.6.0...lh-basics-plugin-project-v0.6.1) (2026-07-02)
 
 
