@@ -20,10 +20,8 @@ class Styles extends Plugin_Component {
 	 * {@inheritDoc}
 	 */
 	protected function add_actions() {
-		if ( $this->is_active() ) {
-			add_action( 'enqueue_block_assets', array( $this, 'create_color_helper_vars' ), 99 );
-			add_action( 'admin_enqueue_scripts', array( $this, 'create_color_helper_vars' ), 99 );
-		}
+		add_action( 'enqueue_block_assets', array( $this, 'create_color_helper_vars' ), 99 );
+		add_action( 'admin_enqueue_scripts', array( $this, 'create_color_helper_vars' ), 99 );
 	}
 
 	/**

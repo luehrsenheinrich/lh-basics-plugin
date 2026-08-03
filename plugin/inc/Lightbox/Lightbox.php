@@ -21,9 +21,7 @@ class Lightbox extends Plugin_Component {
 	 * {@inheritdoc}
 	 */
 	protected function add_actions() {
-		if ( $this->is_active() ) {
-			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
-		}
+		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 	}
 
 	/**

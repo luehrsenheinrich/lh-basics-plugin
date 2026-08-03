@@ -16,6 +16,13 @@ namespace WpMunich\basics\plugin;
  */
 abstract class Plugin_Component {
 	/**
+	 * Whether the component has been initialized.
+	 *
+	 * @var bool
+	 */
+	private $initialized = false;
+
+	/**
 	 * Constructor.
 	 * Used to initialize the component and add the needed actions and filters.
 	 *
@@ -23,6 +30,26 @@ abstract class Plugin_Component {
 	 */
 	public function __construct() {
 		$this->must_run();
+
+		if ( did_action( 'after_setup_theme' ) ) {
+			$this->initialize();
+			return;
+		}
+
+		add_action( 'after_setup_theme', array( $this, 'initialize' ), PHP_INT_MAX );
+	}
+
+	/**
+	 * Initialize the component after plugins and the active theme have registered their filters.
+	 *
+	 * @return void
+	 */
+	public function initialize() {
+		if ( $this->initialized ) {
+			return;
+		}
+
+		$this->initialized = true;
 
 		if ( ! $this->is_active() ) {
 			return;
