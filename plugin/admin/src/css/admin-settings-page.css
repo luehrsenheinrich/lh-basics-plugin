@@ -44,6 +44,36 @@
 		max-width: 750px;
 	}
 
+	& .settings-tabs {
+
+		& .components-tab-panel__tabs {
+			display: flex;
+			gap: 0.25rem;
+			margin: 1rem 0 0;
+			border-bottom: 1px solid #c3c4c7;
+		}
+
+		& .components-tab-panel__tabs-item {
+			background-color: transparent;
+			border: 1px solid transparent;
+			border-bottom: 0;
+			color: #1d2327;
+			height: auto;
+			margin-bottom: -1px;
+			padding: 0.75rem 1rem;
+
+			&.is-active {
+				background-color: #fff;
+				border-color: #c3c4c7;
+				box-shadow: none;
+			}
+
+			&:focus {
+				box-shadow: inset 0 0 0 1px #2271b1;
+			}
+		}
+	}
+
 	& .settings_buttons {
 		margin: 0 1rem;
 	}
@@ -123,5 +153,43 @@
 				}
 			}
 		}
+	}
+
+	& .settings-log-toolbar {
+		align-items: flex-end;
+		display: grid;
+		gap: 1rem;
+		grid-template-columns: minmax(0, 1fr) auto;
+
+		@media screen and (max-width: 782px) {
+			align-items: stretch;
+			grid-template-columns: 1fr;
+		}
+	}
+
+	& .settings-log-actions {
+		display: flex;
+		gap: 0.5rem;
+		justify-content: flex-end;
+
+		@media screen and (max-width: 782px) {
+			justify-content: flex-start;
+		}
+	}
+
+	& .settings-log-meta {
+		color: #646970;
+		display: flex;
+		flex-wrap: wrap;
+		font-size: 12px;
+		gap: 0.5rem;
+	}
+
+	& .settings-log-viewer textarea {
+		background-color: #1d2327;
+		color: #f0f0f1;
+		font-family: Consolas, Monaco, monospace;
+		min-height: 22rem;
+		white-space: pre;
 	}
 }
