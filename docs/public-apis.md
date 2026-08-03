@@ -60,6 +60,7 @@ The result can be overridden with:
 
 Built-in module slugs:
 
+- `application_passwords`
 - `disable_comments`
 - `gravity_forms`
 - `lazysizes`
