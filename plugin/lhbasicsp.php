@@ -42,10 +42,37 @@ if ( ! defined( 'LHBASICSP_FILE' ) ) {
 	define( 'LHBASICSP_FILE', __FILE__ );
 }
 
+/**
+ * Render an admin notice when the generated runtime dependencies are missing.
+ *
+ * @return void
+ */
+function lhbasicsp_missing_dependencies_notice() {
+	?>
+	<div class="notice notice-error">
+		<p>
+			<?php esc_html_e( 'L//H Basics could not start because its generated dependencies are missing. Reinstall the plugin or rebuild its runtime dependencies.', 'lhbasicsp' ); ?>
+		</p>
+	</div>
+	<?php
+}
+
+$lhbasicsp_prefixed_autoloader = plugin_dir_path( LHBASICSP_FILE ) . 'vendor-prefixed/autoload.php';
+$lhbasicsp_prefixed_functions  = plugin_dir_path( LHBASICSP_FILE ) . 'vendor-prefixed/DI/functions.php';
+
+if ( ! is_readable( $lhbasicsp_prefixed_autoloader ) || ! is_readable( $lhbasicsp_prefixed_functions ) ) {
+	add_action( 'admin_notices', 'lhbasicsp_missing_dependencies_notice' );
+	add_action( 'network_admin_notices', 'lhbasicsp_missing_dependencies_notice' );
+
+	return;
+}
+
 // Load first-party plugin classes and prefixed dependencies.
 require plugin_dir_path( LHBASICSP_FILE ) . 'inc/autoload.php';
-require plugin_dir_path( LHBASICSP_FILE ) . 'vendor-prefixed/autoload.php';
-require plugin_dir_path( LHBASICSP_FILE ) . 'vendor-prefixed/DI/functions.php';
+require $lhbasicsp_prefixed_autoloader;
+require $lhbasicsp_prefixed_functions;
+
+unset( $lhbasicsp_prefixed_autoloader, $lhbasicsp_prefixed_functions );
 
 // Load the `wp_lhbasicsp()` entry point function.
 require plugin_dir_path( LHBASICSP_FILE ) . 'inc/functions.php';
