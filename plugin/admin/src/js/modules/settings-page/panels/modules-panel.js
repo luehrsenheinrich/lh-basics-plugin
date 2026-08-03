@@ -25,22 +25,23 @@ const ModulesPanel = (props) => {
 	};
 
 	const setModuleActive = (module, active) => {
-		// Detach the active modules array from the settings object.
-		const settingsData = { ...apiSettings };
-
-		const activeModules = settingsData.active_modules || [];
+		const activeModules = apiSettings.active_modules || [];
 
 		if (active) {
-			activeModules.push(module);
-		} else {
-			const index = activeModules.indexOf(module);
+			setApiSettings({
+				...apiSettings,
+				active_modules: [...new Set([...activeModules, module])],
+			});
 
-			if (index > -1) {
-				activeModules.splice(index, 1);
-			}
+			return;
 		}
 
-		setApiSettings({ ...settingsData });
+		setApiSettings({
+			...apiSettings,
+			active_modules: activeModules.filter(
+				(activeModule) => activeModule !== module
+			),
+		});
 	};
 
 	const availableModules = get(window, 'lhagenturSettings.modules', []);

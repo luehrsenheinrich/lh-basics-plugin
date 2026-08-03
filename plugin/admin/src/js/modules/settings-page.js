@@ -6,6 +6,7 @@ import {
 	Button,
 	Icon,
 	SlotFillProvider,
+	TabPanel,
 	withFilters,
 } from '@wordpress/components';
 import { dispatch } from '@wordpress/data';
@@ -21,6 +22,7 @@ import { cloneDeep, isEqual } from 'lodash';
  * Internal dependencies
  */
 import ModulesPanel from './settings-page/panels/modules-panel';
+import LogsPanel from './settings-page/panels/logs-panel';
 import LoadingPanel from './settings-page/panels/loading-panel';
 import Notices from '../components/settings-notices';
 import LHLogo from '../../../../img/icons/lh_logo.svg';
@@ -65,6 +67,46 @@ const SettingsPage = () => {
 	}
 
 	const AdditionalSettings = withFilters('lhbasics.settings')(() => <></>);
+
+	const isModuleActive = (module) => {
+		const activeModules = apiSettings.active_modules || [];
+
+		return activeModules.includes(module);
+	};
+
+	const tabs = [
+		{
+			name: 'general',
+			title: __('General', 'lhbasicsp'),
+		},
+	];
+
+	if (isModuleActive('logs')) {
+		tabs.push({
+			name: 'logs',
+			title: __('Logs', 'lhbasicsp'),
+		});
+	}
+
+	const renderTabContent = (tab) => (
+		<>
+			{tab.name === 'general' && (
+				<>
+					<ModulesPanel
+						apiSettings={apiSettings}
+						setApiSettings={setApiSettings}
+					/>
+					<MainSettingsSlot />
+				</>
+			)}
+			{tab.name === 'logs' && (
+				<LogsPanel
+					apiSettings={apiSettings}
+					setApiSettings={setApiSettings}
+				/>
+			)}
+		</>
+	);
 
 	const onSaveSettings = () => {
 		// Compare the current settings with the original settings to determine
@@ -162,11 +204,16 @@ const SettingsPage = () => {
 				{!settingsInitialized && <LoadingPanel />}
 				{settingsInitialized && (
 					<>
-						<ModulesPanel
-							apiSettings={apiSettings}
-							setApiSettings={setApiSettings}
-						/>
-						<MainSettingsSlot />
+						{tabs.length === 1 && renderTabContent(tabs[0])}
+						{tabs.length > 1 && (
+							<TabPanel
+								className="settings-tabs"
+								activeClass="is-active"
+								tabs={tabs}
+							>
+								{renderTabContent}
+							</TabPanel>
+						)}
 						<div className="settings_buttons">
 							<Button
 								variant="primary"

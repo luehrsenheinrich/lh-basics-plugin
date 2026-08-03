@@ -4,7 +4,8 @@
   "optimize-autoloader": true,
   "require": {
     "cjstroud/classnames-php": "^1.0",
-    "php-di/php-di": "^6.3",
+    "monolog/monolog": "^3.0",
+    "php-di/php-di": "^7.1",
     "yahnis-elsts/plugin-update-checker": "^5.7"
   },
   "autoload": {
@@ -14,8 +15,36 @@
   },
   "config": {
     "platform": {
-      "php": "8.1"
+      "php": "8.4"
     }
+  },
+  "extra": {
+    "mozart": {
+      "dep_namespace": "WpMunich\\basics\\plugin\\Dependencies\\",
+      "dep_directory": "/vendor-prefixed/",
+      "classmap_directory": "/vendor-prefixed/classes/",
+      "classmap_prefix": "LHBASICSP_",
+      "constant_prefix": "LHBASICSP_",
+      "functions_prefix": "lhbasicsp_",
+      "generate_autoloader": true,
+      "packages": [
+        "cjstroud/classnames-php",
+        "monolog/monolog",
+        "php-di/php-di",
+        "yahnis-elsts/plugin-update-checker"
+      ],
+      "override_autoload": {
+        "yahnis-elsts/plugin-update-checker": {
+          "psr-4": {
+            "YahnisElsts\\PluginUpdateChecker\\": "Puc/"
+          }
+        }
+      },
+      "delete_vendor_directories": true
+    }
+  },
+  "scripts": {
+    "prefix-dependencies": "docker run --rm -v \"$PWD:/project\" -w /project coenjacobs/mozart:1.2.3 /mozart/bin/mozart compose"
   },
   "require-dev": {
     "yoast/phpunit-polyfills": "^2.0"
