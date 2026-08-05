@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.7.1](https://github.com/luehrsenheinrich/lh-basics-plugin/compare/lh-basics-plugin-project-v0.7.0...lh-basics-plugin-project-v0.7.1) (2026-08-05)
+
+
+### Bug Fixes
+
+* replace-block-editor-link-control ([#521](https://github.com/luehrsenheinrich/lh-basics-plugin/issues/521)) ([cd2fd3a](https://github.com/luehrsenheinrich/lh-basics-plugin/commit/cd2fd3ac98124f9ca2b7f6e91910c00e4f899f94))
+
 ## [0.7.0](https://github.com/luehrsenheinrich/lh-basics-plugin/compare/lh-basics-plugin-project-v0.6.1...lh-basics-plugin-project-v0.7.0) (2026-08-03)
 
 
