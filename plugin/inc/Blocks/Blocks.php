@@ -57,14 +57,14 @@ class Blocks extends Plugin_Component {
 		$blocks_helper_assets = $assets['js/blocks-helper.min.js'] ?? array();
 		wp_register_script(
 			'lhbasics-blocks-helper',
-			plugin()->get_plugin_url() . '/admin/dist/js/blocks-helper.min.js',
+			plugin()->get_plugin_url() . 'admin/dist/js/blocks-helper.min.js',
 			array_merge( array( 'lhbasics' ), $blocks_helper_assets['dependencies'], $blocks_helper_extra_assets ),
 			$blocks_helper_assets['version'],
 			true
 		);
 		wp_register_style(
 			'lhbasicsp-admin-components',
-			plugin()->get_plugin_url() . '/admin/dist/css/components.min.css',
+			plugin()->get_plugin_url() . 'admin/dist/css/components.min.css',
 			array( 'wp-components' ),
 			plugin()->get_plugin_version(),
 			'all'

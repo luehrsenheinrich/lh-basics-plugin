@@ -1,10 +1,13 @@
 /**
  * WordPress dependencies.
  */
+import { LinkControl } from '@wordpress/block-editor';
 import {
-	__experimentalLinkControl as LinkControl, // eslint-disable-line @wordpress/no-unsafe-wp-apis
-} from '@wordpress/block-editor';
-import { Popover, ToolbarButton } from '@wordpress/components';
+	PanelRow,
+	Popover,
+	TextControl,
+	ToolbarButton,
+} from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { useState } from '@wordpress/element';
 
@@ -49,6 +52,22 @@ export default function WeblinkToolbarButton({ value, onChange, onRemove }) {
 						value={value}
 						onChange={onChange}
 						onRemove={handleOnRemove}
+						renderControlBottom={() => (
+							<div className="lh-weblink-control__tools">
+								<PanelRow className="panel-row-full-width">
+									<TextControl
+										label={__('Title', 'lhbasicsp')}
+										value={value?.title ?? ''}
+										onChange={(newValue) => {
+											onChange({
+												...(value ?? {}),
+												title: newValue,
+											});
+										}}
+									/>
+								</PanelRow>
+							</div>
+						)}
 					/>
 				</Popover>
 			)}

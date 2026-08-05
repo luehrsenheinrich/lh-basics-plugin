@@ -7,7 +7,7 @@
  * WordPress dependencies.
  */
 import { Dropdown, Button, PanelRow, TextControl } from '@wordpress/components';
-import { __experimentalLinkControl as LinkControl } from '@wordpress/block-editor';
+import { LinkControl } from '@wordpress/block-editor';
 import { useState } from '@wordpress/element';
 import { __, sprintf } from '@wordpress/i18n';
 import { filterURLForDisplay, safeDecodeURI } from '@wordpress/url';

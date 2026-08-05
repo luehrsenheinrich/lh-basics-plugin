@@ -11,7 +11,7 @@
     "release:dependencies": "composer install --working-dir=plugin --no-dev --optimize-autoloader && composer run --working-dir=plugin prefix-dependencies",
     "release:package": "node ./bin/archiveProject.js",
     "release": "npm run release:build && npm run release:version && npm run release:dependencies && npm run release:package",
-    "prestart": "npm install && composer install && npm run build",
+    "prestart": "npm install && composer install && composer install --working-dir=plugin && composer run --working-dir=plugin prefix-dependencies && npm run build",
     "start": "npx wp-env start",
     "stop": "npx wp-env stop",
     "watch": "webpack --watch",
