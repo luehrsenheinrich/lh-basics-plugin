@@ -54,7 +54,7 @@
     "@dnd-kit/sortable": "^10.0.0",
     "@dnd-kit/utilities": "^3.2.2",
     "@svgr/webpack": "^8.1.0",
-    "@wordpress/babel-preset-default": "^8.49.0",
+    "@wordpress/babel-preset-default": "^8.52.0",
     "@wordpress/icons": "^15.3.0",
     "@wordpress/babel-plugin-import-jsx-pragma": "^5.50.0",
     "@wordpress/dependency-extraction-webpack-plugin": "^6.52.0",
