@@ -21,6 +21,7 @@ class Settings extends Plugin_Component {
 	protected function add_actions() {
 		add_action( 'admin_menu', array( $this, 'add_options_pages' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_assets' ) );
+		add_action( 'init', array( $this, 'register_assets' ), 1 );
 		add_action( 'init', array( $this, 'register_settings' ) );
 	}
 
@@ -56,11 +57,11 @@ class Settings extends Plugin_Component {
 	}
 
 	/**
-	 * Enqueue assets.
+	 * Register shared admin assets.
 	 *
 	 * @return void
 	 */
-	public function enqueue_assets() {
+	public function register_assets() {
 		$assets = wp_json_file_decode(
 			plugin()->get_plugin_path() . '/admin/dist/assets.json',
 			array( 'associative' => true )
@@ -73,6 +74,18 @@ class Settings extends Plugin_Component {
 			$lhbasics_assets['dependencies'],
 			$lhbasics_assets['version'],
 			true
+		);
+	}
+
+	/**
+	 * Enqueue assets.
+	 *
+	 * @return void
+	 */
+	public function enqueue_assets() {
+		$assets = wp_json_file_decode(
+			plugin()->get_plugin_path() . '/admin/dist/assets.json',
+			array( 'associative' => true )
 		);
 
 		if ( $this->is_lh_settings_page() ) {

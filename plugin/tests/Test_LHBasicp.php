@@ -37,4 +37,12 @@ class Test_LHBasicp extends WP_UnitTestCase {
 			has_action( 'wp_enqueue_scripts', array( $lightbox, 'enqueue_scripts' ) )
 		);
 	}
+
+	/**
+	 * Shared admin script dependencies are registered during init.
+	 */
+	public function test_shared_admin_scripts_are_registered_on_init() {
+		$this->assertTrue( wp_script_is( 'lhbasics', 'registered' ) );
+		$this->assertTrue( wp_script_is( 'lhbasics-blocks-helper', 'registered' ) );
+	}
 }

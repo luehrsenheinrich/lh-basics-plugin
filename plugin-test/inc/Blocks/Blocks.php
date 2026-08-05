@@ -88,8 +88,8 @@ class Blocks extends Plugin_Component {
 
 		wp_enqueue_style(
 			'basicsTestp-admin-components',
-			plugin()->get_plugin_url() . '/admin/dist/css/components.min.css',
-			array(),
+			plugin()->get_plugin_url() . 'admin/dist/css/components.min.css',
+			array( 'lhbasicsp-admin-components' ),
 			plugin()->get_plugin_version(),
 			'all'
 		);
