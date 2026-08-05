@@ -57,10 +57,10 @@ export default function WeblinkToolbarButton({ value, onChange, onRemove }) {
 								<PanelRow className="panel-row-full-width">
 									<TextControl
 										label={__('Title', 'lhbasicsp')}
-										value={value.title ?? ''}
+										value={value?.title ?? ''}
 										onChange={(newValue) => {
 											onChange({
-												...value,
+												...(value ?? {}),
 												title: newValue,
 											});
 										}}
