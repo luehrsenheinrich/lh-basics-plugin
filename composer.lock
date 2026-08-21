@@ -1377,16 +1377,16 @@
         },
         {
             "name": "php-stubs/wordpress-tests-stubs",
-            "version": "v7.0.2",
+            "version": "v7.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-stubs/wordpress-tests-stubs.git",
-                "reference": "205a4e28bbd248a0d24bf45eb073826855b2fa2b"
+                "reference": "3b554364cd2ac6b0dc6087d381ba0d1ddfef7315"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-stubs/wordpress-tests-stubs/zipball/205a4e28bbd248a0d24bf45eb073826855b2fa2b",
-                "reference": "205a4e28bbd248a0d24bf45eb073826855b2fa2b",
+                "url": "https://api.github.com/repos/php-stubs/wordpress-tests-stubs/zipball/3b554364cd2ac6b0dc6087d381ba0d1ddfef7315",
+                "reference": "3b554364cd2ac6b0dc6087d381ba0d1ddfef7315",
                 "shasum": ""
             },
             "require-dev": {
@@ -1411,9 +1411,9 @@
             ],
             "support": {
                 "issues": "https://github.com/php-stubs/wordpress-tests-stubs/issues",
-                "source": "https://github.com/php-stubs/wordpress-tests-stubs/tree/v7.0.2"
+                "source": "https://github.com/php-stubs/wordpress-tests-stubs/tree/v7.0.4"
             },
-            "time": "2026-07-23T13:02:04+00:00"
+            "time": "2026-08-13T08:32:02+00:00"
         },
         {
             "name": "phpcompatibility/php-compatibility",
