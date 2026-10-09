@@ -9,7 +9,7 @@
 .lh-icon-select-option-label {
 	display: grid;
 	grid-template-columns: var(--lhisc-icon-size) auto;
-	grid-column-gap: var(--lhisc-grid-gap);
+	column-gap: var(--lhisc-grid-gap);
 	align-items: center;
 
 	& .lh-icon svg {

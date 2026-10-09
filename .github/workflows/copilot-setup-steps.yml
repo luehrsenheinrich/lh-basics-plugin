@@ -25,10 +25,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v5
 
-      - name: Set up Node.js 20 (with npm cache)
+      - name: Set up Node.js 24 (with npm cache)
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version-file: '.nvmrc'
           cache: "npm"
 
       - name: Set up PHP 8.4 + Composer v2

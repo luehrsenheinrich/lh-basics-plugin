@@ -1,4 +1,3 @@
-/* eslint-disable @wordpress/no-unsafe-wp-apis */
 /**
  * A control to select a weblink, which consits of a URL, a label and an icon.
  */

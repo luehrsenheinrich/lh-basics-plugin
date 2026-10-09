@@ -1,8 +1,4 @@
-# This workflow tests if the commit or pr meets the requirements and deploys to
-# a development server upon success.
-# It assumes that `npm install`, `composer install` and `npx grunt release` are valid commands.
-# The action expects a valid zip file in the `./update/` folder and the `slug` key in the
-# `package.json` to be set.
+# Validate pull requests and main, including local release packaging.
 name: 🏗 Build & Deploy
 
 on:
@@ -27,7 +23,7 @@ jobs:
 
       - uses: actions/setup-node@v3
         with:
-          node-version: 20
+          node-version-file: '.nvmrc'
 
       - name: ⚙️ Setup PHP with tools
         uses: shivammathur/setup-php@v2
@@ -62,7 +58,7 @@ jobs:
         run: composer install --prefer-dist --optimize-autoloader
 
       - name: ⚙️ Install Node Packages
-        run: npm i
+        run: npm ci
 
       - name: 🔎 Lint the code
         run: npm run lint
