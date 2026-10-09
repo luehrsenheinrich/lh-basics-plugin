@@ -1,119 +1,64 @@
 # Agent Instructions
 
-These instructions are the canonical guidance for coding agents working in this repository. GitHub Copilot instructions point here to avoid divergent rules.
+Canonical guidance for coding agents in this repository. `.github/copilot-instructions.md` points here; keep it as a short pointer rather than duplicating these rules.
 
-## Project
+## Repository and environment
 
-This repository contains the LH Basics WordPress plugin and its test plugin.
+- `plugin/` contains the runtime WordPress plugin; `plugin-test/` contains development integrations and the test plugin. Root files provide build, lint, and release tooling.
+- Use Node 24 from `.nvmrc`, npm, PHP 8.4, and Composer 2. All Composer platform targets and wp-env use PHP 8.4.
+- Docker must be running for wp-env and Mozart dependency prefixing. Authenticated `gh` is available outside the sandbox.
+- `vendor/`, `plugin/vendor/`, `plugin/vendor-prefixed/`, `plugin-test/vendor/`, `node_modules/`, compiled `dist/` output, and `archives/` are generated. Do not edit them directly or commit them unless release artifacts are explicitly requested.
 
-- Runtime plugin code lives in `plugin/`.
-- Test/integration plugin code lives in `plugin-test/`.
-- Build and release tooling lives at the repository root.
-- Generated dependencies and builds are not source: avoid editing `vendor/`, `plugin/vendor/`, `plugin/vendor-prefixed/`, `plugin-test/vendor/`, `node_modules/`, `archives/`, and generated dist files unless the task explicitly requires release artifacts.
-
-## Environment
-
-- PHP platform target: `8.4`.
-- Node/npm are managed through the repo tooling.
-- Docker is required for `wp-env` and for the Mozart dependency prefixing command.
-- Authenticated `gh` is available outside the sandbox.
-
-## Dependency Handling
-
-Runtime plugin Composer dependencies are declared in `plugin/composer.json` and prefixed with Mozart into `plugin/vendor-prefixed`.
-
-When runtime dependencies change:
-
-```bash
-composer install --working-dir=plugin --no-dev --optimize-autoloader
-npm run release:dependencies
-```
-
-Do not reference prefixed dependency classes from project/theme/test-plugin code. Use the plugin-owned API surface documented in `docs/public-apis.md`.
-
-## Common Commands
-
-Install dependencies:
+## Setup and commands
 
 ```bash
 npm ci
 composer install
-```
-
-Build:
-
-```bash
 npm run build
-npm run release:build
 ```
 
-Lint:
+Root Composer installs include both nested projects. To start WordPress, run `npm start`; its prestart hook performs locked installs, prefixes runtime dependencies, restores Composer packages for PHPUnit, and builds assets. `npm run dev` starts WordPress and watches assets; `npm run watch` only watches assets. `npm stop` stops wp-env.
 
-```bash
-npm run lint
-npm run lint:js
-npm run lint:css
-npm run lint:php
-```
+| Command | Validation |
+| --- | --- |
+| `npm test` or `npm run lint` | PHP, JavaScript, and CSS linting; does not run PHPUnit. |
+| `npm run lint:php`, `npm run lint:js`, `npm run lint:css` | Individual lint suites. |
+| `npm run build` | Development assets. |
+| `npm run release:build` | Production assets without version updates or packaging. |
+| `npm run test:unit:env:plugin` | Plugin PHPUnit suite in Docker-backed wp-env; run after `npm start`. |
 
-Fix lint issues:
+`npm run lint:fix` rewrites files; restrict fixes to the task and inspect the diff. `npm run env:clean` deletes local development and test database contents; use only when a reset is requested or necessary for an authorized test setup.
 
-```bash
-npm run lint:fix
-```
+## Dependencies
 
-Run the local WordPress environment:
+- Commit manifests and corresponding lockfiles together. Prefer targeted updates; use `npm ci` and `composer install` to reproduce checked-in versions.
+- Root Composer update hooks install the nested projects from their lockfiles. To update runtime or test-plugin packages, run a targeted Composer update in that project's directory explicitly.
+- Runtime dependencies are declared in `plugin/composer.json` and prefixed by Mozart. After changing them, run `npm run release:dependencies` (requires Docker).
+- Mozart deletes the original runtime package directories, leaving the Composer autoloader unusable until packages are restored. `npm start` restores them after prefixing. After standalone prefixing or `release:dependencies`, run `composer install --working-dir=plugin` before PHPUnit tests; `release:dependencies` also excludes development packages.
+- Resolve peer incompatibilities with compatible package versions and configuration changes; do not bypass them with `--force` or `--legacy-peer-deps`.
+- Do not reference prefixed dependency classes from themes, project plugins, or the test plugin. Use the plugin-owned public APIs.
 
-```bash
-npm start
-npm stop
-npm run env:clean
-```
+## Implementation and public APIs
 
-Run tests:
+Follow existing WordPress coding style and project patterns. Keep changes scoped, prefer existing helpers, use ASCII for new files unless the context requires otherwise, and comment only non-obvious behavior.
 
-```bash
-npm test
-npm run test:unit:env:plugin
-```
+[docs/public-apis.md](docs/public-apis.md) defines supported extension points, including the PHP plugin helper, settings modules, logging, SVG/icon helpers and REST routes, admin globals, and editor components. Update it when changing APIs exposed to themes, project plugins, the test plugin, JavaScript integrations, REST consumers, or settings modules. Treat unlisted internals as implementation details.
 
-`npm test` currently runs linting. `test:unit:env:plugin` requires the Docker-backed `wp-env` environment.
+## Validation and delivery
 
-## Public APIs
+- Run relevant lint suites and builds. Dependency changes require a clean locked install, full lint, development and production builds, and runtime checks for affected integrations.
+- Run Docker-backed PHPUnit tests for PHP/runtime changes. Browser-check affected settings and editor behavior for JavaScript or dependency changes, including console errors.
+- Compare failures against the base branch, fix introduced regressions, and report existing failures or unavailable checks accurately. A build alone does not prove rendered behavior works.
+- Check `git status --short` before committing and stage only task-related changes. Use `codex/` branch names and Conventional Commit messages. PRs target `main` and explain resulting behavior and validation.
 
-Documented extension points live in `docs/public-apis.md`. Update that file when adding or changing APIs exposed to themes, project plugins, the test plugin, JavaScript integrations, REST consumers, or settings modules.
+## GitHub and external actions
 
-Current public areas include:
+Use `gh` for PR/review work. When managing issues, inspect `blocks` / `blocked_by` relationships with `GET /repos/{owner}/{repo}/issues/{issue_number}/dependencies`. GET is read-only; changing relationships requires the appropriate GitHub write endpoint.
 
-- `WpMunich\basics\plugin\plugin()`
-- settings modules via `lhagentur_available_modules`
-- logging via `plugin()->logger()`
-- SVG/icon helpers and icon REST routes
-- admin JavaScript globals under `window.lhSettings` and `window.lhbasics`
-- block editor helper components under `window.lhbasics.components`
+Do not send, forward, post, or publish external communications without explicit authorization for each individual send. Prepare content for review first; requests such as "let's reply" or "let's forward this" authorize preparation only. Ask when send authorization is ambiguous. Do not merge PRs, publish releases, or deploy changes without the required authorization. Avoid large Google Drive outputs that could cause sync problems.
 
-## Code Style
+## Releases
 
-- Follow the existing WordPress coding style and project patterns.
-- Keep changes scoped to the requested behavior.
-- Prefer the plugin's helpers and documented APIs over reaching into internals.
-- Use ASCII for new files unless existing file context requires otherwise.
-- Add comments only when they clarify non-obvious behavior.
+Release Please manages version/changelog PRs on `main`; the release workflow builds, uploads, and deploys artifacts after a release is created.
 
-## Git and GitHub
-
-- Use `codex/` branch names for agent-created branches unless instructed otherwise.
-- Use Conventional Commit messages, for example `docs: document public plugin APIs`.
-- Before committing, check `git status --short` and avoid staging unrelated user changes.
-- Use `gh` for PR and review work when needed.
-- When managing GitHub issues, use the GitHub REST endpoint `GET /repos/{owner}/{repo}/issues/{issue_number}/dependencies` to inspect or signal `blocks` / `blocked_by` relationships.
-
-## Release Notes
-
-The release command is:
-
-```bash
-npm run release
-```
-
-It builds production assets, updates the plugin version, prefixes runtime dependencies, and packages archives. Do not run it unless the task requires release artifacts or release validation.
+`npm run release` builds production assets, updates the plugin header version, prefixes dependencies, and packages ZIPs. Run it only when release artifacts or release validation are explicitly requested. Do not use the `npm version` lifecycle as a routine validation command: it starts WordPress, runs release steps, and stages all changes.

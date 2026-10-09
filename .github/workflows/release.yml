@@ -1,8 +1,4 @@
-# This workflow creates a release based upon the information in our wp-boilerplate repositories.
-# It assumes that `npm install`, `composer install` and `npx grunt release` are valid commands.
-# The action expects a valid zip file in the `./update/` folder and the `slug` key in the
-# `package.json` to be set.
-
+# Release Please manages release PRs and publishes built ZIPs after a release is created.
 name: 🚀 Release Please
 
 on:
@@ -40,7 +36,7 @@ jobs:
       - uses: actions/setup-node@v3
         if: ${{ steps.release.outputs.release_created }}
         with:
-          node-version: 20
+          node-version-file: '.nvmrc'
 
       - name: ⚙️ Setup PHP with tools
         if: ${{ steps.release.outputs.release_created }}
@@ -82,7 +78,7 @@ jobs:
 
       - name: ⚙️ Install Node Packages
         if: ${{ steps.release.outputs.release_created }}
-        run: npm i
+        run: npm ci
 
       - name: 🔎 Lint the code
         if: ${{ steps.release.outputs.release_created }}

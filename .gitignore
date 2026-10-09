@@ -20,3 +20,7 @@
 # OS
 .DS_Store
 Thumbs.db
+
+# Local wp-env settings and PHPUnit caches
+/.wp-env.override.json
+.phpunit.cache/

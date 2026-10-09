@@ -3,10 +3,7 @@
 		"./plugin",
     "./plugin-test"
 	],
-	"phpVersion": "8.1",
-	"mappings": {
-		"php.ini": "./bin/php.ini"
-	},
+	"phpVersion": "8.4",
 	"env": {
 		"development": {
 			"port": 80,
