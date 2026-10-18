@@ -4,6 +4,7 @@ import {
 	Button,
 	ButtonGroup,
 	DropZone,
+	FocalPointPicker,
 	ResponsiveWrapper,
 	Spinner,
 } from '@wordpress/components';
@@ -14,6 +15,7 @@ import classNames from 'classnames';
 const MediaSelectControl = ({
 	label = __('Select image', 'lhbasicsp'),
 	labelSet = __('Set image', 'lhbasicsp'),
+	hideLabelFromVision = false,
 	help = '',
 	value,
 	onChange,
@@ -23,6 +25,9 @@ const MediaSelectControl = ({
 	className,
 	classNamePreview = 'lh-preview-image',
 	getPreview,
+	focalPoint,
+	onFocalPointChange,
+	labelFocalPoint = __('Focal point', 'lhbasicsp'),
 }) => {
 	const { editorSettings, media } = useSelect((select) => {
 		const { getMedia } = select('core');
@@ -96,6 +101,7 @@ const MediaSelectControl = ({
 		<BaseControl
 			id={clsPrefix}
 			label={label}
+			hideLabelFromVision={hideLabelFromVision}
 			help={help}
 			className={controlClassNames}
 		>
@@ -107,26 +113,43 @@ const MediaSelectControl = ({
 				value={value}
 				render={({ open }) => (
 					<div className={`${clsPrefix}__container`}>
-						<Button
-							className={
-								!value
-									? `${clsPrefix}__toggle`
-									: `${clsPrefix}__preview`
-							}
-							onClick={open}
-							aria-label={__('Edit or update', 'lhbasicsp')}
-							variant={'secondary'}
-						>
-							{!!value && !media && <Spinner />}
-							{!value && <>{labelSet}</>}
-							{hasMedia && (
-								<ResponsiveWrapper>
-									{getPreview
-										? getPreview({ media })
-										: getPreviewImage()}
-								</ResponsiveWrapper>
-							)}
-						</Button>
+						{media?.media_type === 'image' && onFocalPointChange ? (
+							<fieldset className={`${clsPrefix}__focal-point`}>
+								{labelFocalPoint && (
+									<legend className="components-base-control__label">
+										{labelFocalPoint}
+									</legend>
+								)}
+								<FocalPointPicker
+									url={mediaSourceUrl}
+									value={focalPoint || { x: 0.5, y: 0.5 }}
+									onChange={onFocalPointChange}
+									onDrag={onFocalPointChange}
+									__nextHasNoMarginBottom
+								/>
+							</fieldset>
+						) : (
+							<Button
+								className={
+									!value
+										? `${clsPrefix}__toggle`
+										: `${clsPrefix}__preview`
+								}
+								onClick={open}
+								aria-label={__('Edit or update', 'lhbasicsp')}
+								variant={'secondary'}
+							>
+								{!!value && !media && <Spinner />}
+								{!value && <>{labelSet}</>}
+								{hasMedia && (
+									<ResponsiveWrapper>
+										{getPreview
+											? getPreview({ media })
+											: getPreviewImage()}
+									</ResponsiveWrapper>
+								)}
+							</Button>
+						)}
 						<DropZone onFilesDrop={onDropMedia} />
 					</div>
 				)}
