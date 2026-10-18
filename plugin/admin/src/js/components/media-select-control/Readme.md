@@ -102,3 +102,37 @@ export default MyIconSelector;
 - **Default:** ``
 - **Description:** Function to override the preview. Media info is provided as an argument.
 - **Usage Example:** `getPreview={({ media }) => <img src={media.url} />}`
+
+
+## Optional focal point
+
+Pass `onFocalPointChange` to enable the Core `FocalPointPicker` for image media.
+The picker replaces the thumbnail as the single interactive image preview, only
+while the control is selected. Replace/Remove actions remain below it. Non-image media and existing callers are unchanged.
+
+- `focalPoint`: `{ x: number, y: number }`, normalized coordinates from 0 to 1.
+  Defaults visually to `{ x: 0.5, y: 0.5 }`; rendering does not write a value.
+- `onFocalPointChange`: receives the new point during drag and numeric editing.
+- `labelFocalPoint`: optional label, default `Focal point`; pass an empty string
+  to omit the extra legend. Native coordinate labels remain visible.
+
+The consumer owns storage, validation and image-change/reset policy. The control
+does not write post or attachment metadata. For cropped images, apply the point
+as CSS `object-position: x * 100% y * 100%` in the consumer's preview and frontend.
+
+```jsx
+<MediaSelectControl
+    value={imageId}
+    onChange={setImageId}
+    isSelected={true}
+    focalPoint={imageFocalPoint}
+    onFocalPointChange={setImageFocalPoint}
+/>
+```
+
+
+### `hideLabelFromVision`
+
+Optional boolean (default `false`), forwarded to Core `BaseControl`. Use it when
+a surrounding panel already supplies the visible heading. The label remains
+available to assistive technology and still names the media-library dialog.

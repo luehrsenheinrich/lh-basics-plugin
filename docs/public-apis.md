@@ -216,6 +216,17 @@ When `lhbasics-blocks-helper` is enqueued, components are available under `windo
 - `WeblinkToolbarButton`
 - `TinyMCE`
 
+`MediaSelectControl` optionally accepts `focalPoint`, `onFocalPointChange` and
+`labelFocalPoint`. Supplying the callback enables Core's focal-point picker for
+image media in the selected view, replacing the ordinary thumbnail with a single
+interactive preview. Replace/Remove actions remain available below it. The point
+uses normalized `{ x, y }` coordinates; storage and image-change/reset behavior
+belong to the consumer. No metadata is written automatically.
+`hideLabelFromVision` hides the visible field label when a surrounding panel
+already supplies a heading, while retaining the label for assistive technology
+and the media-library dialog. See the
+[component reference](../plugin/admin/src/js/components/media-select-control/Readme.md#optional-focal-point).
+
 TinyMCE support is opt-in:
 
 ```php
