@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.8.0](https://github.com/luehrsenheinrich/lh-basics-plugin/compare/lh-basics-plugin-project-v0.7.1...lh-basics-plugin-project-v0.8.0) (2026-10-19)
+
+
+### Features
+
+* add optional focal point to media select control ([#528](https://github.com/luehrsenheinrich/lh-basics-plugin/issues/528)) ([8f2a247](https://github.com/luehrsenheinrich/lh-basics-plugin/commit/8f2a247608ea9ae9f0801b5da9e1110058a3a66a))
+
 ## [0.7.1](https://github.com/luehrsenheinrich/lh-basics-plugin/compare/lh-basics-plugin-project-v0.7.0...lh-basics-plugin-project-v0.7.1) (2026-08-05)
 
 
