@@ -93,7 +93,7 @@
     "webpack-cli": "^7.2.1",
     "webpack-livereload-plugin": "^3.0.2",
     "webpack-remove-empty-scripts": "^1.1.1",
-    "stylelint-scss": "^7.2.0"
+    "stylelint-scss": "^7.3.0"
   },
   "engines": {
     "node": ">=24 <25"
