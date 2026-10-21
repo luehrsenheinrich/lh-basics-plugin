@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.0](https://github.com/luehrsenheinrich/lh-basics-plugin/compare/lh-basics-plugin-project-v0.8.0...lh-basics-plugin-project-v0.9.0) (2026-10-21)
+
+
+### Features
+
+* search icon names and provider keywords ([#540](https://github.com/luehrsenheinrich/lh-basics-plugin/issues/540)) ([f499e15](https://github.com/luehrsenheinrich/lh-basics-plugin/commit/f499e152857cd79e9b7600f917acf3ffa9f05471))
+
 ## [0.8.0](https://github.com/luehrsenheinrich/lh-basics-plugin/compare/lh-basics-plugin-project-v0.7.1...lh-basics-plugin-project-v0.8.0) (2026-10-19)
 
 
