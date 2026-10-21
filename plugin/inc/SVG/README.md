@@ -25,7 +25,7 @@ Filters the array of `<Icon>`s passed to the `<Icon_Library>`.
 use WpMunich\basics\plugin\SVG\Icon;
 
 # ...
-add_filter( 'lhagentur_svg_icons_library_icons', 'my_svg_icons_library_icons' );
+add_filter( 'lhagentur_svg_icon_library_icons', 'my_svg_icons_library_icons' );
 
 # ...
 function my_svg_icons_library_icons( array $icons ): array {
@@ -34,7 +34,7 @@ function my_svg_icons_library_icons( array $icons ): array {
 		return $icons;
 	}
 
-	$img_path = 'my/img/path/';
+	$icon_path = 'my/img/path/';
 	$my_icons = array(
 		new Icon(
 			$icon_path . 'icons/my-icon.svg',

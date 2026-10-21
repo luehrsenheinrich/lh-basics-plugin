@@ -40,39 +40,16 @@ const IconSelectControl = ({
 		help,
 	});
 
-	// Build the must_include parameter.
-	// This should include:
-	// 1. The current value (if set)
-	// 2. All icons from the whiteList (if provided)
-	// 3. All icons from the blackList (if provided)
-	const mustIncludeSet = new Set();
+	const { id: inputId, ...selectControlProps } = controlProps;
 
-	// Add current value to must_include if it exists
-	if (value) {
-		mustIncludeSet.add(value);
-	}
-
-	// Add whitelist icons to must_include
-	if (whiteList.length > 0) {
-		whiteList.forEach((slug) => mustIncludeSet.add(slug));
-	}
-
-	// Add blacklist icons to must_include
-	if (blackList.length > 0) {
-		blackList.forEach((slug) => mustIncludeSet.add(slug));
-	}
-
-	// Convert Set to array
-	const mustIncludeArray = Array.from(mustIncludeSet);
-
-	// Retrieve icons matching the search term.
-	// The "must_include" parameter ensures that the icon matching the current "value"
-	// and all whitelist/blacklist icons are always present.
+	// Restrict the server query before pagination so allowlisted icons are reachable.
 	const { icons, hasResolved } = useIcons({
 		search: searchTerm,
-		must_include:
-			mustIncludeArray.length > 0 ? mustIncludeArray : undefined,
-		query,
+		must_include: value || undefined,
+		query: {
+			...query,
+			...(whiteList.length > 0 ? { slugs: whiteList.join(',') } : {}),
+		},
 	});
 
 	// Load the icon for the current value using a dedicated hook.
@@ -160,7 +137,8 @@ const IconSelectControl = ({
 	return (
 		<BaseControl {...baseControlProps}>
 			<Select
-				{...controlProps}
+				{...selectControlProps}
+				inputId={inputId}
 				openMenuOnClick
 				openMenuOnFocus
 				classNamePrefix="react-select"
@@ -168,6 +146,8 @@ const IconSelectControl = ({
 				value={selectedOption}
 				onChange={onSelectIcon}
 				onInputChange={onInputChange}
+				placeholder={__('Search icons by name or keyword', 'lhbasicsp')}
+				noOptionsMessage={() => __('No icons found', 'lhbasicsp')}
 				isSearchable
 				inputValue={searchTerm}
 				isClearable
@@ -183,14 +163,13 @@ const IconSelectControl = ({
 				 * Renders the icon (via LHIcon) along with its title.
 				 * @param {Object} option
 				 */
-				getOptionLabel={(option) => (
+				getOptionLabel={(option) => option.label}
+				formatOptionLabel={(option) => (
 					<div className="lh-icon-select-option-label">
 						<LHIcon slug={option.icon.slug} svg={option.icon.svg} />
 						<span>{option.label}</span>
 					</div>
 				)}
-				// Debug
-				// menuIsOpen={true}
 			/>
 		</BaseControl>
 	);

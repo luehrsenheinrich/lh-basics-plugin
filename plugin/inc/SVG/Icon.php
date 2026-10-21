@@ -40,15 +40,23 @@ class Icon implements \JsonSerializable {
 	protected string $title;
 
 	/**
+	 * Search keywords supplied by icon providers.
+	 *
+	 * @var string[]
+	 */
+	protected array $keywords = array();
+
+	/**
 	 * Class constructor
 	 *
 	 * @param string $path         The path of the icon relative to the theme.
 	 * @param string $slug         The slug of the icon.
 	 * @param string $title        The readable title of an icon.
 	 * @param bool   $show_in_rest Wether to expose the Icon to the REST api or not.
+	 * @param array  $keywords     Search keywords and aliases.
 	 * @return void
 	 */
-	public function __construct( $path = null, $slug = null, $title = null, $show_in_rest = true ) {
+	public function __construct( $path = null, $slug = null, $title = null, $show_in_rest = true, array $keywords = array() ) {
 		if ( $path && ! empty( $path ) ) {
 			$this->set_path( $path );
 		}
@@ -60,6 +68,7 @@ class Icon implements \JsonSerializable {
 		}
 
 		$this->set_show_in_rest( $show_in_rest );
+		$this->set_keywords( $keywords );
 	}
 
 	/**
@@ -87,6 +96,35 @@ class Icon implements \JsonSerializable {
 	 */
 	public function get_title() {
 		return $this->title;
+	}
+
+	/**
+	 * Return the icon's search keywords.
+	 *
+	 * @return string[] Search keywords.
+	 */
+	public function get_keywords(): array {
+		return $this->keywords;
+	}
+
+	/**
+	 * Set search keywords, ignoring empty and non-string values.
+	 *
+	 * @param array $keywords Search keywords.
+	 * @return void
+	 */
+	public function set_keywords( array $keywords ) {
+		$this->keywords = array_values(
+			array_unique(
+				array_filter(
+					array_map(
+						static fn( $keyword ) => is_string( $keyword ) ? trim( $keyword ) : '',
+						$keywords
+					),
+					static fn( $keyword ) => '' !== $keyword
+				)
+			)
+		);
 	}
 
 	/**
@@ -149,14 +187,15 @@ class Icon implements \JsonSerializable {
 	/**
 	 * Serializes the object to a value that can be serialized natively by wp_|json_encode().
 	 *
-	 * @return mixed The serialized object.
+	 * @param array $fields Fields to include; omit to serialize all public data.
+	 * @return array The serialized object.
 	 */
 	#[\ReturnTypeWillChange]
-	public function jsonSerialize() : array {
+	public function jsonSerialize( array $fields = array( 'path', 'slug', 'title', 'keywords' ) ) : array {
 		$resp = array();
 		// Filter for fields.
 		// E.g. REST shouldn't expose 'path'.
-		foreach ( array( 'path', 'slug', 'title' ) as $field ) {
+		foreach ( array_intersect( $fields, array( 'path', 'slug', 'title', 'keywords' ) ) as $field ) {
 			if ( is_callable( array( $this, "get_{$field}" ) ) ) {
 				$callback       = "get_{$field}";
 				$resp[ $field ] = $this->$callback();

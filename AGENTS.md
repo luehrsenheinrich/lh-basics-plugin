@@ -25,7 +25,7 @@ Root Composer installs include both nested projects. To start WordPress, run `np
 | `npm run lint:php`, `npm run lint:js`, `npm run lint:css` | Individual lint suites. |
 | `npm run build` | Development assets. |
 | `npm run release:build` | Production assets without version updates or packaging. |
-| `npm run test:unit:env:plugin` | Plugin PHPUnit suite in Docker-backed wp-env; run after `npm start`. |
+| `npm run test:unit:env:plugin` | Plugin PHPUnit suite using the wp-env-provided runner in Docker; run after `npm start`. |
 
 `npm run lint:fix` rewrites files; restrict fixes to the task and inspect the diff. `npm run env:clean` deletes local development and test database contents; use only when a reset is requested or necessary for an authorized test setup.
 
