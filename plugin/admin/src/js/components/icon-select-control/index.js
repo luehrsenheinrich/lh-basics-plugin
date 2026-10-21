@@ -40,6 +40,8 @@ const IconSelectControl = ({
 		help,
 	});
 
+	const { id: inputId, ...selectControlProps } = controlProps;
+
 	// Restrict the server query before pagination so allowlisted icons are reachable.
 	const { icons, hasResolved } = useIcons({
 		search: searchTerm,
@@ -135,7 +137,8 @@ const IconSelectControl = ({
 	return (
 		<BaseControl {...baseControlProps}>
 			<Select
-				{...controlProps}
+				{...selectControlProps}
+				inputId={inputId}
 				openMenuOnClick
 				openMenuOnFocus
 				classNamePrefix="react-select"
