@@ -31,7 +31,7 @@
     "dev": "npm run start && npm run watch",
     "test": "npm run lint",
     "test:unit:env": "npm run test:unit:env:plugin",
-    "test:unit:env:plugin": "wp-env run --env-cwd='wp-content/plugins/plugin' tests-cli vendor/bin/phpunit -c phpunit.xml",
+    "test:unit:env:plugin": "wp-env run --env-cwd='wp-content/plugins/plugin' tests-cli phpunit -c phpunit.xml",
     "preversion": "npm start && npm run test",
     "version": "npm run release && git add -A"
   },

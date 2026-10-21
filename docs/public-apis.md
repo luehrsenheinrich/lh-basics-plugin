@@ -132,7 +132,9 @@ add_filter(
 		$icons[] = new Icon(
 			get_stylesheet_directory() . '/img/icons/my-icon.svg',
 			'my-icon',
-			__( 'My Icon', 'textdomain' )
+			__( 'My Icon', 'textdomain' ),
+			true,
+			array( 'example', 'illustration' )
 		);
 
 		return $icons;
@@ -151,7 +153,13 @@ Public icon REST routes:
 - `GET /wp-json/lhbasics/v1/icons/{slug}/`
 - `GET /wp-json/lhbasics/v1/icon/{slug}/` for compatibility
 
-The icons collection route supports `page`, `per_page`, `search`, `slugs`, and `must_include` query parameters. Icon REST routes are publicly readable.
+The icons collection route supports `page`, `per_page`, `search`, `slugs`, and `must_include` query parameters. Icon REST routes are publicly readable and exclude icons with `show_in_rest` set to false.
+
+`Icon` accepts an optional fifth `array $keywords` argument. Existing four-argument calls remain valid. Providers can also use `set_keywords( array $keywords )` and `get_keywords(): array`. Empty and non-string entries are discarded. `jsonSerialize( array $fields = ... )` allows an explicit field selection; REST returns `slug`, `title`, `keywords` and `svg` without filesystem paths.
+
+Search is case-insensitive across title, slug and keywords, treating spaces, hyphens and underscores as separators. All query terms must match; title/slug matches rank before keyword matches, with typo-tolerant name matches last. Whitespace-only queries return the unfiltered collection. `page` must be positive and `per_page` is limited to 1-100. Totals reflect search and slug filters before pagination. `must_include` accepts comma-separated slugs, prioritizes existing visible matches once when no search is active, and never overrides `slugs` or visibility. Legacy Carbon slugs containing uppercase characters remain valid.
+
+Carbon providers should copy upstream aliases, category and subcategory into keywords. `IconSelectControl` uses the server search without applying an additional name-only filter. Its `whiteList` is sent as a slug filter before pagination; its accessible option label remains plain text while `formatOptionLabel` renders the icon preview.
 
 ## Admin JavaScript
 

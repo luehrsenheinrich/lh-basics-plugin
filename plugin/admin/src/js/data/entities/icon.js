@@ -21,7 +21,7 @@ dispatch(coreStore).addEntities([
  * Retrieves a list of icons with optional filtering and pagination.
  *
  * @param {Object}          [params={}]           - Query parameters for filtering icons.
- * @param {string}          [params.search='']    - A search term to filter icons by title.
+ * @param {string}          [params.search='']    - A search term to filter icons by title, slug or keyword.
  * @param {number}          [params.page=1]       - The page number for pagination.
  * @param {number}          [params.per_page=20]  - The number of icons to retrieve per page.
  * @param {string|string[]} [params.must_include] - A single icon slug or array of icon slugs.
@@ -48,7 +48,7 @@ export const useIcons = (params = {}) => {
 		Array.isArray(must_include) &&
 		must_include.length > 0 &&
 		must_include.length > per_page
-			? must_include.length
+			? Math.min(must_include.length, 100)
 			: per_page;
 
 	const { records: icons, ...states } = useEntityRecords('root', 'lhicon', {

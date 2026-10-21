@@ -74,7 +74,13 @@ export default MyIconSelector;
 
 IconSelectControl utilizes two custom hooks:
 
-- **useIcons:** Retrieves a list of icons filtered by a search term. It accepts a `must_include` parameter to ensure that the icon corresponding to the current value is always included.
+- **useIcons:** Retrieves server-filtered icons by name, slug or keyword. With no search, `must_include` prioritizes the current value once; the selected value is also loaded separately through `useIcon`.
 - **useIcon:** Fetches a specific icon by its slug if it is not already present in the icons list, ensuring that the control always displays the current selection.
 
 The component renders a searchable dropdown using react-select, with a custom option renderer that displays each icon (using a dedicated icon component) alongside its title.
+
+## Keyword search and filtering
+
+The shared REST search matches names, slugs and provider keywords. Carbon aliases such as `plus` can return `add` without knowing the exact icon name. All query words must match; name matches rank first. React Select does not apply an additional title-only filter. `getOptionLabel` stays plain text for accessibility; `formatOptionLabel` renders the SVG preview.
+
+The current value is loaded separately and remains selected during a search. `whiteList` restricts the server's slug query before pagination, so icons outside the initial page are reachable. A selected value is pinned once only when there is no search. `per_page` remains limited to 100.
